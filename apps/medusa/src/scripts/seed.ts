@@ -337,7 +337,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
       products: [
         {
           title: 'Medusa T-Shirt',
-          category_ids: [categoryResult.find(cat => cat.name === 'Shirts')!.id],
+          category_ids: [
+            categoryResult.find(cat => cat.name === 'Shirts')?.id || ''
+          ],
           description:
             'Reimagine the feeling of a classic T-shirt. With our cotton T-shirts, everyday essentials no longer have to be ordinary.',
           handle: 't-shirt',
@@ -523,7 +525,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
         {
           title: 'Medusa Sweatshirt',
           category_ids: [
-            categoryResult.find(cat => cat.name === 'Sweatshirts')!.id
+            categoryResult.find(cat => cat.name === 'Sweatshirts')?.id || ''
           ],
           description:
             'Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary.',
@@ -623,7 +625,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
         },
         {
           title: 'Medusa Sweatpants',
-          category_ids: [categoryResult.find(cat => cat.name === 'Pants')!.id],
+          category_ids: [
+            categoryResult.find(cat => cat.name === 'Pants')?.id || ''
+          ],
           description:
             'Reimagine the feeling of classic sweatpants. With our cotton sweatpants, everyday essentials no longer have to be ordinary.',
           handle: 'sweatpants',
@@ -722,7 +726,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
         },
         {
           title: 'Medusa Shorts',
-          category_ids: [categoryResult.find(cat => cat.name === 'Merch')!.id],
+          category_ids: [
+            categoryResult.find(cat => cat.name === 'Merch')?.id || ''
+          ],
           description:
             'Reimagine the feeling of classic shorts. With our cotton shorts, everyday essentials no longer have to be ordinary.',
           handle: 'shorts',
