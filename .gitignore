@@ -7,6 +7,8 @@
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/shelf
+.idea
+.cache
 
 # deps
 node_modules/
@@ -17,6 +19,7 @@ node_modules/
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+!.yarn/sdks
 
 # env
 .env
