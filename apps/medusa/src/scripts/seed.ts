@@ -54,7 +54,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   await updateStoresWorkflow(container).run({
     input: {
-      selector: { id: store.id },
+      selector: { id: store?.id },
       update: {
         supported_currencies: [
           {
@@ -65,7 +65,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
             currency_code: "usd",
           },
         ],
-        default_sales_channel_id: defaultSalesChannel[0].id,
+        default_sales_channel_id: defaultSalesChannel[0]?.id,
       },
     },
   });
@@ -114,7 +114,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   await link.create({
     [Modules.STOCK_LOCATION]: {
-      stock_location_id: stockLocation.id,
+      stock_location_id: stockLocation?.id,
     },
     [Modules.FULFILLMENT]: {
       fulfillment_provider_id: "manual_manual",
@@ -184,7 +184,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   await link.create({
     [Modules.STOCK_LOCATION]: {
-      stock_location_id: stockLocation.id,
+      stock_location_id: stockLocation?.id,
     },
     [Modules.FULFILLMENT]: {
       fulfillment_set_id: fulfillmentSet.id,
@@ -197,8 +197,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
         name: "Standard Shipping",
         price_type: "flat",
         provider_id: "manual_manual",
-        service_zone_id: fulfillmentSet.service_zones[0].id,
-        shipping_profile_id: shippingProfile.id,
+        service_zone_id: fulfillmentSet.service_zones[0]?.id || "",
+        shipping_profile_id: shippingProfile?.id || "",
         type: {
           label: "Standard",
           description: "Ship in 2-3 days.",
@@ -214,7 +214,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
             amount: 10,
           },
           {
-            region_id: region.id,
+            region_id: region?.id || "",
             amount: 10,
           },
         ],
@@ -235,8 +235,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
         name: "Express Shipping",
         price_type: "flat",
         provider_id: "manual_manual",
-        service_zone_id: fulfillmentSet.service_zones[0].id,
-        shipping_profile_id: shippingProfile.id,
+        service_zone_id: fulfillmentSet.service_zones[0]?.id || "",
+        shipping_profile_id: shippingProfile?.id || "",
         type: {
           label: "Express",
           description: "Ship in 24 hours.",
@@ -252,7 +252,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
             amount: 10,
           },
           {
-            region_id: region.id,
+            region_id: region?.id || "",
             amount: 10,
           },
         ],
@@ -275,8 +275,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   await linkSalesChannelsToStockLocationWorkflow(container).run({
     input: {
-      id: stockLocation.id,
-      add: [defaultSalesChannel[0].id],
+      id: stockLocation?.id || "",
+      add: [defaultSalesChannel[0]?.id || ""],
     },
   });
   logger.info("Finished seeding stock location data.");
@@ -299,8 +299,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   await linkSalesChannelsToApiKeyWorkflow(container).run({
     input: {
-      id: publishableApiKey.id,
-      add: [defaultSalesChannel[0].id],
+      id: publishableApiKey?.id || "",
+      add: [defaultSalesChannel[0]?.id || ""],
     },
   });
   logger.info("Finished seeding publishable API key data.");
@@ -345,7 +345,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           handle: "t-shirt",
           weight: 400,
           status: ProductStatus.PUBLISHED,
-          shipping_profile_id: shippingProfile.id,
+          shipping_profile_id: shippingProfile?.id || "",
           images: [
             {
               url: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png",
@@ -518,7 +518,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           ],
           sales_channels: [
             {
-              id: defaultSalesChannel[0].id,
+              id: defaultSalesChannel[0]?.id || "",
             },
           ],
         },
@@ -532,7 +532,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           handle: "sweatshirt",
           weight: 400,
           status: ProductStatus.PUBLISHED,
-          shipping_profile_id: shippingProfile.id,
+          shipping_profile_id: shippingProfile?.id || "",
           images: [
             {
               url: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png",
@@ -619,7 +619,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           ],
           sales_channels: [
             {
-              id: defaultSalesChannel[0].id,
+              id: defaultSalesChannel[0]?.id || "",
             },
           ],
         },
@@ -633,7 +633,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           handle: "sweatpants",
           weight: 400,
           status: ProductStatus.PUBLISHED,
-          shipping_profile_id: shippingProfile.id,
+          shipping_profile_id: shippingProfile?.id || "",
           images: [
             {
               url: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png",
@@ -720,7 +720,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           ],
           sales_channels: [
             {
-              id: defaultSalesChannel[0].id,
+              id: defaultSalesChannel[0]?.id || "",
             },
           ],
         },
@@ -734,7 +734,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           handle: "shorts",
           weight: 400,
           status: ProductStatus.PUBLISHED,
-          shipping_profile_id: shippingProfile.id,
+          shipping_profile_id: shippingProfile?.id || "",
           images: [
             {
               url: "https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png",
@@ -821,7 +821,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           ],
           sales_channels: [
             {
-              id: defaultSalesChannel[0].id,
+              id: defaultSalesChannel[0]?.id || "",
             },
           ],
         },
@@ -840,7 +840,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const inventoryLevels: CreateInventoryLevelInput[] = [];
   for (const inventoryItem of inventoryItems) {
     const inventoryLevel = {
-      location_id: stockLocation.id,
+      location_id: stockLocation?.id || "",
       stocked_quantity: 1000000,
       inventory_item_id: inventoryItem.id,
     };
