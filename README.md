@@ -1,2 +1,1 @@
 # medusa-starter
-# medusa-starter
