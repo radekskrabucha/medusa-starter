@@ -136,10 +136,10 @@ importers:
         specifier: 8.13.3
         version: 8.13.3
       react:
-        specifier: 18.3.1
+        specifier: ^18
         version: 18.3.1
       react-dom:
-        specifier: 18.3.1
+        specifier: ^18
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@medusajs/test-utils':
@@ -158,10 +158,10 @@ importers:
         specifier: 29.5.14
         version: 29.5.14
       '@types/react':
-        specifier: 18.3.18
+        specifier: ^18
         version: 18.3.18
       '@types/react-dom':
-        specifier: 18.3.5
+        specifier: ^18
         version: 18.3.5(@types/react@18.3.18)
       jest:
         specifier: 29.7.0
@@ -5598,8 +5598,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  electron-to-chromium@1.5.107:
-    resolution: {integrity: sha512-dJr1o6yCntRkXElnhsHh1bAV19bo/hKyFf7tCcWgpXbuFIF0Lakjgqv5LRfSDaNzAII8Fnxg2tqgHkgCvxdbxw==}
+  electron-to-chromium@1.5.108:
+    resolution: {integrity: sha512-tiGxpQmvXBEzrfU5ertmbCV/nG5yqCkC1G4T1SIKP335Y5rjXzPWmijR6XcoGXZvVoo4dknfdNe4Tl7lcIROLg==}
 
   emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
@@ -15920,7 +15920,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001701
-      electron-to-chromium: 1.5.107
+      electron-to-chromium: 1.5.108
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -16589,7 +16589,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  electron-to-chromium@1.5.107: {}
+  electron-to-chromium@1.5.108: {}
 
   emittery@0.13.1: {}
 
