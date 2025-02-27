@@ -1,16 +1,18 @@
+import { appName } from '~web/config/app'
+
 export const seo = ({
   title,
   description,
   keywords,
   image
 }: {
-  title: string
+  title: string | undefined
   description?: string
   image?: string
   keywords?: string
 }) => {
   const tags = [
-    { title },
+    { title: getSeoTitle(title) },
     { name: 'description', content: description },
     { name: 'keywords', content: keywords },
     { name: 'twitter:title', content: title },
@@ -31,3 +33,6 @@ export const seo = ({
 
   return tags
 }
+
+const getSeoTitle = (title: string | undefined) =>
+  title ? `${title} | ${appName}` : appName
