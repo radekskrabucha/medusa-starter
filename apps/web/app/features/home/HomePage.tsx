@@ -1,5 +1,25 @@
 export const HomePage = () => (
-  <div className="p-2">
-    <h3>Welcome Home!!!</h3>
-  </div>
+  <section className="layout-section">
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+    <h3 className='py-10'>Welcome Home!!!</h3>
+  </section>
 )
