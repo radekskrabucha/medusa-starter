@@ -1,5 +1,5 @@
 {
-  "name": "tanstack-start-example-basic",
+  "name": "@medusa-starter/web",
   "private": true,
   "sideEffects": false,
   "type": "module",
