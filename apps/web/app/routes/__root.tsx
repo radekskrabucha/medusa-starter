@@ -16,7 +16,7 @@ const RootDocument: React.FC<React.PropsWithChildren> = ({ children }) => (
     <head>
       <HeadContent />
     </head>
-    <body>
+    <body className="font-main text-foreground bg-background antialiased">
       {children}
       <TanStackRouterDevtools position="bottom-right" />
       <Scripts />

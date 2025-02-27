@@ -8,63 +8,214 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
+import { Route as cartLayoutImport } from './routes/(cart)/_layout'
+import { Route as appLayoutImport } from './routes/(app)/_layout'
+import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
+import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
+import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
+
+// Create Virtual Routes
+
+const cartImport = createFileRoute('/(cart)')()
+const appImport = createFileRoute('/(app)')()
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
+const cartRoute = cartImport.update({
+  id: '/(cart)',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const appRoute = appImport.update({
+  id: '/(app)',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const cartLayoutRoute = cartLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => cartRoute,
+} as any)
+
+const appLayoutRoute = appLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => appRoute,
+} as any)
+
+const appLayoutIndexRoute = appLayoutIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
+} as any)
+
+const cartLayoutCartRoute = cartLayoutCartImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => cartLayoutRoute,
+} as any)
+
+const appLayoutAboutRoute = appLayoutAboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/(app)': {
+      id: '/(app)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+      preLoaderRoute: typeof appImport
       parentRoute: typeof rootRoute
+    }
+    '/(app)/_layout': {
+      id: '/(app)/_layout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appLayoutImport
+      parentRoute: typeof appRoute
+    }
+    '/(cart)': {
+      id: '/(cart)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof cartImport
+      parentRoute: typeof rootRoute
+    }
+    '/(cart)/_layout': {
+      id: '/(cart)/_layout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof cartLayoutImport
+      parentRoute: typeof cartRoute
+    }
+    '/(app)/_layout/about': {
+      id: '/(app)/_layout/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof appLayoutAboutImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(cart)/_layout/cart': {
+      id: '/(cart)/_layout/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof cartLayoutCartImport
+      parentRoute: typeof cartLayoutImport
+    }
+    '/(app)/_layout/': {
+      id: '/(app)/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appLayoutIndexImport
+      parentRoute: typeof appLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface appLayoutRouteChildren {
+  appLayoutAboutRoute: typeof appLayoutAboutRoute
+  appLayoutIndexRoute: typeof appLayoutIndexRoute
+}
+
+const appLayoutRouteChildren: appLayoutRouteChildren = {
+  appLayoutAboutRoute: appLayoutAboutRoute,
+  appLayoutIndexRoute: appLayoutIndexRoute,
+}
+
+const appLayoutRouteWithChildren = appLayoutRoute._addFileChildren(
+  appLayoutRouteChildren,
+)
+
+interface appRouteChildren {
+  appLayoutRoute: typeof appLayoutRouteWithChildren
+}
+
+const appRouteChildren: appRouteChildren = {
+  appLayoutRoute: appLayoutRouteWithChildren,
+}
+
+const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
+
+interface cartLayoutRouteChildren {
+  cartLayoutCartRoute: typeof cartLayoutCartRoute
+}
+
+const cartLayoutRouteChildren: cartLayoutRouteChildren = {
+  cartLayoutCartRoute: cartLayoutCartRoute,
+}
+
+const cartLayoutRouteWithChildren = cartLayoutRoute._addFileChildren(
+  cartLayoutRouteChildren,
+)
+
+interface cartRouteChildren {
+  cartLayoutRoute: typeof cartLayoutRouteWithChildren
+}
+
+const cartRouteChildren: cartRouteChildren = {
+  cartLayoutRoute: cartLayoutRouteWithChildren,
+}
+
+const cartRouteWithChildren = cartRoute._addFileChildren(cartRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof appLayoutIndexRoute
+  '/about': typeof appLayoutAboutRoute
+  '/cart': typeof cartLayoutCartRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof appLayoutIndexRoute
+  '/about': typeof appLayoutAboutRoute
+  '/cart': typeof cartLayoutCartRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
+  '/(app)': typeof appRouteWithChildren
+  '/(app)/_layout': typeof appLayoutRouteWithChildren
+  '/(cart)': typeof cartRouteWithChildren
+  '/(cart)/_layout': typeof cartLayoutRouteWithChildren
+  '/(app)/_layout/about': typeof appLayoutAboutRoute
+  '/(cart)/_layout/cart': typeof cartLayoutCartRoute
+  '/(app)/_layout/': typeof appLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/about' | '/cart'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/about' | '/cart'
+  id:
+    | '__root__'
+    | '/(app)'
+    | '/(app)/_layout'
+    | '/(cart)'
+    | '/(cart)/_layout'
+    | '/(app)/_layout/about'
+    | '/(cart)/_layout/cart'
+    | '/(app)/_layout/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  appRoute: typeof appRouteWithChildren
+  cartRoute: typeof cartRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  appRoute: appRouteWithChildren,
+  cartRoute: cartRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +228,48 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/(app)",
+        "/(cart)"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/(app)": {
+      "filePath": "(app)",
+      "children": [
+        "/(app)/_layout"
+      ]
+    },
+    "/(app)/_layout": {
+      "filePath": "(app)/_layout.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/_layout/about",
+        "/(app)/_layout/"
+      ]
+    },
+    "/(cart)": {
+      "filePath": "(cart)",
+      "children": [
+        "/(cart)/_layout"
+      ]
+    },
+    "/(cart)/_layout": {
+      "filePath": "(cart)/_layout.tsx",
+      "parent": "/(cart)",
+      "children": [
+        "/(cart)/_layout/cart"
+      ]
+    },
+    "/(app)/_layout/about": {
+      "filePath": "(app)/_layout/about.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(cart)/_layout/cart": {
+      "filePath": "(cart)/_layout/cart.tsx",
+      "parent": "/(cart)/_layout"
+    },
+    "/(app)/_layout/": {
+      "filePath": "(app)/_layout/index.tsx",
+      "parent": "/(app)/_layout"
     }
   }
 }
