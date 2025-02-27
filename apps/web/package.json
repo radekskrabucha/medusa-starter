@@ -1,0 +1,29 @@
+{
+  "name": "tanstack-start-example-basic",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
+    "format": "prettier ./app --write",
+    "lint": "eslint \"app/**/*.+(ts|js|tsx)\"",
+    "lint:fix": "eslint \"app/**/*.+(ts|js|tsx)\" --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "1.111.11",
+    "@tanstack/react-start": "1.111.12",
+    "@tanstack/router-devtools": "1.111.11",
+    "redaxios": "0.5.1",
+    "tailwind-merge": "2.6.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.20",
+    "postcss": "8.5.1",
+    "tailwindcss": "3.4.17",
+    "vinxi": "0.5.3",
+    "vite-tsconfig-paths": "5.1.4"
+  }
+}
