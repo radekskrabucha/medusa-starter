@@ -1,6 +1,5 @@
 import {
   HeadContent,
-  Link,
   Outlet,
   Scripts,
   createRootRoute
@@ -11,6 +10,25 @@ import { DefaultCatchBoundary } from '~web/components/DefaultCatchBoundary'
 import { NotFound } from '~web/components/NotFound'
 import appCss from '~web/styles/app.css?url'
 import { seo } from '~web/utils/seo'
+
+const RootDocument: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <html>
+    <head>
+      <HeadContent />
+    </head>
+    <body>
+      {children}
+      <TanStackRouterDevtools position="bottom-right" />
+      <Scripts />
+    </body>
+  </html>
+)
+
+const RootComponent: React.FC = () => (
+  <RootDocument>
+    <Outlet />
+  </RootDocument>
+)
 
 export const Route = createRootRoute({
   head: () => ({
@@ -61,79 +79,3 @@ export const Route = createRootRoute({
   notFoundComponent: () => <NotFound />,
   component: RootComponent
 })
-
-function RootComponent() {
-  return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
-  )
-}
-
-function RootDocument({ children }: { children: React.ReactNode }) {
-  return (
-    <html>
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <div className="flex gap-2 p-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold'
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>{' '}
-          <Link
-            to="/posts"
-            activeProps={{
-              className: 'font-bold'
-            }}
-          >
-            Posts
-          </Link>{' '}
-          <Link
-            to="/users"
-            activeProps={{
-              className: 'font-bold'
-            }}
-          >
-            Users
-          </Link>{' '}
-          <Link
-            to="/layout-a"
-            activeProps={{
-              className: 'font-bold'
-            }}
-          >
-            Layout
-          </Link>{' '}
-          <Link
-            to="/deferred"
-            activeProps={{
-              className: 'font-bold'
-            }}
-          >
-            Deferred
-          </Link>{' '}
-          <Link
-            // @ts-expect-error
-            to="/this-route-does-not-exist"
-            activeProps={{
-              className: 'font-bold'
-            }}
-          >
-            This Route Does Not Exist
-          </Link>
-        </div>
-        <hr />
-        {children}
-        <TanStackRouterDevtools position="bottom-right" />
-        <Scripts />
-      </body>
-    </html>
-  )
-}
