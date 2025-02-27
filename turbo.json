@@ -9,7 +9,15 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist", "*.tsbuildinfo", ".next", "build", ".medusa"],
+      "outputs": [
+        "dist",
+        "*.tsbuildinfo",
+        ".next",
+        "build",
+        ".medusa",
+        ".output",
+        ".vinxi"
+      ],
       "cache": true
     },
     "start": {
