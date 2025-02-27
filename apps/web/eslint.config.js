@@ -3,6 +3,7 @@ import pluginQuery from '@tanstack/eslint-plugin-query'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y'
 import reactPlugin from 'eslint-plugin-react'
+import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
@@ -27,11 +28,13 @@ const config = [
       'jsx-a11y/alt-text': 'warn',
       'jsx-a11y/aria-props': 'warn',
       'jsx-a11y/aria-role': 'warn',
-      'jsx-a11y/role-has-required-aria-props': 'warn'
+      'jsx-a11y/role-has-required-aria-props': 'warn',
+      'react-compiler/react-compiler': 'error'
     },
     plugins: {
       'jsx-a11y': eslintPluginJsxA11y,
-      'react-hooks': reactHooksPlugin
+      'react-hooks': reactHooksPlugin,
+      'react-compiler': reactCompiler
     },
     settings: {
       react: {
