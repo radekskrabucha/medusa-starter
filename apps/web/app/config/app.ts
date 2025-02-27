@@ -1,1 +1,1 @@
-export const appName = 'Medusa Web app'
+export const appName = 'Medusa Store'
