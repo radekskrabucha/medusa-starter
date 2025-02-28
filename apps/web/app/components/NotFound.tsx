@@ -1,23 +1,27 @@
+import { Button, buttonVariants } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
 
 export const NotFound: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className="space-y-2 p-2">
-    <div className="text-gray-600 dark:text-gray-400">
-      {children || <p>The page you are looking for does not exist.</p>}
-    </div>
-    <p className="flex flex-wrap items-center gap-2">
-      <button
-        onClick={() => window.history.back()}
-        className="rounded bg-emerald-500 px-2 py-1 text-sm font-black text-white uppercase"
-      >
-        Go back
-      </button>
-      <Link
-        to="/"
-        className="rounded bg-cyan-600 px-2 py-1 text-sm font-black text-white uppercase"
-      >
-        Start Over
-      </Link>
-    </p>
+  <div className="layout-container min-h-dvh">
+    <section className="layout-section flex-1 items-center justify-center gap-4 text-center">
+      <h1 className="text-primary text-6xl font-bold">404</h1>
+      <h2 className="text-2xl font-semibold">Page Not Found</h2>
+      <p className="text-muted-foreground">
+        {children || (
+          <span>
+            The page you are looking for does not exist or has been moved.
+          </span>
+        )}
+      </p>
+      <div className="flex flex-wrap items-center gap-4">
+        <Button onClick={() => window.history.back()}>Go back</Button>
+        <Link
+          to="/"
+          className={buttonVariants({ variant: 'secondary' })}
+        >
+          Start Over
+        </Link>
+      </div>
+    </section>
   </div>
 )
