@@ -1,6 +1,6 @@
-import { getFullYear } from '@medusa-starter/utils/date'
 import { Link } from '@tanstack/react-router'
 import { appName } from '~web/config/app'
+import { Copyright } from './Copyright'
 
 export const Footer = () => (
   <footer className="layout-container bg-background">
@@ -62,9 +62,7 @@ export const Footer = () => (
       </div>
     </section>
     <section className="layout-section">
-      <h3 className="text-muted-foreground text-xs">
-        © {getFullYear()} {appName}. All rights reserved.
-      </h3>
+      <Copyright />
     </section>
   </footer>
 )
