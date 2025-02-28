@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "class-variance-authority": "0.7.1",
+    "lucide-react": "0.476.0",
     "tailwind-merge": "3.0.2",
     "vinxi": "0.4.3",
     "zod": "3.24.2"
