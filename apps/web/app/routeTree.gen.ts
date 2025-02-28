@@ -17,6 +17,7 @@ import { Route as cartLayoutImport } from './routes/(cart)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
+import { Route as appLayoutProfileImport } from './routes/(app)/_layout/profile'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 
 // Create Virtual Routes
@@ -56,6 +57,12 @@ const cartLayoutCartRoute = cartLayoutCartImport.update({
   id: '/cart',
   path: '/cart',
   getParentRoute: () => cartLayoutRoute,
+} as any)
+
+const appLayoutProfileRoute = appLayoutProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 const appLayoutAboutRoute = appLayoutAboutImport.update({
@@ -103,6 +110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutAboutImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/profile': {
+      id: '/(app)/_layout/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof appLayoutProfileImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(cart)/_layout/cart': {
       id: '/(cart)/_layout/cart'
       path: '/cart'
@@ -124,11 +138,13 @@ declare module '@tanstack/react-router' {
 
 interface appLayoutRouteChildren {
   appLayoutAboutRoute: typeof appLayoutAboutRoute
+  appLayoutProfileRoute: typeof appLayoutProfileRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
 }
 
 const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAboutRoute: appLayoutAboutRoute,
+  appLayoutProfileRoute: appLayoutProfileRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
 }
 
@@ -171,12 +187,14 @@ const cartRouteWithChildren = cartRoute._addFileChildren(cartRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
+  '/profile': typeof appLayoutProfileRoute
   '/cart': typeof cartLayoutCartRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
+  '/profile': typeof appLayoutProfileRoute
   '/cart': typeof cartLayoutCartRoute
 }
 
@@ -187,15 +205,16 @@ export interface FileRoutesById {
   '/(cart)': typeof cartRouteWithChildren
   '/(cart)/_layout': typeof cartLayoutRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
+  '/(app)/_layout/profile': typeof appLayoutProfileRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/cart'
+  fullPaths: '/' | '/about' | '/profile' | '/cart'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/cart'
+  to: '/' | '/about' | '/profile' | '/cart'
   id:
     | '__root__'
     | '/(app)'
@@ -203,6 +222,7 @@ export interface FileRouteTypes {
     | '/(cart)'
     | '/(cart)/_layout'
     | '/(app)/_layout/about'
+    | '/(app)/_layout/profile'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
   fileRoutesById: FileRoutesById
@@ -243,6 +263,7 @@ export const routeTree = rootRoute
       "parent": "/(app)",
       "children": [
         "/(app)/_layout/about",
+        "/(app)/_layout/profile",
         "/(app)/_layout/"
       ]
     },
@@ -261,6 +282,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/about": {
       "filePath": "(app)/_layout/about.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/profile": {
+      "filePath": "(app)/_layout/profile.tsx",
       "parent": "/(app)/_layout"
     },
     "/(cart)/_layout/cart": {
