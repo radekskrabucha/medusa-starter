@@ -1,38 +1,17 @@
-import { buttonVariants } from '@medusa-starter/ui/button'
-import { Link } from '@tanstack/react-router'
-import type React from 'react'
+import { CartButton } from './CartButton'
+import { HamburgerMenuButton } from './HamburgerMenuButton'
+import { HeaderLogo } from './HeaderLogo'
+import { ProfileButton } from './ProfileButton'
 
 export const Header = () => (
-  <header className="layout-container bg-background sticky top-0 isolate z-30 border-b border-border/10 shadow-sm">
-    <div className="layout-section !flex-row justify-between">
-      <HeaderLink
-        label="Home"
-        to="/"
-      />
-      <HeaderLink
-        label="About"
-        to="/about"
-      />
-      <HeaderLink
-        label="Cart"
-        to="/cart"
-      />
+  <header className="layout-container bg-background border-border/10 sticky top-0 isolate z-30 border-b shadow-sm">
+    <div className="layout-section !flex-row justify-between gap-2">
+      <HamburgerMenuButton />
+      <HeaderLogo />
+      <div className="flex items-center gap-3">
+        <ProfileButton />
+        <CartButton />
+      </div>
     </div>
   </header>
-)
-
-type HeaderLinkProps = {
-  label: string
-} & React.ComponentProps<typeof Link>
-
-const HeaderLink: React.FC<HeaderLinkProps> = ({ label, ...props }) => (
-  <Link
-    className={buttonVariants({
-      variant: 'link',
-      className: 'data-[status=active]:!primary-foreground !text-foreground'
-    })}
-    {...props}
-  >
-    {label}
-  </Link>
 )
