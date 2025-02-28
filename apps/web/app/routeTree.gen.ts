@@ -17,6 +17,7 @@ import { Route as cartLayoutImport } from './routes/(cart)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
+import { Route as appLayoutSignUpImport } from './routes/(app)/_layout/sign-up'
 import { Route as appLayoutProfileImport } from './routes/(app)/_layout/profile'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 
@@ -57,6 +58,12 @@ const cartLayoutCartRoute = cartLayoutCartImport.update({
   id: '/cart',
   path: '/cart',
   getParentRoute: () => cartLayoutRoute,
+} as any)
+
+const appLayoutSignUpRoute = appLayoutSignUpImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 const appLayoutProfileRoute = appLayoutProfileImport.update({
@@ -117,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutProfileImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/sign-up': {
+      id: '/(app)/_layout/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof appLayoutSignUpImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(cart)/_layout/cart': {
       id: '/(cart)/_layout/cart'
       path: '/cart'
@@ -139,12 +153,14 @@ declare module '@tanstack/react-router' {
 interface appLayoutRouteChildren {
   appLayoutAboutRoute: typeof appLayoutAboutRoute
   appLayoutProfileRoute: typeof appLayoutProfileRoute
+  appLayoutSignUpRoute: typeof appLayoutSignUpRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
 }
 
 const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAboutRoute: appLayoutAboutRoute,
   appLayoutProfileRoute: appLayoutProfileRoute,
+  appLayoutSignUpRoute: appLayoutSignUpRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
 }
 
@@ -188,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
   '/profile': typeof appLayoutProfileRoute
+  '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
 }
 
@@ -195,6 +212,7 @@ export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
   '/profile': typeof appLayoutProfileRoute
+  '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
 }
 
@@ -206,15 +224,16 @@ export interface FileRoutesById {
   '/(cart)/_layout': typeof cartLayoutRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
   '/(app)/_layout/profile': typeof appLayoutProfileRoute
+  '/(app)/_layout/sign-up': typeof appLayoutSignUpRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/profile' | '/cart'
+  fullPaths: '/' | '/about' | '/profile' | '/sign-up' | '/cart'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/profile' | '/cart'
+  to: '/' | '/about' | '/profile' | '/sign-up' | '/cart'
   id:
     | '__root__'
     | '/(app)'
@@ -223,6 +242,7 @@ export interface FileRouteTypes {
     | '/(cart)/_layout'
     | '/(app)/_layout/about'
     | '/(app)/_layout/profile'
+    | '/(app)/_layout/sign-up'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
   fileRoutesById: FileRoutesById
@@ -264,6 +284,7 @@ export const routeTree = rootRoute
       "children": [
         "/(app)/_layout/about",
         "/(app)/_layout/profile",
+        "/(app)/_layout/sign-up",
         "/(app)/_layout/"
       ]
     },
@@ -286,6 +307,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/profile": {
       "filePath": "(app)/_layout/profile.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/sign-up": {
+      "filePath": "(app)/_layout/sign-up.tsx",
       "parent": "/(app)/_layout"
     },
     "/(cart)/_layout/cart": {
