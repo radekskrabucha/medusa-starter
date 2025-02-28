@@ -18,6 +18,8 @@
     "test": "turbo test"
   },
   "dependencies": {
+    "@medusajs/js-sdk": "2.5.1",
+    "@medusajs/types": "2.5.1",
     "class-variance-authority": "0.7.1",
     "lucide-react": "0.476.0",
     "tailwind-merge": "3.0.2",
