@@ -5,7 +5,7 @@ import { Header } from './components/Header'
 export const AppLayout = () => (
   <>
     <Header />
-    <main className="layout-container isolate flex-1 overflow-x-hidden">
+    <main className="layout-container isolate min-h-0 flex-1 overflow-x-hidden">
       <Outlet />
     </main>
     <Footer />
