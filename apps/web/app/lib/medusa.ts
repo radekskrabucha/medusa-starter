@@ -1,11 +1,14 @@
+import { getMedusaClientStoreActions } from '@medusa-starter/utils/medusa-actions'
 import Medusa from '@medusajs/js-sdk'
-import { envServer } from '~web/utils/env/server'
+import { envClient } from '~web/utils/env/client'
 
 export const sdk = new Medusa({
-  baseUrl: envServer.MEDUSA_BACKEND_URL,
-  debug: envServer.NODE_ENV === 'development',
-  publishableKey: envServer.MEDUSA_PUBLISHABLE_KEY,
+  baseUrl: envClient.VITE_MEDUSA_BACKEND_URL,
+  debug: envClient.VITE_IS_DEV,
+  publishableKey: envClient.VITE_MEDUSA_PUBLISHABLE_KEY,
   auth: {
     type: 'jwt'
   }
 })
+
+export const medusaStoreActions = getMedusaClientStoreActions(sdk)
