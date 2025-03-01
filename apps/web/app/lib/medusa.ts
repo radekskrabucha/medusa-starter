@@ -11,4 +11,4 @@ export const sdk = new Medusa({
   }
 })
 
-export const medusaStoreActions = getMedusaClientStoreActions(sdk)
+export const { actions } = getMedusaClientStoreActions(sdk)
