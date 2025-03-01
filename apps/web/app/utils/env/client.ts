@@ -7,7 +7,10 @@ export const envClient = createEnv({
     VITE_TEST: z.string().min(1),
     VITE_MEDUSA_BACKEND_URL: z.string().url(),
     VITE_MEDUSA_PUBLISHABLE_KEY: z.string().min(1),
-    VITE_IS_DEV: z.enum(['true', 'false']).default('false').transform(v => v === 'true')
+    VITE_IS_DEV: z
+      .enum(['true', 'false'])
+      .default('false')
+      .transform(v => v === 'true')
   },
   runtimeEnv: import.meta.env
 })
