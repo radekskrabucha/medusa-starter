@@ -1,8 +1,9 @@
+import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute
+  createRootRouteWithContext
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import * as React from 'react'
@@ -30,7 +31,9 @@ const RootComponent: React.FC = () => (
   </RootDocument>
 )
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient
+}>()({
   head: () => ({
     meta: [
       {
