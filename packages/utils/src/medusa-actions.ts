@@ -55,39 +55,28 @@ export type ClientActions = {
   }
 }
 
-export type SignUpWithEmailParams = Parameters<
-  MedusaClient['auth']['register']
->[2]
-export type SignUpWithEmailResponse = ReturnType<
-  MedusaClient['auth']['register']
->
+type SignUpWithEmail = MedusaClient['auth']['register']
+export type SignUpWithEmailParams = Parameters<SignUpWithEmail>[2]
+export type SignUpWithEmailResponse = ReturnType<SignUpWithEmail>
 
+type LogInWithEmail = MedusaClient['auth']['login']
 export type LogInWithEmailParams = Exclude<
-  Parameters<MedusaClient['auth']['login']>[2],
+  Parameters<LogInWithEmail>[2],
   Record<string, unknown>
 >
-export type LogInWithEmailResponse = ReturnType<MedusaClient['auth']['login']>
+export type LogInWithEmailResponse = ReturnType<LogInWithEmail>
 
-export type RefreshTokenResponse = ReturnType<MedusaClient['auth']['refresh']>
+type RefreshToken = MedusaClient['auth']['refresh']
+export type RefreshTokenResponse = ReturnType<RefreshToken>
 
-export type ResetPasswordParams = Parameters<
-  MedusaClient['auth']['resetPassword']
->[2]
-export type ResetPasswordResponse = ReturnType<
-  MedusaClient['auth']['resetPassword']
->
+type ResetPassword = MedusaClient['auth']['resetPassword']
+export type ResetPasswordParams = Parameters<ResetPassword>[2]
+export type ResetPasswordResponse = ReturnType<ResetPassword>
 
-export type SetNewPasswordParams = {
-  password: string
-  token: string
-}
-export type SetNewPasswordResponse = ReturnType<
-  MedusaClient['auth']['updateProvider']
->
+type SetNewPassword = MedusaClient['auth']['updateProvider']
+export type SetNewPasswordParams = { password: string; token: string }
+export type SetNewPasswordResponse = ReturnType<SetNewPassword>
 
-export type ListProductsParams = Parameters<
-  MedusaClient['store']['product']['list']
->[0]
-export type ListProductsResponse = ReturnType<
-  MedusaClient['store']['product']['list']
->
+type ListProduct = MedusaClient['store']['product']['list']
+export type ListProductsParams = Parameters<ListProduct>[0]
+export type ListProductsResponse = ReturnType<ListProduct>
