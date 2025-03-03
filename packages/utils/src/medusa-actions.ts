@@ -115,6 +115,18 @@ export const getMedusaClientStoreActions = (
         delete: (params: DeleteAddressParams) =>
           client.store.customer.deleteAddress(params.id)
       }
+    },
+    fulfillment: {
+      getCartShippingOptions: (params: GetCartShippingOptionsParams) =>
+        client.store.fulfillment.listCartOptions(params),
+      calculateShippingOptionCost: (
+        params: CalculateShippingOptionCostParams
+      ) =>
+        client.store.fulfillment.calculate(
+          params.id,
+          params.body,
+          params.fields
+        )
     }
   }
 })
@@ -191,6 +203,14 @@ export type ClientActions = {
       getAddresses: (params: GetAddressesParams) => GetAddressesResponse
       delete: (params: DeleteAddressParams) => DeleteAddressResponse
     }
+  }
+  fulfillment: {
+    getCartShippingOptions: (
+      params: GetCartShippingOptionsParams
+    ) => GetCartShippingOptionsResponse
+    calculateShippingOptionCost: (
+      params: CalculateShippingOptionCostParams
+    ) => CalculateShippingOptionCostResponse
   }
 }
 
@@ -480,3 +500,23 @@ export type DeleteAddressParams = {
   id: Parameters<DeleteAddress>[0]
 }
 export type DeleteAddressResponse = ReturnType<DeleteAddress>
+
+type GetCartShippingOptions =
+  MedusaClient['store']['fulfillment']['listCartOptions']
+export type GetCartShippingOptionsParams = Parameters<GetCartShippingOptions>[0]
+export type GetCartShippingOptionsResponse = ReturnType<GetCartShippingOptions>
+
+type CalculateShippingOptionCost =
+  MedusaClient['store']['fulfillment']['calculate']
+type CalculateShippingOptionCostID = Parameters<CalculateShippingOptionCost>[0]
+type CalculateShippingOptionCostBody =
+  Parameters<CalculateShippingOptionCost>[1]
+type CalculateShippingOptionCostFields =
+  Parameters<CalculateShippingOptionCost>[2]
+export type CalculateShippingOptionCostParams = {
+  id: CalculateShippingOptionCostID
+  body: CalculateShippingOptionCostBody
+  fields: CalculateShippingOptionCostFields
+}
+export type CalculateShippingOptionCostResponse =
+  ReturnType<CalculateShippingOptionCost>
