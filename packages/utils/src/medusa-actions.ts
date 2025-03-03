@@ -1,9 +1,4 @@
 import type { Admin, Auth, Client, Store } from '@medusajs/js-sdk'
-import {
-  queryOptions,
-  type QueryKey,
-  type QueryOptions as QueryOpt
-} from '@tanstack/react-query'
 
 export const getMedusaClientStoreActions = (
   client: MedusaClient
@@ -31,19 +26,8 @@ export const getMedusaClientStoreActions = (
     }
   }
 
-  const storeQueryOptions: ClientQueryOptions = {
-    store: {
-      listProducts: (params: ListProductsParams) =>
-        queryOptions({
-          queryFn: () => actions.store.listProducts(params),
-          queryKey: ['listProducts', params] as const
-        })
-    }
-  }
-
   return {
-    actions,
-    queryOptions: storeQueryOptions
+    actions
   }
 }
 
@@ -56,60 +40,54 @@ export type MedusaClient = {
 
 type MedusaClientActions = {
   actions: ClientActions
-  queryOptions: ClientQueryOptions
 }
 
 export type ClientActions = {
   auth: {
-    signUpWithEmail: (
-      params: SignUpWithEmailParams
-    ) => ReturnType<MedusaClient['auth']['register']>
-    logInWithEmail: (
-      params: LogInWithEmailParams
-    ) => ReturnType<MedusaClient['auth']['login']>
-    refreshToken: () => ReturnType<MedusaClient['auth']['refresh']>
-    resetPassword: (
-      params: ResetPasswordParams
-    ) => ReturnType<MedusaClient['auth']['resetPassword']>
-    setNewPassword: (
-      params: SetNewPasswordParams
-    ) => ReturnType<MedusaClient['auth']['updateProvider']>
+    signUpWithEmail: (params: SignUpWithEmailParams) => SignUpWithEmailResponse
+    logInWithEmail: (params: LogInWithEmailParams) => LogInWithEmailResponse
+    refreshToken: () => RefreshTokenResponse
+    resetPassword: (params: ResetPasswordParams) => ResetPasswordResponse
+    setNewPassword: (params: SetNewPasswordParams) => SetNewPasswordResponse
   }
   store: {
     listProducts: (params: ListProductsParams) => ListProductsResponse
   }
 }
-export type ClientQueryOptions = {
-  store: {
-    listProducts: (
-      params: ListProductsParams
-    ) => QueryOptions<
-      Awaited<ListProductsResponse>,
-      readonly ['listProducts', ListProductsParams]
-    >
-  }
-}
 
-type SignUpWithEmailParams = Parameters<MedusaClient['auth']['register']>[2]
-type LogInWithEmailParams = Exclude<
+export type SignUpWithEmailParams = Parameters<
+  MedusaClient['auth']['register']
+>[2]
+export type SignUpWithEmailResponse = ReturnType<
+  MedusaClient['auth']['register']
+>
+
+export type LogInWithEmailParams = Exclude<
   Parameters<MedusaClient['auth']['login']>[2],
   Record<string, unknown>
 >
-type ResetPasswordParams = Parameters<MedusaClient['auth']['resetPassword']>[2]
-type SetNewPasswordParams = {
+export type LogInWithEmailResponse = ReturnType<MedusaClient['auth']['login']>
+
+export type RefreshTokenResponse = ReturnType<MedusaClient['auth']['refresh']>
+
+export type ResetPasswordParams = Parameters<
+  MedusaClient['auth']['resetPassword']
+>[2]
+export type ResetPasswordResponse = ReturnType<
+  MedusaClient['auth']['resetPassword']
+>
+
+export type SetNewPasswordParams = {
   password: string
   token: string
 }
+export type SetNewPasswordResponse = ReturnType<
+  MedusaClient['auth']['updateProvider']
+>
 
-type ListProductsParams = Parameters<
+export type ListProductsParams = Parameters<
   MedusaClient['store']['product']['list']
 >[0]
-
-type ListProductsResponse = ReturnType<MedusaClient['store']['product']['list']>
-
-type QueryOptions<D, K extends QueryKey, E extends Error = Error> = QueryOpt<
-  D,
-  E,
-  D,
-  K
+export type ListProductsResponse = ReturnType<
+  MedusaClient['store']['product']['list']
 >
