@@ -91,6 +91,14 @@ export const getMedusaClientStoreActions = (
         client.store.cart.complete(params.cartId, params.fields),
       transfer: (params: TransferCartParams) =>
         client.store.cart.transferCart(params.cartId, params.fields)
+    },
+    customer: {
+      create: (params: CreateCustomerParams) =>
+        client.store.customer.create(params.body, params.fields),
+      update: (params: UpdateCustomerParams) =>
+        client.store.customer.update(params.body, params.fields),
+      get: (params: GetCustomerParams) =>
+        client.store.customer.retrieve(params.fields)
     }
   }
 })
@@ -155,6 +163,11 @@ export type ClientActions = {
     ) => RemoveCartProductResponse
     complete: (params: CompleteCartParams) => CompleteCartResponse
     transfer: (params: TransferCartParams) => TransferCartResponse
+  }
+  customer: {
+    create: (params: CreateCustomerParams) => CreateCustomerResponse
+    update: (params: UpdateCustomerParams) => UpdateCustomerResponse
+    get: (params: GetCustomerParams) => GetCustomerResponse
   }
 }
 
@@ -380,3 +393,28 @@ export type TransferCartParams = {
   fields: TransferCartFields
 }
 export type TransferCartResponse = ReturnType<TransferCart>
+
+type CreateCustomer = MedusaClient['store']['customer']['create']
+type CreateCustomerBody = Parameters<CreateCustomer>[0]
+type CreateCustomerFields = Parameters<CreateCustomer>[1]
+export type CreateCustomerParams = {
+  body: CreateCustomerBody
+  fields: CreateCustomerFields
+}
+export type CreateCustomerResponse = ReturnType<CreateCustomer>
+
+type UpdateCustomer = MedusaClient['store']['customer']['update']
+type UpdateCustomerBody = Parameters<UpdateCustomer>[0]
+type UpdateCustomerFields = Parameters<UpdateCustomer>[1]
+export type UpdateCustomerParams = {
+  body: UpdateCustomerBody
+  fields: UpdateCustomerFields
+}
+export type UpdateCustomerResponse = ReturnType<UpdateCustomer>
+
+type GetCustomer = MedusaClient['store']['customer']['retrieve']
+type GetCustomerFields = Parameters<GetCustomer>[0]
+export type GetCustomerParams = {
+  fields: GetCustomerFields
+}
+export type GetCustomerResponse = ReturnType<GetCustomer>
