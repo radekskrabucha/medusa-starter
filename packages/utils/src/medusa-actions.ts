@@ -2,8 +2,8 @@ import type { Admin, Auth, Client, Store } from '@medusajs/js-sdk'
 
 export const getMedusaClientStoreActions = (
   client: MedusaClient
-): MedusaClientActions => {
-  const actions: ClientActions = {
+): MedusaClientActions => ({
+  actions: {
     auth: {
       signUpWithEmail: (params: SignUpWithEmailParams) =>
         client.auth.register('customer', 'emailpass', params),
@@ -39,13 +39,34 @@ export const getMedusaClientStoreActions = (
         client.store.region.list(params),
       getRegion: (params: GetRegionParams) =>
         client.store.region.retrieve(params.id, params.fields)
+    },
+    order: {
+      getOrders: (params: GetOrdersParams) => client.store.order.list(params),
+      getOrder: (params: GetOrderParams) =>
+        client.store.order.retrieve(params.id, params.fields),
+      requestOrderTransfer: (params: RequestOrderTransferParams) =>
+        client.store.order.requestTransfer(
+          params.id,
+          params.body,
+          params.fields
+        ),
+      cancelOrderTransfer: (params: CancelOrderTransferParams) =>
+        client.store.order.cancelTransfer(params.id, params.fields),
+      acceptOrderTransfer: (params: AcceptOrderTransferParams) =>
+        client.store.order.acceptTransfer(
+          params.id,
+          params.body,
+          params.fields
+        ),
+      rejectOrderTransfer: (params: RejectOrderTransferParams) =>
+        client.store.order.declineTransfer(
+          params.id,
+          params.body,
+          params.fields
+        )
     }
   }
-
-  return {
-    actions
-  }
-}
+})
 
 export type MedusaClient = {
   client: Client
@@ -77,6 +98,22 @@ export type ClientActions = {
   region: {
     getRegions: (params: GetRegionsParams) => GetRegionsResponse
     getRegion: (params: GetRegionParams) => GetRegionResponse
+  }
+  order: {
+    getOrders: (params: GetOrdersParams) => GetOrdersResponse
+    getOrder: (params: GetOrderParams) => GetOrderResponse
+    requestOrderTransfer: (
+      params: RequestOrderTransferParams
+    ) => RequestOrderTransferResponse
+    cancelOrderTransfer: (
+      params: CancelOrderTransferParams
+    ) => CancelOrderTransferResponse
+    acceptOrderTransfer: (
+      params: AcceptOrderTransferParams
+    ) => AcceptOrderTransferResponse
+    rejectOrderTransfer: (
+      params: RejectOrderTransferParams
+    ) => RejectOrderTransferResponse
   }
 }
 
@@ -156,3 +193,58 @@ export type GetRegionParams = {
   fields: GetRegionFields
 }
 export type GetRegionResponse = ReturnType<GetRegion>
+
+type GetOrders = MedusaClient['store']['order']['list']
+export type GetOrdersParams = Parameters<GetOrders>[0]
+export type GetOrdersResponse = ReturnType<GetOrders>
+
+type GetOrder = MedusaClient['store']['order']['retrieve']
+type GetOrderId = Parameters<GetOrder>[0]
+type GetOrderFields = Parameters<GetOrder>[1]
+export type GetOrderParams = {
+  id: GetOrderId
+  fields: GetOrderFields
+}
+export type GetOrderResponse = ReturnType<GetOrder>
+
+type RequestOrderTransfer = MedusaClient['store']['order']['requestTransfer']
+type RequestOrderTransferID = Parameters<RequestOrderTransfer>[0]
+type RequestOrderTransferBody = Parameters<RequestOrderTransfer>[1]
+type RequestOrderTransferFields = Parameters<RequestOrderTransfer>[2]
+export type RequestOrderTransferParams = {
+  id: RequestOrderTransferID
+  body: RequestOrderTransferBody
+  fields: RequestOrderTransferFields
+}
+export type RequestOrderTransferResponse = ReturnType<RequestOrderTransfer>
+
+type CancelOrderTransfer = MedusaClient['store']['order']['cancelTransfer']
+type CancelOrderTransferID = Parameters<CancelOrderTransfer>[0]
+type CancelOrderTransferFields = Parameters<CancelOrderTransfer>[1]
+export type CancelOrderTransferParams = {
+  id: CancelOrderTransferID
+  fields: CancelOrderTransferFields
+}
+export type CancelOrderTransferResponse = ReturnType<CancelOrderTransfer>
+
+type AcceptOrderTransfer = MedusaClient['store']['order']['acceptTransfer']
+type AcceptOrderTransferID = Parameters<AcceptOrderTransfer>[0]
+type AcceptOrderTransferBody = Parameters<AcceptOrderTransfer>[1]
+type AcceptOrderTransferFields = Parameters<AcceptOrderTransfer>[2]
+export type AcceptOrderTransferParams = {
+  id: AcceptOrderTransferID
+  body: AcceptOrderTransferBody
+  fields: AcceptOrderTransferFields
+}
+export type AcceptOrderTransferResponse = ReturnType<AcceptOrderTransfer>
+
+type RejectOrderTransfer = MedusaClient['store']['order']['declineTransfer']
+type RejectOrderTransferID = Parameters<RejectOrderTransfer>[0]
+type RejectOrderTransferBody = Parameters<RejectOrderTransfer>[1]
+type RejectOrderTransferFields = Parameters<RejectOrderTransfer>[2]
+export type RejectOrderTransferParams = {
+  id: RejectOrderTransferID
+  body: RejectOrderTransferBody
+  fields: RejectOrderTransferFields
+}
+export type RejectOrderTransferResponse = ReturnType<RejectOrderTransfer>
