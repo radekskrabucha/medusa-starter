@@ -64,6 +64,33 @@ export const getMedusaClientStoreActions = (
           params.body,
           params.fields
         )
+    },
+    cart: {
+      create: (params: CreateCartParams) =>
+        client.store.cart.create(params.body, params.fields),
+      update: (params: UpdateCartParams) =>
+        client.store.cart.update(params.id, params.body, params.fields),
+      get: (params: GetCartParams) =>
+        client.store.cart.retrieve(params.id, params.fields),
+      addProduct: (params: AddProductToCartParams) =>
+        client.store.cart.createLineItem(
+          params.cartId,
+          params.body,
+          params.fields
+        ),
+      updateProduct: (params: UpdateCartProductParams) =>
+        client.store.cart.updateLineItem(
+          params.cartId,
+          params.id,
+          params.body,
+          params.fields
+        ),
+      removeProduct: (params: RemoveCartProductParams) =>
+        client.store.cart.deleteLineItem(params.cartId, params.id),
+      complete: (params: CompleteCartParams) =>
+        client.store.cart.complete(params.cartId, params.fields),
+      transfer: (params: TransferCartParams) =>
+        client.store.cart.transferCart(params.cartId, params.fields)
     }
   }
 })
@@ -114,6 +141,20 @@ export type ClientActions = {
     rejectOrderTransfer: (
       params: RejectOrderTransferParams
     ) => RejectOrderTransferResponse
+  }
+  cart: {
+    create: (params: CreateCartParams) => CreateCartResponse
+    update: (params: UpdateCartParams) => UpdateCartResponse
+    get: (params: GetCartParams) => GetCartResponse
+    addProduct: (params: AddProductToCartParams) => AddProductToCartResponse
+    updateProduct: (
+      params: UpdateCartProductParams
+    ) => UpdateCartProductResponse
+    removeProduct: (
+      params: RemoveCartProductParams
+    ) => RemoveCartProductResponse
+    complete: (params: CompleteCartParams) => CompleteCartResponse
+    transfer: (params: TransferCartParams) => TransferCartResponse
   }
 }
 
@@ -248,3 +289,94 @@ export type RejectOrderTransferParams = {
   fields: RejectOrderTransferFields
 }
 export type RejectOrderTransferResponse = ReturnType<RejectOrderTransfer>
+
+type CreateCart = MedusaClient['store']['cart']['create']
+type CreateCartBody = Parameters<CreateCart>[0]
+type CreateCartFields = Parameters<CreateCart>[1]
+export type CreateCartParams = {
+  body: CreateCartBody
+  fields: CreateCartFields
+}
+export type CreateCartResponse = ReturnType<CreateCart>
+
+type UpdateCart = MedusaClient['store']['cart']['update']
+type UpdateCartID = Parameters<UpdateCart>[0]
+type UpdateCartBody = Parameters<UpdateCart>[1]
+type UpdateCartFields = Parameters<UpdateCart>[2]
+export type UpdateCartParams = {
+  id: UpdateCartID
+  body: UpdateCartBody
+  fields: UpdateCartFields
+}
+export type UpdateCartResponse = ReturnType<UpdateCart>
+
+type GetCart = MedusaClient['store']['cart']['retrieve']
+type GetCartID = Parameters<GetCart>[0]
+type GetCartFields = Parameters<GetCart>[1]
+export type GetCartParams = {
+  id: GetCartID
+  fields: GetCartFields
+}
+export type GetCartResponse = ReturnType<GetCart>
+
+type AddProductToCart = MedusaClient['store']['cart']['createLineItem']
+type AddProductToCartID = Parameters<AddProductToCart>[0]
+type AddProductToCartBody = Parameters<AddProductToCart>[1]
+type AddProductToCartFields = Parameters<AddProductToCart>[2]
+export type AddProductToCartParams = {
+  cartId: AddProductToCartID
+  body: AddProductToCartBody
+  fields: AddProductToCartFields
+}
+export type AddProductToCartResponse = ReturnType<AddProductToCart>
+
+type UpdateCartProduct = MedusaClient['store']['cart']['updateLineItem']
+type UpdateCartProductCartID = Parameters<UpdateCartProduct>[0]
+type UpdateCartProductID = Parameters<UpdateCartProduct>[1]
+type UpdateCartProductBody = Parameters<UpdateCartProduct>[2]
+type UpdateCartProductFields = Parameters<UpdateCartProduct>[3]
+export type UpdateCartProductParams = {
+  cartId: UpdateCartProductCartID
+  id: UpdateCartProductID
+  body: UpdateCartProductBody
+  fields: UpdateCartProductFields
+}
+export type UpdateCartProductResponse = ReturnType<UpdateCartProduct>
+
+type RemoveCartProduct = MedusaClient['store']['cart']['deleteLineItem']
+type RemoveCartProductCartID = Parameters<RemoveCartProduct>[0]
+type RemoveCartProductID = Parameters<RemoveCartProduct>[1]
+export type RemoveCartProductParams = {
+  cartId: RemoveCartProductCartID
+  id: RemoveCartProductID
+}
+export type RemoveCartProductResponse = ReturnType<RemoveCartProduct>
+
+type AddCartShippingMethod = MedusaClient['store']['cart']['addShippingMethod']
+type AddCartShippingMethodCartID = Parameters<AddCartShippingMethod>[0]
+type AddCartShippingMethodBody = Parameters<AddCartShippingMethod>[1]
+type AddCartShippingMethodFields = Parameters<AddCartShippingMethod>[2]
+export type AddCartShippingMethodParams = {
+  cartId: AddCartShippingMethodCartID
+  body: AddCartShippingMethodBody
+  fields: AddCartShippingMethodFields
+}
+export type AddCartShippingMethodResponse = ReturnType<AddCartShippingMethod>
+
+type CompleteCart = MedusaClient['store']['cart']['complete']
+type CompleteCartCartID = Parameters<CompleteCart>[0]
+type CompleteCartFields = Parameters<CompleteCart>[1]
+export type CompleteCartParams = {
+  cartId: CompleteCartCartID
+  fields: CompleteCartFields
+}
+export type CompleteCartResponse = ReturnType<CompleteCart>
+
+type TransferCart = MedusaClient['store']['cart']['transferCart']
+type TransferCartCartID = Parameters<TransferCart>[0]
+type TransferCartFields = Parameters<TransferCart>[1]
+export type TransferCartParams = {
+  cartId: TransferCartCartID
+  fields: TransferCartFields
+}
+export type TransferCartResponse = ReturnType<TransferCart>
