@@ -21,18 +21,24 @@ export const getMedusaClientStoreActions = (
         )
     },
     store: {
-      listProducts: (params: ListProductsParams) =>
+      getProducts: (params: GetProductsParams) =>
         client.store.product.list(params),
       getProduct: (params: GetProductParams) =>
         client.store.product.retrieve(params.id, params.fields),
-      listCategories: (params: ListCategoriesParams) =>
+      getCategories: (params: GetCategoriesParams) =>
         client.store.category.list(params),
       getCategory: (params: GetCategoryParams) =>
         client.store.category.retrieve(params.id, params.fields),
-      listCollections: (params: ListCollectionsParams) =>
+      getCollections: (params: GetCollectionsParams) =>
         client.store.collection.list(params),
       getCollection: (params: GetCollectionParams) =>
         client.store.collection.retrieve(params.id, params.fields)
+    },
+    region: {
+      getRegions: (params: GetRegionsParams) =>
+        client.store.region.list(params),
+      getRegion: (params: GetRegionParams) =>
+        client.store.region.retrieve(params.id, params.fields)
     }
   }
 
@@ -61,12 +67,16 @@ export type ClientActions = {
     setNewPassword: (params: SetNewPasswordParams) => SetNewPasswordResponse
   }
   store: {
-    listProducts: (params: ListProductsParams) => ListProductsResponse
+    getProducts: (params: GetProductsParams) => GetProductsResponse
     getProduct: (params: GetProductParams) => GetProductResponse
-    listCategories: (params: ListCategoriesParams) => ListCategoriesResponse
+    getCategories: (params: GetCategoriesParams) => GetCategoriesResponse
     getCategory: (params: GetCategoryParams) => GetCategoryResponse
-    listCollections: (params: ListCollectionsParams) => ListCollectionsResponse
+    getCollections: (params: GetCollectionsParams) => GetCollectionsResponse
     getCollection: (params: GetCollectionParams) => GetCollectionResponse
+  }
+  region: {
+    getRegions: (params: GetRegionsParams) => GetRegionsResponse
+    getRegion: (params: GetRegionParams) => GetRegionResponse
   }
 }
 
@@ -95,9 +105,9 @@ export type SetNewPasswordParams = {
 }
 export type SetNewPasswordResponse = ReturnType<SetNewPassword>
 
-type ListProduct = MedusaClient['store']['product']['list']
-export type ListProductsParams = Parameters<ListProduct>[0]
-export type ListProductsResponse = ReturnType<ListProduct>
+type GetProducts = MedusaClient['store']['product']['list']
+export type GetProductsParams = Parameters<GetProducts>[0]
+export type GetProductsResponse = ReturnType<GetProducts>
 
 type GetProduct = MedusaClient['store']['product']['retrieve']
 type GetProductId = Parameters<GetProduct>[0]
@@ -108,9 +118,9 @@ export type GetProductParams = {
 }
 export type GetProductResponse = ReturnType<GetProduct>
 
-type ListCategories = MedusaClient['store']['category']['list']
-export type ListCategoriesParams = Parameters<ListCategories>[0]
-export type ListCategoriesResponse = ReturnType<ListCategories>
+type GetCategories = MedusaClient['store']['category']['list']
+export type GetCategoriesParams = Parameters<GetCategories>[0]
+export type GetCategoriesResponse = ReturnType<GetCategories>
 
 type GetCategory = MedusaClient['store']['category']['retrieve']
 type GetCategoryId = Parameters<GetCategory>[0]
@@ -121,9 +131,9 @@ export type GetCategoryParams = {
 }
 export type GetCategoryResponse = ReturnType<GetCategory>
 
-type ListCollections = MedusaClient['store']['collection']['list']
-export type ListCollectionsParams = Parameters<ListCollections>[0]
-export type ListCollectionsResponse = ReturnType<ListCollections>
+type GetCollections = MedusaClient['store']['collection']['list']
+export type GetCollectionsParams = Parameters<GetCollections>[0]
+export type GetCollectionsResponse = ReturnType<GetCollections>
 
 type GetCollection = MedusaClient['store']['collection']['retrieve']
 type GetCollectionId = Parameters<GetCollection>[0]
@@ -133,3 +143,16 @@ export type GetCollectionParams = {
   fields: GetCollectionFields
 }
 export type GetCollectionResponse = ReturnType<GetCollection>
+
+type GetRegions = MedusaClient['store']['region']['list']
+export type GetRegionsParams = Parameters<GetRegions>[0]
+export type GetRegionsResponse = ReturnType<GetRegions>
+
+type GetRegion = MedusaClient['store']['region']['retrieve']
+type GetRegionId = Parameters<GetRegion>[0]
+type GetRegionFields = Parameters<GetRegion>[1]
+export type GetRegionParams = {
+  id: GetRegionId
+  fields: GetRegionFields
+}
+export type GetRegionResponse = ReturnType<GetRegion>
