@@ -98,7 +98,23 @@ export const getMedusaClientStoreActions = (
       update: (params: UpdateCustomerParams) =>
         client.store.customer.update(params.body, params.fields),
       get: (params: GetCustomerParams) =>
-        client.store.customer.retrieve(params.fields)
+        client.store.customer.retrieve(params.fields),
+      address: {
+        add: (params: AddNewAddressParams) =>
+          client.store.customer.createAddress(params.body, params.fields),
+        update: (params: UpdateAddressParams) =>
+          client.store.customer.updateAddress(
+            params.id,
+            params.body,
+            params.fields
+          ),
+        getAddress: (params: GetAddressParams) =>
+          client.store.customer.retrieveAddress(params.id, params.fields),
+        getAddresses: (params: GetAddressesParams) =>
+          client.store.customer.listAddress(params),
+        delete: (params: DeleteAddressParams) =>
+          client.store.customer.deleteAddress(params.id)
+      }
     }
   }
 })
@@ -168,6 +184,13 @@ export type ClientActions = {
     create: (params: CreateCustomerParams) => CreateCustomerResponse
     update: (params: UpdateCustomerParams) => UpdateCustomerResponse
     get: (params: GetCustomerParams) => GetCustomerResponse
+    address: {
+      add: (params: AddNewAddressParams) => AddNewAddressResponse
+      update: (params: UpdateAddressParams) => UpdateAddressResponse
+      getAddress: (params: GetAddressParams) => GetAddressResponse
+      getAddresses: (params: GetAddressesParams) => GetAddressesResponse
+      delete: (params: DeleteAddressParams) => DeleteAddressResponse
+    }
   }
 }
 
@@ -418,3 +441,42 @@ export type GetCustomerParams = {
   fields: GetCustomerFields
 }
 export type GetCustomerResponse = ReturnType<GetCustomer>
+
+type AddNewAddress = MedusaClient['store']['customer']['createAddress']
+type AddNewAddressBody = Parameters<AddNewAddress>[0]
+type AddNewAddressFields = Parameters<AddNewAddress>[1]
+export type AddNewAddressParams = {
+  body: AddNewAddressBody
+  fields: AddNewAddressFields
+}
+export type AddNewAddressResponse = ReturnType<AddNewAddress>
+
+type UpdateAddress = MedusaClient['store']['customer']['updateAddress']
+type UpdateAddressID = Parameters<UpdateAddress>[0]
+type UpdateAddressBody = Parameters<UpdateAddress>[1]
+type UpdateAddressFields = Parameters<UpdateAddress>[2]
+export type UpdateAddressParams = {
+  id: UpdateAddressID
+  body: UpdateAddressBody
+  fields: UpdateAddressFields
+}
+export type UpdateAddressResponse = ReturnType<UpdateAddress>
+
+type GetAddress = MedusaClient['store']['customer']['retrieveAddress']
+type GetAddressID = Parameters<GetAddress>[0]
+type GetAddressFields = Parameters<GetAddress>[1]
+export type GetAddressParams = {
+  id: GetAddressID
+  fields: GetAddressFields
+}
+export type GetAddressResponse = ReturnType<GetAddress>
+
+type GetAddresses = MedusaClient['store']['customer']['listAddress']
+export type GetAddressesParams = Parameters<GetAddresses>[0]
+export type GetAddressesResponse = ReturnType<GetAddresses>
+
+type DeleteAddress = MedusaClient['store']['customer']['deleteAddress']
+export type DeleteAddressParams = {
+  id: Parameters<DeleteAddress>[0]
+}
+export type DeleteAddressResponse = ReturnType<DeleteAddress>
