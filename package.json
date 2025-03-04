@@ -15,7 +15,8 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "type-check": "turbo type-check",
-    "test": "turbo test"
+    "test": "turbo test",
+    "reinstall": "rm -rf **/**/node_modules && rm -rf node_modules && pnpm install"
   },
   "dependencies": {
     "@medusajs/js-sdk": "2.6.0",
