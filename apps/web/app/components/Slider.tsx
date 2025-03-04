@@ -25,7 +25,6 @@ export const Slider: React.FC<SliderProps> = ({ children, header }) => {
       const wrapper = sliderRef.current.firstElementChild as HTMLElement
       const sliderElement = wrapper.firstElementChild as HTMLElement
       const gap = getTailwindGap(wrapper.className)
-      console.log({gap})
       const scrollAmount = sliderElement.offsetWidth + (gap ? gap * 4 : 0)
       const scrollLeft = wrapper.scrollLeft
       const newScrollLeft =
