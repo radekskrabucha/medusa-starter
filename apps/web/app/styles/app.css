@@ -134,4 +134,7 @@
   .layout-section {
     @apply flex w-full max-w-[1820px] flex-col self-center px-10 py-6 max-md:px-8 max-sm:px-6;
   }
+  .slider-wrapper {
+    @apply grid snap-x grid-flow-col overflow-x-auto;
+  }
 }
