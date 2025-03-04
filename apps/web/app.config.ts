@@ -27,7 +27,11 @@ export default defineConfig({
           plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]]
         }
       })
-    ]
+    ],
+
+  ssr: {
+    noExternal: ["@medusajs/js-sdk"]
+  }
   },
   server: {
     prerender: {
