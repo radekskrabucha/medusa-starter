@@ -28,7 +28,7 @@ export const FeaturedProducts = () => {
               {data.products.map(product => (
                 <ProductTile
                   key={product.id}
-                  {...product}
+                  product={product}
                 />
               ))}
               <Link
