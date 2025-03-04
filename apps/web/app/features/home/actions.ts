@@ -1,9 +1,9 @@
-import type { ListProductsParams } from '@medusa-starter/utils/medusa-actions'
+import type { GetProductsParams } from '@medusa-starter/utils/medusa-actions'
 import { queryOptions } from '@tanstack/react-query'
 import { actions } from '~web/lib/medusa'
 
-export const listProductsQueryOptions = (params: ListProductsParams) =>
+export const getProductsQueryOptions = (params: GetProductsParams) =>
   queryOptions({
-    queryKey: ['actions.store.listProducts', params] as const,
-    queryFn: () => actions.store.listProducts(params)
+    queryKey: ['actions.store.getProducts', params] as const,
+    queryFn: () => actions.store.getProducts(params)
   })
