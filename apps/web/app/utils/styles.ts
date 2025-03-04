@@ -1,6 +1,6 @@
 export const getTailwindGap = (classString: string): number | null => {
   const match = classString.match(/gap-(\d+)/)
-  
+
   if (!match) {
     return null
   }
