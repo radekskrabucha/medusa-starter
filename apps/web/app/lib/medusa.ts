@@ -1,4 +1,4 @@
-import { getMedusaClientStoreActions } from '@medusa-starter/utils/medusa/actions'
+import { getMedusaClientStoreActions } from '@medusa-starter/medusa-utils/actions'
 import Medusa from '@medusajs/js-sdk'
 import { envClient } from '~web/utils/env/client'
 
