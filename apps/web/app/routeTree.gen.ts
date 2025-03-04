@@ -20,6 +20,7 @@ import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
 import { Route as appLayoutSignUpImport } from './routes/(app)/_layout/sign-up'
 import { Route as appLayoutProfileImport } from './routes/(app)/_layout/profile'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
+import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
 
 // Create Virtual Routes
 
@@ -75,6 +76,12 @@ const appLayoutProfileRoute = appLayoutProfileImport.update({
 const appLayoutAboutRoute = appLayoutAboutImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => appLayoutRoute,
+} as any)
+
+const appLayoutShopItemHandleRoute = appLayoutShopItemHandleImport.update({
+  id: '/shop/item/$handle',
+  path: '/shop/item/$handle',
   getParentRoute: () => appLayoutRoute,
 } as any)
 
@@ -145,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutIndexImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/shop/item/$handle': {
+      id: '/(app)/_layout/shop/item/$handle'
+      path: '/shop/item/$handle'
+      fullPath: '/shop/item/$handle'
+      preLoaderRoute: typeof appLayoutShopItemHandleImport
+      parentRoute: typeof appLayoutImport
+    }
   }
 }
 
@@ -155,6 +169,7 @@ interface appLayoutRouteChildren {
   appLayoutProfileRoute: typeof appLayoutProfileRoute
   appLayoutSignUpRoute: typeof appLayoutSignUpRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
+  appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
 }
 
 const appLayoutRouteChildren: appLayoutRouteChildren = {
@@ -162,6 +177,7 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutProfileRoute: appLayoutProfileRoute,
   appLayoutSignUpRoute: appLayoutSignUpRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
+  appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
 }
 
 const appLayoutRouteWithChildren = appLayoutRoute._addFileChildren(
@@ -206,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof appLayoutProfileRoute
   '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
 }
 
 export interface FileRoutesByTo {
@@ -214,6 +231,7 @@ export interface FileRoutesByTo {
   '/profile': typeof appLayoutProfileRoute
   '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
 }
 
 export interface FileRoutesById {
@@ -227,13 +245,20 @@ export interface FileRoutesById {
   '/(app)/_layout/sign-up': typeof appLayoutSignUpRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
+  '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/profile' | '/sign-up' | '/cart'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/profile'
+    | '/sign-up'
+    | '/cart'
+    | '/shop/item/$handle'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/profile' | '/sign-up' | '/cart'
+  to: '/' | '/about' | '/profile' | '/sign-up' | '/cart' | '/shop/item/$handle'
   id:
     | '__root__'
     | '/(app)'
@@ -245,6 +270,7 @@ export interface FileRouteTypes {
     | '/(app)/_layout/sign-up'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
+    | '/(app)/_layout/shop/item/$handle'
   fileRoutesById: FileRoutesById
 }
 
@@ -285,7 +311,8 @@ export const routeTree = rootRoute
         "/(app)/_layout/about",
         "/(app)/_layout/profile",
         "/(app)/_layout/sign-up",
-        "/(app)/_layout/"
+        "/(app)/_layout/",
+        "/(app)/_layout/shop/item/$handle"
       ]
     },
     "/(cart)": {
@@ -319,6 +346,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/": {
       "filePath": "(app)/_layout/index.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/shop/item/$handle": {
+      "filePath": "(app)/_layout/shop/item/$handle.tsx",
       "parent": "/(app)/_layout"
     }
   }
