@@ -4,6 +4,6 @@ import { actions } from '~web/lib/medusa'
 
 export const getProductsQueryOptions = (params: GetProductsParams) =>
   queryOptions({
-    queryKey: ['actions.store.getProducts', params] as const,
+    queryKey: ['actions.store.getProducts', params],
     queryFn: () => actions.store.getProducts(params)
   })
