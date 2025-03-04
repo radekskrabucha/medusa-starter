@@ -2,7 +2,7 @@ import { Button, buttonVariants } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
 
 export const NotFound: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <div className="layout-container min-h-dvh">
+  <div className="layout-container flex-1">
     <section className="layout-section flex-1 items-center justify-center gap-4 text-center">
       <h1 className="text-primary text-6xl font-bold">404</h1>
       <h2 className="text-2xl font-semibold">Page Not Found</h2>
