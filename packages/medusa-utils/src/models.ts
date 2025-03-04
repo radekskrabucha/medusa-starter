@@ -8,7 +8,7 @@ import type {
   GetCollectionResponse,
   GetCategoryResponse,
   GetCartShippingOptionsResponse
-} from './types.js'
+} from './types'
 
 export type Product = Awaited<GetProductResponse>['product']
 export type Address = Awaited<GetAddressResponse>['address']

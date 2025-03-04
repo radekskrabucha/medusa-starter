@@ -13,7 +13,6 @@ import type {
   GetProductsResponse,
   LogInWithEmailParams,
   LogInWithEmailResponse,
-  MedusaClient,
   RefreshTokenResponse,
   ResetPasswordParams,
   ResetPasswordResponse,
@@ -72,8 +71,9 @@ import type {
   UpdateAddressParams,
   GetAddressParams,
   GetAddressesParams,
-  DeleteAddressParams
-} from './types.js'
+  DeleteAddressParams,
+  MedusaClient
+} from './types'
 
 export const getMedusaClientStoreActions = (
   client: MedusaClient

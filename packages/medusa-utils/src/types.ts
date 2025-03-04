@@ -1,11 +1,6 @@
-import type { Admin, Auth, Client, Store } from '@medusajs/js-sdk'
+import Medusa from '@medusajs/js-sdk'
 
-export type MedusaClient = {
-  client: Client
-  admin: Admin
-  store: Store
-  auth: Auth
-}
+export type MedusaClient = InstanceType<typeof Medusa>
 
 type SignUpWithEmail = MedusaClient['auth']['register']
 export type SignUpWithEmailParams = Parameters<SignUpWithEmail>[2]
