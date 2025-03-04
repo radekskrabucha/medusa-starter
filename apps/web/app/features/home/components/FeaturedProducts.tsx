@@ -24,7 +24,7 @@ export const FeaturedProducts = () => {
               description: 'Collection of our best products.'
             }}
           >
-            <div className="slider-wrapper auto-cols-[minmax(min(calc(100vw-3rem),300px),1fr)] gap-6 max-md:gap-4">
+            <div className="slider-wrapper scrollbar-hidden auto-cols-[minmax(min(calc(100vw-3rem),300px),1fr)] gap-6 max-md:gap-4">
               {data.products.map(product => (
                 <ProductTile
                   key={product.id}
