@@ -22,7 +22,7 @@ export const ProductTile: React.FC<ProductTileProps> = ({
 
   return (
     <Link
-      to="/products/$handle"
+      to="/shop/item/$handle"
       params={{
         handle
       }}
