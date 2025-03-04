@@ -13,6 +13,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@medusa-starter/medusa-utils": "workspace:*",
     "@medusa-starter/ui": "workspace:*",
     "@medusa-starter/utils": "workspace:*",
     "@tanstack/react-router": "1.112.11",
