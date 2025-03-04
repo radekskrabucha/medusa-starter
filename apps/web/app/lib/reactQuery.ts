@@ -14,7 +14,8 @@ function makeQueryClient() {
       queries: {
         staleTime: QUERY_STALE_TIME,
         gcTime: QUERY_CACHE_TIME,
-        retry: false
+        retry: false,
+        refetchOnWindowFocus: false
       },
       mutations: {
         gcTime: QUERY_CACHE_TIME
