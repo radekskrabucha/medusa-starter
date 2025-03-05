@@ -38,8 +38,10 @@ export const ProductTile: React.FC<ProductTileProps> = ({
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-medium">{title}</h3>
-        {subtitle && <p className="text-sm font-medium">{subtitle}</p>}
+        <h3 className="line-clamp-2 text-lg font-medium">{title}</h3>
+        {subtitle && (
+          <p className="line-clamp-2 text-sm font-medium">{subtitle}</p>
+        )}
         <p className="text-xl font-bold">{formattedPrice}</p>
       </div>
     </Link>
