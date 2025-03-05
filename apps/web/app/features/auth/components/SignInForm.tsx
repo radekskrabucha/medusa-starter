@@ -1,5 +1,5 @@
 import { Button } from '@medusa-starter/ui/button'
-import { Input } from '@medusa-starter/ui/input'
+import { Input, PasswordInput } from '@medusa-starter/ui/input'
 import { Label } from '@medusa-starter/ui/label'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
@@ -69,14 +69,12 @@ export const SignInForm = () => {
         {field => (
           <div className="flex flex-col gap-2">
             <Label htmlFor={field.name}>Password</Label>
-            <Input
+            <PasswordInput
               id={field.name}
-              type="password"
               name={field.name}
               value={field.state.value}
               onChange={e => field.handleChange(e.target.value)}
               onBlur={field.handleBlur}
-              placeholder="••••••••"
               disabled={signInMutation.isPending}
             />
             {field.state.meta.errors ? (
