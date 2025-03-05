@@ -1,4 +1,6 @@
 import type { Product } from '@medusa-starter/medusa-utils/models'
+import { getVariantPrices } from '@medusa-starter/medusa-utils/price'
+import { nonNullable } from '@medusa-starter/utils/common'
 import type React from 'react'
 
 type ProductInfoProps = {
@@ -6,18 +8,22 @@ type ProductInfoProps = {
 }
 
 export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
-  // TODO - Add logic for calculating variant price
-  const variantPrice = 1230.12
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(variantPrice)
+  const selectedVariant = product?.variants?.[0]
+
+  // TODO: temporary, should be inferred from the selected options
+  const variantPrice = nonNullable(selectedVariant)
+    ? getVariantPrices(selectedVariant)
+    : null
 
   return (
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">{product.title}</h1>
-        <p className="mt-4 text-xl font-medium">{formattedPrice}</p>
+        {variantPrice && (
+          <p className="mt-4 text-xl font-medium">
+            {variantPrice.calculatedPrice.formatted()}
+          </p>
+        )}
       </div>
 
       <div>
