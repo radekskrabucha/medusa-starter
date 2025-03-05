@@ -1,10 +1,10 @@
 import type { ProductImage } from '@medusa-starter/medusa-utils/models'
 import { Button } from '@medusa-starter/ui/button'
-import { getRouteApi, Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import placeholderImage from '~web/public/images/shared/placeholder-image.avif'
-import { getNavigationImageId } from '../utils'
+import { getNavigationImageId, productPageRouteApi } from '../utils'
 
 type ProductImageGalleryProps = {
   images: Array<ProductImage>
@@ -12,14 +12,12 @@ type ProductImageGalleryProps = {
   handle: string
 }
 
-const routeApi = getRouteApi('/(app)/_layout/shop/item/$handle')
-
 export const ProductImageGallery = ({
   images,
   title,
   handle
 }: ProductImageGalleryProps) => {
-  const { image } = routeApi.useSearch()
+  const { image } = productPageRouteApi.useSearch()
 
   const selectedImageId = image || images[0]?.id || ''
   const selectedImage = images.find(image => image.id === selectedImageId)

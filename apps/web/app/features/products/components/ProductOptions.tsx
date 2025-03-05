@@ -2,13 +2,11 @@ import type {
   ProductOption,
   ProductOptionValue
 } from '@medusa-starter/medusa-utils/models'
-import { getRouteApi, Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import type React from 'react'
-import { handleSelectOptionParams } from '../utils'
+import { handleSelectOptionParams, productPageRouteApi } from '../utils'
 import type { ProductOption as ValidationProductOption } from '../validationSchemas'
-
-const routeApi = getRouteApi('/(app)/_layout/shop/item/$handle')
 
 type ProductOptionsProps = {
   options: Array<ProductOption> | null
@@ -19,7 +17,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
   options,
   handle
 }) => {
-  const query = routeApi.useSearch()
+  const query = productPageRouteApi.useSearch()
 
   if (!options) {
     return null

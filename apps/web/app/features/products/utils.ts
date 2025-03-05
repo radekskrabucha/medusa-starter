@@ -1,5 +1,8 @@
 import type { ProductImage } from '@medusa-starter/medusa-utils/models'
 import type { ProductSearch } from './validationSchemas'
+import { getRouteApi } from '@tanstack/react-router'
+
+export const productPageRouteApi = getRouteApi('/(app)/_layout/shop/item/$handle')
 
 type Direction = 'prev' | 'next'
 
