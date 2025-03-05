@@ -43,19 +43,19 @@ export const getPercentageDiff = ({
 
 type FormatVariantCalculatedPriceParams = Omit<
   ConvertToLocaleParams,
-  'amount' | 'currency_code'
+  'amount' | 'currencyCode'
 > & {
-  currency_code?: string
+  currencyCode?: string
 }
 
 const createPriceFormatter = (
   calculatedAmount: number,
   currencyCode: string | null
 ) => {
-  return (params: FormatVariantCalculatedPriceParams) =>
+  return (params: FormatVariantCalculatedPriceParams = {}) =>
     convertPriceAmountToLocale({
       amount: calculatedAmount,
-      currencyCode: params.currency_code ?? currencyCode ?? '',
+      currencyCode: params.currencyCode ?? currencyCode ?? '',
       locale: params.locale,
       minimumFractionDigits: params.minimumFractionDigits,
       maximumFractionDigits: params.maximumFractionDigits
