@@ -28,7 +28,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
   }
 
   return (
-    <div className="flex gap-6">
+    <div className="flex flex-col gap-6">
       {options.map(option => (
         <Option
           key={option.id}
@@ -56,7 +56,7 @@ type OptionProps = {
 
 const Option: React.FC<OptionProps> = ({ option, handle, selectedOption }) => (
   <div className="flex flex-col gap-3">
-    <h3 className="font-medium text-lg">{option.title}</h3>
+    <h3 className="text-lg font-medium">{option.title}</h3>
     <div className="flex flex-wrap gap-4">
       {option.variants.map(variant => (
         <Variant
