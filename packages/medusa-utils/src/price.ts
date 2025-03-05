@@ -1,5 +1,5 @@
 import { nonNullable } from '@medusa-starter/utils/common'
-import type { ProductVariant } from './models'
+import type { Product, ProductVariant } from './models'
 
 type ConvertToLocaleParams = {
   amount: number
@@ -9,7 +9,7 @@ type ConvertToLocaleParams = {
   locale?: string
 }
 
-export const convertToLocale = ({
+export const convertPriceAmountToLocale = ({
   amount,
   currencyCode,
   minimumFractionDigits,
@@ -53,7 +53,7 @@ const createPriceFormatter = (
   currencyCode: string | null
 ) => {
   return (params: FormatVariantCalculatedPriceParams) =>
-    convertToLocale({
+    convertPriceAmountToLocale({
       amount: calculatedAmount,
       currencyCode: params.currency_code ?? currencyCode ?? '',
       locale: params.locale,
@@ -69,6 +69,7 @@ export const getVariantPrices = (variant: ProductVariant) => {
   if (!nonNullable(variant.calculated_price.calculated_amount)) {
     return null
   }
+
   const calculatedPrice = variant.calculated_price
   const calculatedAmount = variant.calculated_price.calculated_amount
 
@@ -105,5 +106,90 @@ export const getVariantPrices = (variant: ProductVariant) => {
 
       return null
     }
+  }
+}
+
+type GetProductPriceParams = {
+  product: Product
+  variantId: string
+}
+
+type GetVariantPricesReturn = ReturnType<typeof getVariantPrices>
+type GetProductPriceReturn = {
+  cheapestVariant: ProductVariant | null
+  variant: ProductVariant | null
+  variantPrice: GetVariantPricesReturn | null
+  cheapestVariantPrice: GetVariantPricesReturn | null
+} | null
+
+export const getProductPrice = ({
+  product,
+  variantId
+}: GetProductPriceParams): GetProductPriceReturn => {
+  if (!product || !product.id) {
+    throw new Error('No product provided')
+  }
+  if (!nonNullable(product.variants)) {
+    return null
+  }
+  if (product.variants.length === 0) {
+    return null
+  }
+
+  const variants = product.variants
+
+  const cheapestVariant = (() => {
+    return variants.reduce<ProductVariant | null>(
+      (cheapestVariant, currentVariant) => {
+        if (!nonNullable(currentVariant.calculated_price)) {
+          return cheapestVariant
+        }
+
+        const currentVariantPrice = currentVariant.calculated_price
+
+        if (!nonNullable(currentVariantPrice.calculated_amount)) {
+          return cheapestVariant
+        }
+
+        const currentVariantAmount = currentVariantPrice.calculated_amount
+
+        if (
+          currentVariantAmount <
+          (cheapestVariant?.calculated_price?.calculated_amount ??
+            Number.MAX_VALUE)
+        ) {
+          return currentVariant
+        }
+
+        return cheapestVariant
+      },
+      null
+    )
+  })()
+
+  const variant = (() => {
+    if (!variantId) {
+      return null
+    }
+
+    const variant = variants.find(variant => variant.id === variantId)
+
+    if (!variant) {
+      return null
+    }
+
+    return variant
+  })()
+
+  const cheapestVariantPrice = nonNullable(cheapestVariant)
+    ? getVariantPrices(cheapestVariant)
+    : null
+  const variantPrice = nonNullable(variant) ? getVariantPrices(variant) : null
+
+  return {
+    cheapestVariant,
+    cheapestVariantPrice,
+    variant,
+    variantPrice
   }
 }
