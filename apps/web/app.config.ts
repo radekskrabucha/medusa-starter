@@ -28,10 +28,9 @@ export default defineConfig({
         }
       })
     ],
-
-  ssr: {
-    noExternal: ["@medusajs/js-sdk"]
-  }
+    ssr: {
+      noExternal: ['@medusajs/js-sdk']
+    }
   },
   server: {
     prerender: {
