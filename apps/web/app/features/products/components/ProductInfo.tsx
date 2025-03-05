@@ -19,6 +19,9 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">{product.title}</h1>
+        {product.subtitle && (
+          <p className="text-muted-foreground text-base">{product.subtitle}</p>
+        )}
         {variantPrice && (
           <p className="mt-4 text-xl font-medium">
             {variantPrice.calculatedPrice.formatted()}
