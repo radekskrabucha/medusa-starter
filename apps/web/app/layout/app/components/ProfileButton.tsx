@@ -8,7 +8,7 @@ export const ProfileButton = () => (
     className={buttonVariants({
       variant: 'ghost',
       size: 'icon',
-      className: 'hover:bg-foreground/5'
+      className: 'hover:bg-foreground/5 !size-8'
     })}
   >
     <User2 className="size-5" />

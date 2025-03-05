@@ -7,12 +7,12 @@ export const HamburgerMenuButton = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="-ml-2 pr-9">
+    <div className="justify-self-start -ml-2">
       <Button
         onClick={() => setIsOpen(true)}
         variant="ghost"
         size="icon"
-        className="hover:bg-foreground/5"
+        className="hover:bg-foreground/5 !size-8"
       >
         <MenuIcon className="size-5" />
       </Button>
