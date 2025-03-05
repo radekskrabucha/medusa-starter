@@ -11,3 +11,5 @@ export const productSearchSchema = z.object({
   image: z.string().optional(),
   options: z.array(productOptionSchema).optional()
 })
+
+export type ProductSearch = z.infer<typeof productSearchSchema>

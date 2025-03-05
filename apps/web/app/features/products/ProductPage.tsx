@@ -1,5 +1,4 @@
 import type { Product } from '@medusa-starter/medusa-utils/models'
-import { getProductOptionsWithVariants } from '@medusa-starter/medusa-utils/options'
 import { ProductAddToCartButton } from './components/ProductAddToCartButton'
 import { ProductImageGallery } from './components/ProductImageGallery'
 import { ProductInfo } from './components/ProductInfo'
@@ -21,7 +20,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => (
         <ProductInfo product={product} />
         <ProductOptions
           handle={product.handle}
-          options={getProductOptionsWithVariants(product)}
+          options={product.options}
         />
         <ProductAddToCartButton />
       </div>

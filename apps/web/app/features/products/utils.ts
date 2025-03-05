@@ -1,4 +1,5 @@
 import type { ProductImage } from '@medusa-starter/medusa-utils/models'
+import type { ProductSearch } from './validationSchemas'
 
 type Direction = 'prev' | 'next'
 
@@ -27,5 +28,53 @@ export const getNavigationImageId = (
   return {
     getPrevImageId: () => getNavigationImageId('prev'),
     getNextImageId: () => getNavigationImageId('next')
+  }
+}
+
+export const handleSelectOptionParams = (
+  prevState: ProductSearch,
+  optionName: string,
+  optionValueId: string
+): ProductSearch => {
+  const prevStateOptions = prevState.options
+
+  if (!prevStateOptions) {
+    return {
+      ...prevState,
+      options: [
+        {
+          name: optionName,
+          value: optionValueId
+        }
+      ]
+    }
+  }
+  const prevStateOption = prevStateOptions.find(
+    option => option.name === optionName
+  )
+
+  if (!prevStateOption) {
+    return {
+      ...prevState,
+      options: [
+        ...prevStateOptions,
+        {
+          name: optionName,
+          value: optionValueId
+        }
+      ]
+    }
+  }
+
+  return {
+    ...prevState,
+    options: prevStateOptions.map(option =>
+      option.name === optionName
+        ? {
+            name: optionName,
+            value: optionValueId
+          }
+        : option
+    )
   }
 }

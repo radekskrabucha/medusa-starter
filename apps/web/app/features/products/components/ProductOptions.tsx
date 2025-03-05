@@ -1,16 +1,17 @@
 import type {
-  ProductOptionWithVariants,
-  ProductVariantWithoutOptions
+  ProductOption,
+  ProductOptionValue
 } from '@medusa-starter/medusa-utils/models'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import type React from 'react'
-import type { ProductOption } from '../validationSchemas'
+import { handleSelectOptionParams } from '../utils'
+import type { ProductOption as ValidationProductOption } from '../validationSchemas'
 
 const routeApi = getRouteApi('/(app)/_layout/shop/item/$handle')
 
 type ProductOptionsProps = {
-  options: Array<ProductOptionWithVariants> | null
+  options: Array<ProductOption> | null
   handle: string
 }
 
@@ -39,7 +40,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
               queryOption => queryOption.name === option.title
             ) || {
               name: option.title,
-              value: option.variants[0]?.id ?? ''
+              value: option.values?.[0]?.id ?? ''
             }
           }
         />
@@ -49,37 +50,39 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
 }
 
 type OptionProps = {
-  option: ProductOptionWithVariants
+  option: ProductOption
   handle: string
-  selectedOption: ProductOption
+  selectedOption: ValidationProductOption
 }
 
 const Option: React.FC<OptionProps> = ({ option, handle, selectedOption }) => (
   <div className="flex flex-col gap-3">
     <h3 className="text-lg font-medium">{option.title}</h3>
-    <div className="flex flex-wrap gap-4">
-      {option.variants.map(variant => (
-        <Variant
-          key={variant.id}
-          variant={variant}
-          handle={handle}
-          optionName={option.title}
-          isSelected={selectedOption.value === variant.id}
-        />
-      ))}
-    </div>
+    {option.values && option.values.length > 0 && (
+      <div className="flex flex-wrap gap-4">
+        {option.values?.map(optionValue => (
+          <OptionValue
+            key={optionValue.id}
+            optionValue={optionValue}
+            handle={handle}
+            optionName={option.title}
+            isSelected={selectedOption.value === optionValue.id}
+          />
+        ))}
+      </div>
+    )}
   </div>
 )
 
-type VariantProps = {
-  variant: ProductVariantWithoutOptions
+type OptionValueProps = {
+  optionValue: ProductOptionValue
   handle: string
   optionName: string
   isSelected: boolean
 }
 
-const Variant: React.FC<VariantProps> = ({
-  variant,
+const OptionValue: React.FC<OptionValueProps> = ({
+  optionValue,
   handle,
   optionName,
   isSelected
@@ -87,20 +90,14 @@ const Variant: React.FC<VariantProps> = ({
   <Link
     to="/shop/item/$handle"
     params={{ handle }}
-    search={prevState => ({
-      ...prevState,
-      options: [
-        {
-          name: optionName,
-          value: variant.id
-        }
-      ]
-    })}
+    search={prevState =>
+      handleSelectOptionParams(prevState, optionName, optionValue.id)
+    }
     className={cx(
       'hover:ring-primary shrink-0 cursor-pointer rounded-sm px-3 py-1 ring-2 ring-offset-2 transition-colors',
       isSelected ? 'ring-primary bg-primary/50' : 'ring-border/50 bg-border/50'
     )}
   >
-    <h3 className="text-muted-foreground font-semibold">{variant.title}</h3>
+    <h3 className="text-muted-foreground font-semibold">{optionValue.value}</h3>
   </Link>
 )
