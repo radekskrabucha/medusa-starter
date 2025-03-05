@@ -5,6 +5,7 @@ import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indica
 import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
 
@@ -16,7 +17,12 @@ const signInSchema = z.object({
 export const SignInForm = () => {
   const signInMutation = useMutation({
     mutationFn: actions.auth.logInWithEmail,
-    mutationKey: ['actions.auth.logInWithEmail']
+    mutationKey: ['actions.auth.logInWithEmail'],
+    onError: error => {
+      toast.error('Sign in failed', {
+        description: error.message
+      })
+    }
   })
   const form = useForm({
     onSubmit: ({ value }) => {
