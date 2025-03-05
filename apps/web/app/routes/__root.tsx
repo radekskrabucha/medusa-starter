@@ -1,3 +1,4 @@
+import { Toaster } from '@medusa-starter/ui/sonner'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
@@ -19,6 +20,7 @@ const RootDocument: React.FC<React.PropsWithChildren> = ({ children }) => (
     </head>
     <body className="font-main text-foreground bg-background relative flex min-h-dvh w-full flex-col antialiased">
       {children}
+      <Toaster />
       <TanStackRouterDevtools position="bottom-right" />
       <Scripts />
     </body>
