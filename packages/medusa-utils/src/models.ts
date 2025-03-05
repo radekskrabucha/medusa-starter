@@ -12,7 +12,12 @@ import type {
 
 export type Product = Awaited<GetProductResponse>['product']
 export type ProductImage = NonNullable<Product['images']>[number]
+export type ProductOption = NonNullable<Product['options']>[number]
 export type ProductVariant = NonNullable<Product['variants']>[number]
+export type ProductVariantWithoutOptions = Omit<ProductVariant, 'options'>
+export type ProductOptionWithVariants = ProductOption & {
+  variants: Array<ProductVariantWithoutOptions>
+}
 export type Address = Awaited<GetAddressResponse>['address']
 export type Cart = Awaited<GetCartResponse>['cart']
 export type Customer = Awaited<GetCustomerResponse>['customer']
