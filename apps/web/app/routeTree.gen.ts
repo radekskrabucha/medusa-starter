@@ -17,10 +17,11 @@ import { Route as cartLayoutImport } from './routes/(cart)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
-import { Route as appLayoutSignUpImport } from './routes/(app)/_layout/sign-up'
-import { Route as appLayoutSignInImport } from './routes/(app)/_layout/sign-in'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
+import { Route as appLayoutNotauthenticatedImport } from './routes/(app)/_layout/_not_authenticated'
 import { Route as appLayoutProfileLayoutImport } from './routes/(app)/_layout/profile/_layout'
+import { Route as appLayoutNotauthenticatedSignUpImport } from './routes/(app)/_layout/_not_authenticated/sign-up'
+import { Route as appLayoutNotauthenticatedSignInImport } from './routes/(app)/_layout/_not_authenticated/sign-in'
 import { Route as appLayoutProfileLayoutIndexImport } from './routes/(app)/_layout/profile/_layout/index'
 import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
 
@@ -70,21 +71,14 @@ const cartLayoutCartRoute = cartLayoutCartImport.update({
   getParentRoute: () => cartLayoutRoute,
 } as any)
 
-const appLayoutSignUpRoute = appLayoutSignUpImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => appLayoutRoute,
-} as any)
-
-const appLayoutSignInRoute = appLayoutSignInImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => appLayoutRoute,
-} as any)
-
 const appLayoutAboutRoute = appLayoutAboutImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => appLayoutRoute,
+} as any)
+
+const appLayoutNotauthenticatedRoute = appLayoutNotauthenticatedImport.update({
+  id: '/_not_authenticated',
   getParentRoute: () => appLayoutRoute,
 } as any)
 
@@ -92,6 +86,20 @@ const appLayoutProfileLayoutRoute = appLayoutProfileLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => appLayoutProfileRoute,
 } as any)
+
+const appLayoutNotauthenticatedSignUpRoute =
+  appLayoutNotauthenticatedSignUpImport.update({
+    id: '/sign-up',
+    path: '/sign-up',
+    getParentRoute: () => appLayoutNotauthenticatedRoute,
+  } as any)
+
+const appLayoutNotauthenticatedSignInRoute =
+  appLayoutNotauthenticatedSignInImport.update({
+    id: '/sign-in',
+    path: '/sign-in',
+    getParentRoute: () => appLayoutNotauthenticatedRoute,
+  } as any)
 
 const appLayoutProfileLayoutIndexRoute =
   appLayoutProfileLayoutIndexImport.update({
@@ -138,25 +146,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof cartLayoutImport
       parentRoute: typeof cartRoute
     }
+    '/(app)/_layout/_not_authenticated': {
+      id: '/(app)/_layout/_not_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appLayoutNotauthenticatedImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(app)/_layout/about': {
       id: '/(app)/_layout/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof appLayoutAboutImport
-      parentRoute: typeof appLayoutImport
-    }
-    '/(app)/_layout/sign-in': {
-      id: '/(app)/_layout/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof appLayoutSignInImport
-      parentRoute: typeof appLayoutImport
-    }
-    '/(app)/_layout/sign-up': {
-      id: '/(app)/_layout/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof appLayoutSignUpImport
       parentRoute: typeof appLayoutImport
     }
     '/(cart)/_layout/cart': {
@@ -172,6 +173,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof appLayoutIndexImport
       parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/_not_authenticated/sign-in': {
+      id: '/(app)/_layout/_not_authenticated/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof appLayoutNotauthenticatedSignInImport
+      parentRoute: typeof appLayoutNotauthenticatedImport
+    }
+    '/(app)/_layout/_not_authenticated/sign-up': {
+      id: '/(app)/_layout/_not_authenticated/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof appLayoutNotauthenticatedSignUpImport
+      parentRoute: typeof appLayoutNotauthenticatedImport
     }
     '/(app)/_layout/profile': {
       id: '/(app)/_layout/profile'
@@ -206,6 +221,22 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface appLayoutNotauthenticatedRouteChildren {
+  appLayoutNotauthenticatedSignInRoute: typeof appLayoutNotauthenticatedSignInRoute
+  appLayoutNotauthenticatedSignUpRoute: typeof appLayoutNotauthenticatedSignUpRoute
+}
+
+const appLayoutNotauthenticatedRouteChildren: appLayoutNotauthenticatedRouteChildren =
+  {
+    appLayoutNotauthenticatedSignInRoute: appLayoutNotauthenticatedSignInRoute,
+    appLayoutNotauthenticatedSignUpRoute: appLayoutNotauthenticatedSignUpRoute,
+  }
+
+const appLayoutNotauthenticatedRouteWithChildren =
+  appLayoutNotauthenticatedRoute._addFileChildren(
+    appLayoutNotauthenticatedRouteChildren,
+  )
+
 interface appLayoutProfileLayoutRouteChildren {
   appLayoutProfileLayoutIndexRoute: typeof appLayoutProfileLayoutIndexRoute
 }
@@ -232,18 +263,16 @@ const appLayoutProfileRouteWithChildren =
   appLayoutProfileRoute._addFileChildren(appLayoutProfileRouteChildren)
 
 interface appLayoutRouteChildren {
+  appLayoutNotauthenticatedRoute: typeof appLayoutNotauthenticatedRouteWithChildren
   appLayoutAboutRoute: typeof appLayoutAboutRoute
-  appLayoutSignInRoute: typeof appLayoutSignInRoute
-  appLayoutSignUpRoute: typeof appLayoutSignUpRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
   appLayoutProfileRoute: typeof appLayoutProfileRouteWithChildren
   appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
 }
 
 const appLayoutRouteChildren: appLayoutRouteChildren = {
+  appLayoutNotauthenticatedRoute: appLayoutNotauthenticatedRouteWithChildren,
   appLayoutAboutRoute: appLayoutAboutRoute,
-  appLayoutSignInRoute: appLayoutSignInRoute,
-  appLayoutSignUpRoute: appLayoutSignUpRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
   appLayoutProfileRoute: appLayoutProfileRouteWithChildren,
   appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
@@ -287,10 +316,11 @@ const cartRouteWithChildren = cartRoute._addFileChildren(cartRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
+  '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
-  '/sign-in': typeof appLayoutSignInRoute
-  '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
+  '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
   '/profile': typeof appLayoutProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/': typeof appLayoutProfileLayoutIndexRoute
@@ -298,10 +328,11 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
+  '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
-  '/sign-in': typeof appLayoutSignInRoute
-  '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
+  '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
   '/profile': typeof appLayoutProfileLayoutIndexRoute
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
 }
@@ -312,11 +343,12 @@ export interface FileRoutesById {
   '/(app)/_layout': typeof appLayoutRouteWithChildren
   '/(cart)': typeof cartRouteWithChildren
   '/(cart)/_layout': typeof cartLayoutRouteWithChildren
+  '/(app)/_layout/_not_authenticated': typeof appLayoutNotauthenticatedRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
-  '/(app)/_layout/sign-in': typeof appLayoutSignInRoute
-  '/(app)/_layout/sign-up': typeof appLayoutSignUpRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
+  '/(app)/_layout/_not_authenticated/sign-in': typeof appLayoutNotauthenticatedSignInRoute
+  '/(app)/_layout/_not_authenticated/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
   '/(app)/_layout/profile': typeof appLayoutProfileRouteWithChildren
   '/(app)/_layout/profile/_layout': typeof appLayoutProfileLayoutRouteWithChildren
   '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
@@ -327,20 +359,22 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | ''
     | '/about'
+    | '/cart'
     | '/sign-in'
     | '/sign-up'
-    | '/cart'
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | ''
     | '/about'
+    | '/cart'
     | '/sign-in'
     | '/sign-up'
-    | '/cart'
     | '/profile'
     | '/shop/item/$handle'
   id:
@@ -349,11 +383,12 @@ export interface FileRouteTypes {
     | '/(app)/_layout'
     | '/(cart)'
     | '/(cart)/_layout'
+    | '/(app)/_layout/_not_authenticated'
     | '/(app)/_layout/about'
-    | '/(app)/_layout/sign-in'
-    | '/(app)/_layout/sign-up'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
+    | '/(app)/_layout/_not_authenticated/sign-in'
+    | '/(app)/_layout/_not_authenticated/sign-up'
     | '/(app)/_layout/profile'
     | '/(app)/_layout/profile/_layout'
     | '/(app)/_layout/shop/item/$handle'
@@ -395,9 +430,8 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout.tsx",
       "parent": "/(app)",
       "children": [
+        "/(app)/_layout/_not_authenticated",
         "/(app)/_layout/about",
-        "/(app)/_layout/sign-in",
-        "/(app)/_layout/sign-up",
         "/(app)/_layout/",
         "/(app)/_layout/profile",
         "/(app)/_layout/shop/item/$handle"
@@ -416,16 +450,16 @@ export const routeTree = rootRoute
         "/(cart)/_layout/cart"
       ]
     },
+    "/(app)/_layout/_not_authenticated": {
+      "filePath": "(app)/_layout/_not_authenticated.tsx",
+      "parent": "/(app)/_layout",
+      "children": [
+        "/(app)/_layout/_not_authenticated/sign-in",
+        "/(app)/_layout/_not_authenticated/sign-up"
+      ]
+    },
     "/(app)/_layout/about": {
       "filePath": "(app)/_layout/about.tsx",
-      "parent": "/(app)/_layout"
-    },
-    "/(app)/_layout/sign-in": {
-      "filePath": "(app)/_layout/sign-in.tsx",
-      "parent": "/(app)/_layout"
-    },
-    "/(app)/_layout/sign-up": {
-      "filePath": "(app)/_layout/sign-up.tsx",
       "parent": "/(app)/_layout"
     },
     "/(cart)/_layout/cart": {
@@ -435,6 +469,14 @@ export const routeTree = rootRoute
     "/(app)/_layout/": {
       "filePath": "(app)/_layout/index.tsx",
       "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/_not_authenticated/sign-in": {
+      "filePath": "(app)/_layout/_not_authenticated/sign-in.tsx",
+      "parent": "/(app)/_layout/_not_authenticated"
+    },
+    "/(app)/_layout/_not_authenticated/sign-up": {
+      "filePath": "(app)/_layout/_not_authenticated/sign-up.tsx",
+      "parent": "/(app)/_layout/_not_authenticated"
     },
     "/(app)/_layout/profile": {
       "filePath": "(app)/_layout/profile",
