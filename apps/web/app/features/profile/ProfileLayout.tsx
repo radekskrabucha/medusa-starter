@@ -50,7 +50,7 @@ const Sidebar = () => (
           <span>Change password</span>
         </Link>
         <Link
-          to="/profile/shipping-addresses"
+          to="/profile/shipping-addresses/list"
           className={buttonVariants({
             variant: 'ghost',
             className:

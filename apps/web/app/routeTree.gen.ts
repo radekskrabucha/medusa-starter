@@ -25,10 +25,12 @@ import { Route as appLayoutNotauthenticatedSignUpImport } from './routes/(app)/_
 import { Route as appLayoutNotauthenticatedSignInImport } from './routes/(app)/_layout/_not_authenticated/sign-in'
 import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
 import { Route as appLayoutAuthenticatedProfileLayoutImport } from './routes/(app)/_layout/_authenticated/profile/_layout'
-import { Route as appLayoutAuthenticatedProfileLayoutShippingAddressesImport } from './routes/(app)/_layout/_authenticated/profile/_layout/shipping-addresses'
 import { Route as appLayoutAuthenticatedProfileLayoutEditImport } from './routes/(app)/_layout/_authenticated/profile/_layout/edit'
 import { Route as appLayoutAuthenticatedProfileLayoutDetailsImport } from './routes/(app)/_layout/_authenticated/profile/_layout/details'
 import { Route as appLayoutAuthenticatedProfileLayoutChangePasswordImport } from './routes/(app)/_layout/_authenticated/profile/_layout/change-password'
+import { Route as appLayoutAuthenticatedProfileLayoutShippingAddressesListImport } from './routes/(app)/_layout/_authenticated/profile/_layout/shipping-addresses.list'
+import { Route as appLayoutAuthenticatedProfileLayoutShippingAddressesAddImport } from './routes/(app)/_layout/_authenticated/profile/_layout/shipping-addresses.add'
+import { Route as appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdImport } from './routes/(app)/_layout/_authenticated/profile/_layout/shipping-addresses.edit.$id'
 
 // Create Virtual Routes
 
@@ -128,13 +130,6 @@ const appLayoutAuthenticatedProfileLayoutRoute =
     getParentRoute: () => appLayoutAuthenticatedProfileRoute,
   } as any)
 
-const appLayoutAuthenticatedProfileLayoutShippingAddressesRoute =
-  appLayoutAuthenticatedProfileLayoutShippingAddressesImport.update({
-    id: '/shipping-addresses',
-    path: '/shipping-addresses',
-    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
-  } as any)
-
 const appLayoutAuthenticatedProfileLayoutEditRoute =
   appLayoutAuthenticatedProfileLayoutEditImport.update({
     id: '/edit',
@@ -153,6 +148,27 @@ const appLayoutAuthenticatedProfileLayoutChangePasswordRoute =
   appLayoutAuthenticatedProfileLayoutChangePasswordImport.update({
     id: '/change-password',
     path: '/change-password',
+    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
+  } as any)
+
+const appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute =
+  appLayoutAuthenticatedProfileLayoutShippingAddressesListImport.update({
+    id: '/shipping-addresses/list',
+    path: '/shipping-addresses/list',
+    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
+  } as any)
+
+const appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute =
+  appLayoutAuthenticatedProfileLayoutShippingAddressesAddImport.update({
+    id: '/shipping-addresses/add',
+    path: '/shipping-addresses/add',
+    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
+  } as any)
+
+const appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute =
+  appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdImport.update({
+    id: '/shipping-addresses/edit/$id',
+    path: '/shipping-addresses/edit/$id',
     getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
   } as any)
 
@@ -286,11 +302,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutEditImport
       parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
     }
-    '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses': {
-      id: '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses'
-      path: '/shipping-addresses'
-      fullPath: '/profile/shipping-addresses'
-      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesImport
+    '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add': {
+      id: '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add'
+      path: '/shipping-addresses/add'
+      fullPath: '/profile/shipping-addresses/add'
+      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesAddImport
+      parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
+    }
+    '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list': {
+      id: '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list'
+      path: '/shipping-addresses/list'
+      fullPath: '/profile/shipping-addresses/list'
+      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesListImport
+      parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
+    }
+    '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id': {
+      id: '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id'
+      path: '/shipping-addresses/edit/$id'
+      fullPath: '/profile/shipping-addresses/edit/$id'
+      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdImport
       parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
     }
   }
@@ -302,7 +332,9 @@ interface appLayoutAuthenticatedProfileLayoutRouteChildren {
   appLayoutAuthenticatedProfileLayoutChangePasswordRoute: typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
   appLayoutAuthenticatedProfileLayoutDetailsRoute: typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   appLayoutAuthenticatedProfileLayoutEditRoute: typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  appLayoutAuthenticatedProfileLayoutShippingAddressesRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesRoute
+  appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute
+  appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute
+  appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute: typeof appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute
 }
 
 const appLayoutAuthenticatedProfileLayoutRouteChildren: appLayoutAuthenticatedProfileLayoutRouteChildren =
@@ -313,8 +345,12 @@ const appLayoutAuthenticatedProfileLayoutRouteChildren: appLayoutAuthenticatedPr
       appLayoutAuthenticatedProfileLayoutDetailsRoute,
     appLayoutAuthenticatedProfileLayoutEditRoute:
       appLayoutAuthenticatedProfileLayoutEditRoute,
-    appLayoutAuthenticatedProfileLayoutShippingAddressesRoute:
-      appLayoutAuthenticatedProfileLayoutShippingAddressesRoute,
+    appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute:
+      appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute,
+    appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute:
+      appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute,
+    appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute:
+      appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute,
   }
 
 const appLayoutAuthenticatedProfileLayoutRouteWithChildren =
@@ -435,7 +471,9 @@ export interface FileRoutesByFullPath {
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
   '/profile/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/profile/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  '/profile/shipping-addresses': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesRoute
+  '/profile/shipping-addresses/add': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute
+  '/profile/shipping-addresses/list': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute
+  '/profile/shipping-addresses/edit/$id': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -451,7 +489,9 @@ export interface FileRoutesByTo {
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
   '/profile/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/profile/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  '/profile/shipping-addresses': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesRoute
+  '/profile/shipping-addresses/add': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute
+  '/profile/shipping-addresses/list': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute
+  '/profile/shipping-addresses/edit/$id': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute
 }
 
 export interface FileRoutesById {
@@ -474,7 +514,9 @@ export interface FileRoutesById {
   '/(app)/_layout/_authenticated/profile/_layout/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
   '/(app)/_layout/_authenticated/profile/_layout/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/(app)/_layout/_authenticated/profile/_layout/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesRoute
+  '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesAddRoute
+  '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesListRoute
+  '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id': typeof appLayoutAuthenticatedProfileLayoutShippingAddressesEditIdRoute
 }
 
 export interface FileRouteTypes {
@@ -492,7 +534,9 @@ export interface FileRouteTypes {
     | '/profile/change-password'
     | '/profile/details'
     | '/profile/edit'
-    | '/profile/shipping-addresses'
+    | '/profile/shipping-addresses/add'
+    | '/profile/shipping-addresses/list'
+    | '/profile/shipping-addresses/edit/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -507,7 +551,9 @@ export interface FileRouteTypes {
     | '/profile/change-password'
     | '/profile/details'
     | '/profile/edit'
-    | '/profile/shipping-addresses'
+    | '/profile/shipping-addresses/add'
+    | '/profile/shipping-addresses/list'
+    | '/profile/shipping-addresses/edit/$id'
   id:
     | '__root__'
     | '/(app)'
@@ -528,7 +574,9 @@ export interface FileRouteTypes {
     | '/(app)/_layout/_authenticated/profile/_layout/change-password'
     | '/(app)/_layout/_authenticated/profile/_layout/details'
     | '/(app)/_layout/_authenticated/profile/_layout/edit'
-    | '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses'
+    | '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add'
+    | '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list'
+    | '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -640,7 +688,9 @@ export const routeTree = rootRoute
         "/(app)/_layout/_authenticated/profile/_layout/change-password",
         "/(app)/_layout/_authenticated/profile/_layout/details",
         "/(app)/_layout/_authenticated/profile/_layout/edit",
-        "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses"
+        "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add",
+        "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list",
+        "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id"
       ]
     },
     "/(app)/_layout/shop/item/$handle": {
@@ -659,8 +709,16 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/_authenticated/profile/_layout/edit.tsx",
       "parent": "/(app)/_layout/_authenticated/profile/_layout"
     },
-    "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses": {
-      "filePath": "(app)/_layout/_authenticated/profile/_layout/shipping-addresses.tsx",
+    "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/add": {
+      "filePath": "(app)/_layout/_authenticated/profile/_layout/shipping-addresses.add.tsx",
+      "parent": "/(app)/_layout/_authenticated/profile/_layout"
+    },
+    "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/list": {
+      "filePath": "(app)/_layout/_authenticated/profile/_layout/shipping-addresses.list.tsx",
+      "parent": "/(app)/_layout/_authenticated/profile/_layout"
+    },
+    "/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id": {
+      "filePath": "(app)/_layout/_authenticated/profile/_layout/shipping-addresses.edit.$id.tsx",
       "parent": "/(app)/_layout/_authenticated/profile/_layout"
     }
   }
