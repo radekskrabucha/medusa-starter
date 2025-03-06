@@ -59,7 +59,7 @@ export function QueryBoundary<T = unknown, E extends Error = Error>({
 
 type ErrorFallbackProps<E extends Error = Error> = {
   error: E
-  retry: () => void
+  retry: VoidFunction
   errorUpdateCount: number
 }
 

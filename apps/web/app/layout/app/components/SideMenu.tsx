@@ -7,7 +7,7 @@ import { HeaderLogo } from './HeaderLogo'
 
 type SideMenuProps = {
   isOpen: boolean
-  onClose: () => void
+  onClose: VoidFunction
 }
 
 export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => (
