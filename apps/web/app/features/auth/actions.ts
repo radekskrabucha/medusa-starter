@@ -1,6 +1,7 @@
 import type { GetMeCustomerParams } from '@medusa-starter/medusa-utils/types'
 import { queryOptions } from '@tanstack/react-query'
 import { actions, AUTH_TOKEN_KEY } from '~web/lib/medusa'
+import { LOG_IN_EVENT_NAME } from './utils'
 
 export const getMeQueryOptions = (
   token: string | null,
@@ -11,12 +12,7 @@ export const getMeQueryOptions = (
     queryFn: () => actions.customer.getMe(params)
   })
 
-export const LOG_IN_EVENT_NAME = 'storage'
 export const logOut = () => {
   window.localStorage.removeItem(AUTH_TOKEN_KEY)
-  window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
-}
-
-export const onLogIn = () => {
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
 }

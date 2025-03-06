@@ -9,7 +9,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
-import { onLogIn } from '../actions'
+import { onLogIn } from '../utils'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email'),
