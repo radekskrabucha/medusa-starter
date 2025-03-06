@@ -7,7 +7,7 @@ export const HamburgerMenuButton = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="justify-self-start -ml-2">
+    <div className="-ml-2 justify-self-start">
       <Button
         onClick={() => setIsOpen(true)}
         variant="ghost"
