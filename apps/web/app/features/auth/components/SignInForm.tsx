@@ -9,7 +9,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
-import { onLogIn } from '../utils'
+import { onLogIn, signInPageRouteApi } from '../utils'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -18,6 +18,7 @@ const signInSchema = z.object({
 
 export const SignInForm = () => {
   const navigate = useNavigate()
+  const { redirect } = signInPageRouteApi.useSearch()
   const signInMutation = useMutation({
     mutationFn: actions.auth.logInWithEmail,
     mutationKey: ['actions.auth.logInWithEmail'],
@@ -29,7 +30,7 @@ export const SignInForm = () => {
     onSuccess: () => {
       onLogIn()
       navigate({
-        to: '/'
+        to: redirect ?? '/'
       })
     }
   })
