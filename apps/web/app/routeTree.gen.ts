@@ -19,14 +19,16 @@ import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
 import { Route as appLayoutSignUpImport } from './routes/(app)/_layout/sign-up'
 import { Route as appLayoutSignInImport } from './routes/(app)/_layout/sign-in'
-import { Route as appLayoutProfileImport } from './routes/(app)/_layout/profile'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
+import { Route as appLayoutProfileLayoutImport } from './routes/(app)/_layout/profile/_layout'
+import { Route as appLayoutProfileLayoutIndexImport } from './routes/(app)/_layout/profile/_layout/index'
 import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
 
 // Create Virtual Routes
 
 const cartImport = createFileRoute('/(cart)')()
 const appImport = createFileRoute('/(app)')()
+const appLayoutProfileImport = createFileRoute('/(app)/_layout/profile')()
 
 // Create/Update Routes
 
@@ -48,6 +50,12 @@ const cartLayoutRoute = cartLayoutImport.update({
 const appLayoutRoute = appLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => appRoute,
+} as any)
+
+const appLayoutProfileRoute = appLayoutProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 const appLayoutIndexRoute = appLayoutIndexImport.update({
@@ -74,17 +82,23 @@ const appLayoutSignInRoute = appLayoutSignInImport.update({
   getParentRoute: () => appLayoutRoute,
 } as any)
 
-const appLayoutProfileRoute = appLayoutProfileImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => appLayoutRoute,
-} as any)
-
 const appLayoutAboutRoute = appLayoutAboutImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => appLayoutRoute,
 } as any)
+
+const appLayoutProfileLayoutRoute = appLayoutProfileLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => appLayoutProfileRoute,
+} as any)
+
+const appLayoutProfileLayoutIndexRoute =
+  appLayoutProfileLayoutIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => appLayoutProfileLayoutRoute,
+  } as any)
 
 const appLayoutShopItemHandleRoute = appLayoutShopItemHandleImport.update({
   id: '/shop/item/$handle',
@@ -131,13 +145,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutAboutImport
       parentRoute: typeof appLayoutImport
     }
-    '/(app)/_layout/profile': {
-      id: '/(app)/_layout/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof appLayoutProfileImport
-      parentRoute: typeof appLayoutImport
-    }
     '/(app)/_layout/sign-in': {
       id: '/(app)/_layout/sign-in'
       path: '/sign-in'
@@ -166,6 +173,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutIndexImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/profile': {
+      id: '/(app)/_layout/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof appLayoutProfileImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/profile/_layout': {
+      id: '/(app)/_layout/profile/_layout'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof appLayoutProfileLayoutImport
+      parentRoute: typeof appLayoutProfileRoute
+    }
     '/(app)/_layout/shop/item/$handle': {
       id: '/(app)/_layout/shop/item/$handle'
       path: '/shop/item/$handle'
@@ -173,26 +194,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutShopItemHandleImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/profile/_layout/': {
+      id: '/(app)/_layout/profile/_layout/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof appLayoutProfileLayoutIndexImport
+      parentRoute: typeof appLayoutProfileLayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface appLayoutProfileLayoutRouteChildren {
+  appLayoutProfileLayoutIndexRoute: typeof appLayoutProfileLayoutIndexRoute
+}
+
+const appLayoutProfileLayoutRouteChildren: appLayoutProfileLayoutRouteChildren =
+  {
+    appLayoutProfileLayoutIndexRoute: appLayoutProfileLayoutIndexRoute,
+  }
+
+const appLayoutProfileLayoutRouteWithChildren =
+  appLayoutProfileLayoutRoute._addFileChildren(
+    appLayoutProfileLayoutRouteChildren,
+  )
+
+interface appLayoutProfileRouteChildren {
+  appLayoutProfileLayoutRoute: typeof appLayoutProfileLayoutRouteWithChildren
+}
+
+const appLayoutProfileRouteChildren: appLayoutProfileRouteChildren = {
+  appLayoutProfileLayoutRoute: appLayoutProfileLayoutRouteWithChildren,
+}
+
+const appLayoutProfileRouteWithChildren =
+  appLayoutProfileRoute._addFileChildren(appLayoutProfileRouteChildren)
+
 interface appLayoutRouteChildren {
   appLayoutAboutRoute: typeof appLayoutAboutRoute
-  appLayoutProfileRoute: typeof appLayoutProfileRoute
   appLayoutSignInRoute: typeof appLayoutSignInRoute
   appLayoutSignUpRoute: typeof appLayoutSignUpRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
+  appLayoutProfileRoute: typeof appLayoutProfileRouteWithChildren
   appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
 }
 
 const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAboutRoute: appLayoutAboutRoute,
-  appLayoutProfileRoute: appLayoutProfileRoute,
   appLayoutSignInRoute: appLayoutSignInRoute,
   appLayoutSignUpRoute: appLayoutSignUpRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
+  appLayoutProfileRoute: appLayoutProfileRouteWithChildren,
   appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
 }
 
@@ -235,20 +288,21 @@ const cartRouteWithChildren = cartRoute._addFileChildren(cartRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
-  '/profile': typeof appLayoutProfileRoute
   '/sign-in': typeof appLayoutSignInRoute
   '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/profile': typeof appLayoutProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
+  '/profile/': typeof appLayoutProfileLayoutIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
   '/about': typeof appLayoutAboutRoute
-  '/profile': typeof appLayoutProfileRoute
   '/sign-in': typeof appLayoutSignInRoute
   '/sign-up': typeof appLayoutSignUpRoute
   '/cart': typeof cartLayoutCartRoute
+  '/profile': typeof appLayoutProfileLayoutIndexRoute
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
 }
 
@@ -259,12 +313,14 @@ export interface FileRoutesById {
   '/(cart)': typeof cartRouteWithChildren
   '/(cart)/_layout': typeof cartLayoutRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
-  '/(app)/_layout/profile': typeof appLayoutProfileRoute
   '/(app)/_layout/sign-in': typeof appLayoutSignInRoute
   '/(app)/_layout/sign-up': typeof appLayoutSignUpRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
+  '/(app)/_layout/profile': typeof appLayoutProfileRouteWithChildren
+  '/(app)/_layout/profile/_layout': typeof appLayoutProfileLayoutRouteWithChildren
   '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
+  '/(app)/_layout/profile/_layout/': typeof appLayoutProfileLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -272,19 +328,20 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/profile'
     | '/sign-in'
     | '/sign-up'
     | '/cart'
+    | '/profile'
     | '/shop/item/$handle'
+    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/profile'
     | '/sign-in'
     | '/sign-up'
     | '/cart'
+    | '/profile'
     | '/shop/item/$handle'
   id:
     | '__root__'
@@ -293,12 +350,14 @@ export interface FileRouteTypes {
     | '/(cart)'
     | '/(cart)/_layout'
     | '/(app)/_layout/about'
-    | '/(app)/_layout/profile'
     | '/(app)/_layout/sign-in'
     | '/(app)/_layout/sign-up'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
+    | '/(app)/_layout/profile'
+    | '/(app)/_layout/profile/_layout'
     | '/(app)/_layout/shop/item/$handle'
+    | '/(app)/_layout/profile/_layout/'
   fileRoutesById: FileRoutesById
 }
 
@@ -337,10 +396,10 @@ export const routeTree = rootRoute
       "parent": "/(app)",
       "children": [
         "/(app)/_layout/about",
-        "/(app)/_layout/profile",
         "/(app)/_layout/sign-in",
         "/(app)/_layout/sign-up",
         "/(app)/_layout/",
+        "/(app)/_layout/profile",
         "/(app)/_layout/shop/item/$handle"
       ]
     },
@@ -361,10 +420,6 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/about.tsx",
       "parent": "/(app)/_layout"
     },
-    "/(app)/_layout/profile": {
-      "filePath": "(app)/_layout/profile.tsx",
-      "parent": "/(app)/_layout"
-    },
     "/(app)/_layout/sign-in": {
       "filePath": "(app)/_layout/sign-in.tsx",
       "parent": "/(app)/_layout"
@@ -381,9 +436,27 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/index.tsx",
       "parent": "/(app)/_layout"
     },
+    "/(app)/_layout/profile": {
+      "filePath": "(app)/_layout/profile",
+      "parent": "/(app)/_layout",
+      "children": [
+        "/(app)/_layout/profile/_layout"
+      ]
+    },
+    "/(app)/_layout/profile/_layout": {
+      "filePath": "(app)/_layout/profile/_layout.tsx",
+      "parent": "/(app)/_layout/profile",
+      "children": [
+        "/(app)/_layout/profile/_layout/"
+      ]
+    },
     "/(app)/_layout/shop/item/$handle": {
       "filePath": "(app)/_layout/shop/item/$handle.tsx",
       "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/profile/_layout/": {
+      "filePath": "(app)/_layout/profile/_layout/index.tsx",
+      "parent": "/(app)/_layout/profile/_layout"
     }
   }
 }
