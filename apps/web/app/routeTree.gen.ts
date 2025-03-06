@@ -24,8 +24,8 @@ import { Route as appLayoutNotauthenticatedSignUpImport } from './routes/(app)/_
 import { Route as appLayoutNotauthenticatedSignInImport } from './routes/(app)/_layout/_not_authenticated/sign-in'
 import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
 import { Route as appLayoutAuthenticatedProfileLayoutImport } from './routes/(app)/_layout/_authenticated/profile/_layout'
-import { Route as appLayoutAuthenticatedProfileLayoutIndexImport } from './routes/(app)/_layout/_authenticated/profile/_layout/index'
 import { Route as appLayoutAuthenticatedProfileLayoutEditImport } from './routes/(app)/_layout/_authenticated/profile/_layout/edit'
+import { Route as appLayoutAuthenticatedProfileLayoutDetailsImport } from './routes/(app)/_layout/_authenticated/profile/_layout/details'
 import { Route as appLayoutAuthenticatedProfileLayoutChangePasswordImport } from './routes/(app)/_layout/_authenticated/profile/_layout/change-password'
 
 // Create Virtual Routes
@@ -119,17 +119,17 @@ const appLayoutAuthenticatedProfileLayoutRoute =
     getParentRoute: () => appLayoutAuthenticatedProfileRoute,
   } as any)
 
-const appLayoutAuthenticatedProfileLayoutIndexRoute =
-  appLayoutAuthenticatedProfileLayoutIndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
-  } as any)
-
 const appLayoutAuthenticatedProfileLayoutEditRoute =
   appLayoutAuthenticatedProfileLayoutEditImport.update({
     id: '/edit',
     path: '/edit',
+    getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
+  } as any)
+
+const appLayoutAuthenticatedProfileLayoutDetailsRoute =
+  appLayoutAuthenticatedProfileLayoutDetailsImport.update({
+    id: '/details',
+    path: '/details',
     getParentRoute: () => appLayoutAuthenticatedProfileLayoutRoute,
   } as any)
 
@@ -249,18 +249,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutChangePasswordImport
       parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
     }
+    '/(app)/_layout/_authenticated/profile/_layout/details': {
+      id: '/(app)/_layout/_authenticated/profile/_layout/details'
+      path: '/details'
+      fullPath: '/profile/details'
+      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutDetailsImport
+      parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
+    }
     '/(app)/_layout/_authenticated/profile/_layout/edit': {
       id: '/(app)/_layout/_authenticated/profile/_layout/edit'
       path: '/edit'
       fullPath: '/profile/edit'
       preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutEditImport
-      parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
-    }
-    '/(app)/_layout/_authenticated/profile/_layout/': {
-      id: '/(app)/_layout/_authenticated/profile/_layout/'
-      path: '/'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof appLayoutAuthenticatedProfileLayoutIndexImport
       parentRoute: typeof appLayoutAuthenticatedProfileLayoutImport
     }
   }
@@ -270,18 +270,18 @@ declare module '@tanstack/react-router' {
 
 interface appLayoutAuthenticatedProfileLayoutRouteChildren {
   appLayoutAuthenticatedProfileLayoutChangePasswordRoute: typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
+  appLayoutAuthenticatedProfileLayoutDetailsRoute: typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   appLayoutAuthenticatedProfileLayoutEditRoute: typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  appLayoutAuthenticatedProfileLayoutIndexRoute: typeof appLayoutAuthenticatedProfileLayoutIndexRoute
 }
 
 const appLayoutAuthenticatedProfileLayoutRouteChildren: appLayoutAuthenticatedProfileLayoutRouteChildren =
   {
     appLayoutAuthenticatedProfileLayoutChangePasswordRoute:
       appLayoutAuthenticatedProfileLayoutChangePasswordRoute,
+    appLayoutAuthenticatedProfileLayoutDetailsRoute:
+      appLayoutAuthenticatedProfileLayoutDetailsRoute,
     appLayoutAuthenticatedProfileLayoutEditRoute:
       appLayoutAuthenticatedProfileLayoutEditRoute,
-    appLayoutAuthenticatedProfileLayoutIndexRoute:
-      appLayoutAuthenticatedProfileLayoutIndexRoute,
   }
 
 const appLayoutAuthenticatedProfileLayoutRouteWithChildren =
@@ -397,8 +397,8 @@ export interface FileRoutesByFullPath {
   '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
+  '/profile/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/profile/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  '/profile/': typeof appLayoutAuthenticatedProfileLayoutIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -408,9 +408,10 @@ export interface FileRoutesByTo {
   '/cart': typeof cartLayoutCartRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
-  '/profile': typeof appLayoutAuthenticatedProfileLayoutIndexRoute
+  '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
+  '/profile/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/profile/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
 }
 
@@ -431,8 +432,8 @@ export interface FileRoutesById {
   '/(app)/_layout/_authenticated/profile/_layout': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/(app)/_layout/_authenticated/profile/_layout/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
+  '/(app)/_layout/_authenticated/profile/_layout/details': typeof appLayoutAuthenticatedProfileLayoutDetailsRoute
   '/(app)/_layout/_authenticated/profile/_layout/edit': typeof appLayoutAuthenticatedProfileLayoutEditRoute
-  '/(app)/_layout/_authenticated/profile/_layout/': typeof appLayoutAuthenticatedProfileLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -447,8 +448,8 @@ export interface FileRouteTypes {
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
+    | '/profile/details'
     | '/profile/edit'
-    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -460,6 +461,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
+    | '/profile/details'
     | '/profile/edit'
   id:
     | '__root__'
@@ -478,8 +480,8 @@ export interface FileRouteTypes {
     | '/(app)/_layout/_authenticated/profile/_layout'
     | '/(app)/_layout/shop/item/$handle'
     | '/(app)/_layout/_authenticated/profile/_layout/change-password'
+    | '/(app)/_layout/_authenticated/profile/_layout/details'
     | '/(app)/_layout/_authenticated/profile/_layout/edit'
-    | '/(app)/_layout/_authenticated/profile/_layout/'
   fileRoutesById: FileRoutesById
 }
 
@@ -584,8 +586,8 @@ export const routeTree = rootRoute
       "parent": "/(app)/_layout/_authenticated/profile",
       "children": [
         "/(app)/_layout/_authenticated/profile/_layout/change-password",
-        "/(app)/_layout/_authenticated/profile/_layout/edit",
-        "/(app)/_layout/_authenticated/profile/_layout/"
+        "/(app)/_layout/_authenticated/profile/_layout/details",
+        "/(app)/_layout/_authenticated/profile/_layout/edit"
       ]
     },
     "/(app)/_layout/shop/item/$handle": {
@@ -596,12 +598,12 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/_authenticated/profile/_layout/change-password.tsx",
       "parent": "/(app)/_layout/_authenticated/profile/_layout"
     },
-    "/(app)/_layout/_authenticated/profile/_layout/edit": {
-      "filePath": "(app)/_layout/_authenticated/profile/_layout/edit.tsx",
+    "/(app)/_layout/_authenticated/profile/_layout/details": {
+      "filePath": "(app)/_layout/_authenticated/profile/_layout/details.tsx",
       "parent": "/(app)/_layout/_authenticated/profile/_layout"
     },
-    "/(app)/_layout/_authenticated/profile/_layout/": {
-      "filePath": "(app)/_layout/_authenticated/profile/_layout/index.tsx",
+    "/(app)/_layout/_authenticated/profile/_layout/edit": {
+      "filePath": "(app)/_layout/_authenticated/profile/_layout/edit.tsx",
       "parent": "/(app)/_layout/_authenticated/profile/_layout"
     }
   }

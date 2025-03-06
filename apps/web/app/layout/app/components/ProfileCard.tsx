@@ -19,7 +19,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ customer }) => (
   <HoverCard>
     <HoverCardTrigger asChild>
       <Link
-        to="/profile"
+        to="/profile/details"
         className={buttonVariants({
           variant: 'ghost',
           size: 'icon',
@@ -38,7 +38,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ customer }) => (
 
         <Separator />
         <Link
-          to="/profile"
+          to="/profile/details"
           className={buttonVariants({
             variant: 'ghost',
             className: 'text-foreground hover:bg-foreground/5 justify-start'

@@ -69,7 +69,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => (
             </li>
             <li>
               <Link
-                to="/profile"
+                to="/profile/details"
                 className="text-muted-foreground hover:text-foreground text-2xl transition-colors"
                 onClick={onClose}
               >
