@@ -12,7 +12,8 @@ export const getMeQueryOptions = (
     queryFn: () => actions.customer.getMe(params)
   })
 
-export const logOut = () => {
+export const logOut = (navigate: VoidFunction) => {
   window.localStorage.removeItem(AUTH_TOKEN_KEY)
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
+  navigate()
 }

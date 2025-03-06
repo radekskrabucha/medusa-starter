@@ -1,6 +1,6 @@
 import { getCustomerDisplayName } from '@medusa-starter/medusa-utils/customer'
 import type { Customer } from '@medusa-starter/medusa-utils/models'
-import { Button, buttonVariants } from '@medusa-starter/ui/button'
+import { buttonVariants } from '@medusa-starter/ui/button'
 import {
   HoverCard,
   HoverCardContent,
@@ -8,8 +8,8 @@ import {
 } from '@medusa-starter/ui/hover-card'
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
-import { LogIn, LogOut, User2 } from 'lucide-react'
-import { logOut } from '~web/features/auth/actions'
+import { LogIn, User2 } from 'lucide-react'
+import { LogOutButton } from '~web/features/auth/components/LogOutButton'
 
 type ProfileCardProps = {
   customer: Customer
@@ -49,14 +49,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ customer }) => (
         </Link>
 
         <Separator />
-        <Button
-          variant="outline"
-          className="mt-2"
-          onClick={logOut}
-        >
-          <LogOut className="size-4" />
-          <span>Log out</span>
-        </Button>
+        <LogOutButton className="mt-2" />
       </div>
     </HoverCardContent>
   </HoverCard>

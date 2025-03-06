@@ -1,9 +1,9 @@
-import { Button, buttonVariants } from '@medusa-starter/ui/button'
+import { buttonVariants } from '@medusa-starter/ui/button'
 import { Card, CardContent } from '@medusa-starter/ui/card'
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link, Outlet } from '@tanstack/react-router'
-import { LogOut, Settings } from 'lucide-react'
-import { logOut } from '../auth/actions'
+import { Settings } from 'lucide-react'
+import { LogOutButton } from '~web/features/auth/components/LogOutButton'
 
 export const ProfileLayout = () => (
   <div className="grid grid-cols-[400px_1fr] max-md:grid-cols-1">
@@ -29,14 +29,7 @@ const Sidebar = () => (
         </Link>
 
         <Separator />
-        <Button
-          variant="outline"
-          className="mt-2"
-          onClick={logOut}
-        >
-          <LogOut className="size-4" />
-          <span>Log out</span>
-        </Button>
+        <LogOutButton className="mt-2" />
       </CardContent>
     </Card>
   </aside>
