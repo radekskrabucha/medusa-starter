@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
-import { AUTH_TOKEN_KEY, LOG_IN_EVENT_NAME } from '~web/lib/medusa'
+import { LOG_IN_EVENT_NAME } from '~web/features/auth/actions'
+import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
 
 const subscribe = (callback: VoidFunction) => {
   window.addEventListener(LOG_IN_EVENT_NAME, callback)

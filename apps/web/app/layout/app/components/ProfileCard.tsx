@@ -9,7 +9,7 @@ import {
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { LogIn, LogOut, User2 } from 'lucide-react'
-import { logOut } from '~web/lib/medusa'
+import { logOut } from '~web/features/auth/actions'
 
 type ProfileCardProps = {
   customer: Customer
