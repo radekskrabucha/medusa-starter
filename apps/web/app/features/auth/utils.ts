@@ -7,3 +7,5 @@ export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY)
 export const onLogIn = () => {
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
 }
+
+export const isAuthenticated = () => Boolean(getAuthToken())
