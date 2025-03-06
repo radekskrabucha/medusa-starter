@@ -1,7 +1,8 @@
 import type { GetMeCustomerParams } from '@medusa-starter/medusa-utils/types'
+import { FetchError } from '@medusajs/js-sdk'
 import { queryOptions } from '@tanstack/react-query'
-import { actions, AUTH_TOKEN_KEY } from '~web/lib/medusa'
-import { LOG_IN_EVENT_NAME } from './utils'
+import { actions } from '~web/lib/medusa'
+import { dispatchAuthTokenEvent, removeAuthToken } from './utils'
 
 export const getMeQueryOptions = (
   token: string | null,
@@ -9,11 +10,24 @@ export const getMeQueryOptions = (
 ) =>
   queryOptions({
     queryKey: ['actions.customer.getMe', params, token],
-    queryFn: () => actions.customer.getMe(params)
+    queryFn: async () => {
+      try {
+        return await actions.customer.getMe(params)
+      } catch (error) {
+        if (error instanceof FetchError) {
+          if (error.status === 401) {
+            removeAuthToken()
+          }
+        }
+
+        throw error
+      }
+    }
   })
 
-export const logOut = (navigate: VoidFunction) => {
-  window.localStorage.removeItem(AUTH_TOKEN_KEY)
-  window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
-  navigate()
+export const logOut = (navigateCb: VoidFunction) => {
+  removeAuthToken()
+  dispatchAuthTokenEvent()
+
+  navigateCb()
 }

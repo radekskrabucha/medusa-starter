@@ -9,8 +9,14 @@ export const LOG_IN_EVENT_NAME = 'storage'
 
 export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY)
 
-export const onLogIn = () => {
+export const removeAuthToken = () =>
+  window.localStorage.removeItem(AUTH_TOKEN_KEY)
+
+export const dispatchAuthTokenEvent = () =>
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
+
+export const onLogIn = () => {
+  dispatchAuthTokenEvent()
 }
 
 export const isAuthenticated = () => Boolean(getAuthToken())
