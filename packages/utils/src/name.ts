@@ -12,5 +12,5 @@ export const getName = ({ firstName, lastName }: GetNameParams) => {
     return undefined
   }
 
-  return firstName ?? lastName
+  return firstName ? firstName : lastName
 }
