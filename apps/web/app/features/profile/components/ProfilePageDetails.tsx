@@ -18,7 +18,7 @@ export const ProfilePageDetails = () => {
       }) => (
         <div className="flex flex-col gap-6">
           <ProfileDetailsTile
-            icon={<User2 className="size-4" />}
+            icon={<User2 className="size-4 shrink-0" />}
             title="Name"
             value={getName({
               firstName: first_name,
@@ -35,7 +35,7 @@ export const ProfilePageDetails = () => {
           />
 
           <ProfileDetailsTile
-            icon={<Mail className="size-4" />}
+            icon={<Mail className="size-4 shrink-0" />}
             title="Email"
             value={email}
             placeholder={
@@ -49,7 +49,7 @@ export const ProfilePageDetails = () => {
           />
 
           <ProfileDetailsTile
-            icon={<Phone className="size-4" />}
+            icon={<Phone className="size-4 shrink-0" />}
             title="Phone number"
             value={phone}
             placeholder={
@@ -64,14 +64,14 @@ export const ProfilePageDetails = () => {
 
           {company_name ? (
             <ProfileDetailsTile
-              icon={<Building2 className="size-4" />}
+              icon={<Building2 className="size-4 shrink-0" />}
               title="Company name"
               value={company_name}
             />
           ) : null}
 
           <ProfileDetailsTile
-            icon={<Lock className="size-4" />}
+            icon={<Lock className="size-4 shrink-0" />}
             title={
               <>
                 Password{' '}
