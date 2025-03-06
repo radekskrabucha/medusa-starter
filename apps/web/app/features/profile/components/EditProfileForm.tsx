@@ -6,7 +6,7 @@ import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { phoneNumberRegex } from '@medusa-starter/utils/regex'
 import { useForm } from '@tanstack/react-form'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -38,7 +38,9 @@ const editProfileSchema = z.object({
 
 export const EditProfileForm = () => {
   const token = useSyncAuthToken()
-  const getMeQuery = useQuery(getMeQueryOptions(token))
+  const meQueryOptions = getMeQueryOptions(token)
+  const getMeQuery = useQuery(meQueryOptions)
+  const queryClient = useQueryClient()
 
   const navigate = useNavigate()
   const updateCustomerMutation = useMutation({
@@ -49,12 +51,13 @@ export const EditProfileForm = () => {
         description: error.message
       })
     },
-    onSuccess: () => {
+    onSuccess: data => {
       toast.success('Profile updated successfully')
       navigate({
         to: '/profile/details'
       })
-      getMeQuery.refetch()
+
+      queryClient.setQueryData(meQueryOptions.queryKey, data)
     }
   })
   const form = useForm({
