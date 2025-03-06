@@ -6,7 +6,7 @@ import { User2, Edit, Lock, Truck } from 'lucide-react'
 import { LogOutButton } from '~web/features/auth/components/LogOutButton'
 
 export const ProfileLayout = () => (
-  <div className="grid grid-cols-[400px_1fr] max-md:grid-cols-1">
+  <div className="layout-section !grid grid-cols-[400px_1fr] !p-0 max-md:grid-cols-1">
     <Sidebar />
     <Outlet />
   </div>
