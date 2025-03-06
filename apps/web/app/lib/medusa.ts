@@ -7,7 +7,9 @@ export const sdk = new Medusa({
   debug: envClient.VITE_IS_DEV,
   publishableKey: envClient.VITE_MEDUSA_PUBLISHABLE_KEY,
   auth: {
-    type: 'jwt'
+    type: 'jwt',
+    jwtTokenStorageMethod: 'local',
+    fetchCredentials: 'include'
   }
 })
 
