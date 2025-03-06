@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { actions } from '~web/lib/medusa'
+import { actions, onLogIn } from '~web/lib/medusa'
 
 const signUpSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -26,6 +26,7 @@ export const SignUpForm = () => {
       })
     },
     onSuccess: () => {
+      onLogIn()
       navigate({
         to: '/'
       })

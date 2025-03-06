@@ -1,16 +1,21 @@
-import { buttonVariants } from '@medusa-starter/ui/button'
-import { Link } from '@tanstack/react-router'
-import { User2 } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { QueryBoundary } from '~web/components/QueryBoundary'
+import { getMeQueryOptions } from '~web/features/auth/actions'
+import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { ProfileCard, ProfileCardNoUser } from './ProfileCard'
 
-export const ProfileButton = () => (
-  <Link
-    to="/profile"
-    className={buttonVariants({
-      variant: 'ghost',
-      size: 'icon',
-      className: 'hover:bg-foreground/5 !size-8'
-    })}
-  >
-    <User2 className="size-5" />
-  </Link>
-)
+export const ProfileButton = () => {
+  const token = useSyncAuthToken()
+  const getMeQuery = useQuery(getMeQueryOptions(token))
+
+  return (
+    <QueryBoundary
+      query={getMeQuery}
+      errorFallback={() => <ProfileCardNoUser />}
+      noDataFallback={<ProfileCardNoUser />}
+      loadingFallback={<ProfileCardNoUser disabled />}
+    >
+      {data => <ProfileCard customer={data.customer} />}
+    </QueryBoundary>
+  )
+}
