@@ -50,8 +50,7 @@ const Sidebar = () => (
           <span>Change password</span>
         </Link>
         <Link
-          to="/"
-          disabled
+          to="/profile/shipping-addresses"
           className={buttonVariants({
             variant: 'ghost',
             className:
