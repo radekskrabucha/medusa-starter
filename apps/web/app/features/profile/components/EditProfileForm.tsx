@@ -3,6 +3,7 @@ import { Input } from '@medusa-starter/ui/input'
 import { Label } from '@medusa-starter/ui/label'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
+import { nonNullable } from '@medusa-starter/utils/common'
 import { phoneNumberRegex } from '@medusa-starter/utils/regex'
 import { useForm } from '@tanstack/react-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -60,13 +61,14 @@ export const EditProfileForm = () => {
     onSubmit: ({
       value: { firstName, lastName, phoneNumber, companyName }
     }) => {
-      console.log({ firstName, lastName, phoneNumber, companyName })
       updateCustomerMutation.mutate({
         body: {
-          first_name: firstName ? firstName.trim() : undefined,
-          last_name: lastName ? lastName.trim() : undefined,
-          phone: phoneNumber ? phoneNumber.trim() : undefined,
-          company_name: companyName ? companyName.trim() : undefined
+          first_name: nonNullable(firstName) ? firstName.trim() : undefined,
+          last_name: nonNullable(lastName) ? lastName.trim() : undefined,
+          phone: nonNullable(phoneNumber) ? phoneNumber.trim() : undefined,
+          company_name: nonNullable(companyName)
+            ? companyName.trim()
+            : undefined
         },
         fields: {}
       })
@@ -84,7 +86,7 @@ export const EditProfileForm = () => {
 
   return (
     <form
-      className="flex w-full max-w-sm flex-col gap-4"
+      className="flex w-full max-w-md flex-col gap-4 max-sm:max-w-none"
       onSubmit={e => {
         e.preventDefault()
         e.stopPropagation()
