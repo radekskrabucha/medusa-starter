@@ -245,10 +245,10 @@ export type UpdateCustomerResponse = ReturnType<UpdateCustomer>
 
 type GetCustomer = MedusaClient['store']['customer']['retrieve']
 type GetCustomerFields = Parameters<GetCustomer>[0]
-export type GetCustomerParams = {
-  fields: GetCustomerFields
+export type GetMeCustomerParams = {
+  fields?: GetCustomerFields
 }
-export type GetCustomerResponse = ReturnType<GetCustomer>
+export type GetMeCustomerResponse = ReturnType<GetCustomer>
 
 type AddNewAddress = MedusaClient['store']['customer']['createAddress']
 type AddNewAddressBody = Parameters<AddNewAddress>[0]

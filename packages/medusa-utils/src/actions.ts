@@ -55,8 +55,8 @@ import type {
   CreateCustomerParams,
   CreateCustomerResponse,
   UpdateCustomerResponse,
-  GetCustomerResponse,
-  GetCustomerParams,
+  GetMeCustomerResponse,
+  GetMeCustomerParams,
   UpdateCustomerParams,
   AddNewAddressParams,
   AddNewAddressResponse,
@@ -172,8 +172,8 @@ export const getMedusaClientStoreActions = (
         client.store.customer.create(params.body, params.fields),
       update: (params: UpdateCustomerParams) =>
         client.store.customer.update(params.body, params.fields),
-      get: (params: GetCustomerParams) =>
-        client.store.customer.retrieve(params.fields),
+      getMe: (params?: GetMeCustomerParams) =>
+        client.store.customer.retrieve(params?.fields),
       address: {
         add: (params: AddNewAddressParams) =>
           client.store.customer.createAddress(params.body, params.fields),
@@ -263,7 +263,7 @@ export type ClientActions = {
   customer: {
     create: (params: CreateCustomerParams) => CreateCustomerResponse
     update: (params: UpdateCustomerParams) => UpdateCustomerResponse
-    get: (params: GetCustomerParams) => GetCustomerResponse
+    getMe: (params?: GetMeCustomerParams) => GetMeCustomerResponse
     address: {
       add: (params: AddNewAddressParams) => AddNewAddressResponse
       update: (params: UpdateAddressParams) => UpdateAddressResponse

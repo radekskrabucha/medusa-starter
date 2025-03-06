@@ -2,7 +2,7 @@ import type {
   GetProductResponse,
   GetAddressResponse,
   GetCartResponse,
-  GetCustomerResponse,
+  GetMeCustomerResponse,
   GetRegionResponse,
   GetOrderResponse,
   GetCollectionResponse,
@@ -21,7 +21,7 @@ export type ProductOptionWithVariants = ProductOption & {
 }
 export type Address = Awaited<GetAddressResponse>['address']
 export type Cart = Awaited<GetCartResponse>['cart']
-export type Customer = Awaited<GetCustomerResponse>['customer']
+export type Customer = Awaited<GetMeCustomerResponse>['customer']
 export type Region = Awaited<GetRegionResponse>['region']
 export type Order = Awaited<GetOrderResponse>['order']
 export type Collection = Awaited<GetCollectionResponse>['collection']
