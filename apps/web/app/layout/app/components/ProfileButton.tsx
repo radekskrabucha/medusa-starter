@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { getMeQueryOptions } from '~web/features/auth/actions'
+import { getMeQueryOptions } from '~web/features/profile/actions'
 import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
 import { ProfileCard, ProfileCardNoUser } from './ProfileCard'
 
