@@ -13,7 +13,6 @@ export const ChangePassword = () => {
 
   const navigate = useNavigate()
   const resetPasswordMutation = useResetPassword({
-    email,
     onError: error => {
       toast.error('Failed to send password reset email', {
         description: error.message
@@ -37,7 +36,11 @@ export const ChangePassword = () => {
         link to reset your password.
       </p>
       <Button
-        onClick={() => resetPasswordMutation.mutate()}
+        onClick={
+          email
+            ? () => resetPasswordMutation.mutate({ identifier: email })
+            : undefined
+        }
         className="capitalize md:self-start"
         disabled={resetPasswordMutation.isPending || getMeQuery.isPending}
       >
