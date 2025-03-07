@@ -20,7 +20,7 @@ export const PasswordInputForm: React.FC<PasswordInputProps> = ({
   value,
   onBlur,
   onChange,
-  placeholder,
+  placeholder = '••••••••',
   disabled,
   errorMessage
 }) => (
