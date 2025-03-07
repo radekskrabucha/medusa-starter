@@ -14,7 +14,7 @@ export const Collections = () => {
         to="/collections"
         className="font-semibold"
       >
-        Categories
+        Collections
       </Link>
       <div className="flex flex-col gap-2">
         {collections.map(collection => (
