@@ -1,8 +1,6 @@
 import { Button } from '@medusa-starter/ui/button'
-import { PasswordInput } from '@medusa-starter/ui/input'
-import { Label } from '@medusa-starter/ui/label'
+import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
-import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -69,43 +67,29 @@ export const SetNewPasswordForm = () => {
     >
       <form.Field name="newPassword">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>New password</Label>
-            <PasswordInput
-              id={field.name}
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              disabled={setNewPasswordMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <PasswordInputForm
+            fieldName={field.name}
+            label="New password"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            disabled={setNewPasswordMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="confirmPassword">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Confirm password</Label>
-            <PasswordInput
-              id={field.name}
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              disabled={setNewPasswordMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <PasswordInputForm
+            fieldName={field.name}
+            label="Confirm password"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            disabled={setNewPasswordMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
