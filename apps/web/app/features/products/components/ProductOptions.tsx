@@ -87,6 +87,7 @@ const OptionValue: React.FC<OptionValueProps> = ({
 }) => (
   <Link
     to="/shop/item/$handle"
+    replace
     params={{ handle }}
     search={prevState =>
       handleSelectOptionParams(prevState, optionName, optionValue.id)

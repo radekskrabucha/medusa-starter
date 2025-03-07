@@ -1,5 +1,5 @@
 import type { ProductImage } from '@medusa-starter/medusa-utils/models'
-import { Button } from '@medusa-starter/ui/button'
+import { buttonVariants } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -47,14 +47,12 @@ export const ProductImageGallery = ({
                 image: getPrevImageId()
               })}
               params={{ handle }}
+              replace
+              className={buttonVariants({
+                variant: 'outline'
+              })}
             >
-              <Button
-                size="icon"
-                variant="secondary"
-                className="bg-background/80 hover:bg-background"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
+              <ChevronLeft className="h-6 w-6" />
             </Link>
             <Link
               to="/shop/item/$handle"
@@ -63,14 +61,12 @@ export const ProductImageGallery = ({
                 image: getNextImageId()
               })}
               params={{ handle }}
+              replace
+              className={buttonVariants({
+                variant: 'outline'
+              })}
             >
-              <Button
-                size="icon"
-                variant="secondary"
-                className="bg-background/80 hover:bg-background"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </Button>
+              <ChevronRight className="h-6 w-6" />
             </Link>
           </div>
         )}
@@ -81,6 +77,7 @@ export const ProductImageGallery = ({
             <Link
               key={image.id}
               to="/shop/item/$handle"
+              replace
               search={prevState => ({
                 ...prevState,
                 image: image.id
