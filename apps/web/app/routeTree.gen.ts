@@ -17,6 +17,7 @@ import { Route as cartLayoutImport } from './routes/(cart)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
+import { Route as appLayoutForgotPasswordImport } from './routes/(app)/_layout/forgot-password'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 import { Route as appLayoutNotauthenticatedImport } from './routes/(app)/_layout/_not_authenticated'
 import { Route as appLayoutAuthenticatedImport } from './routes/(app)/_layout/_authenticated'
@@ -73,6 +74,12 @@ const cartLayoutCartRoute = cartLayoutCartImport.update({
   id: '/cart',
   path: '/cart',
   getParentRoute: () => cartLayoutRoute,
+} as any)
+
+const appLayoutForgotPasswordRoute = appLayoutForgotPasswordImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 const appLayoutAboutRoute = appLayoutAboutImport.update({
@@ -231,6 +238,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof appLayoutAboutImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/forgot-password': {
+      id: '/(app)/_layout/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof appLayoutForgotPasswordImport
       parentRoute: typeof appLayoutImport
     }
     '/(cart)/_layout/cart': {
@@ -426,6 +440,7 @@ interface appLayoutRouteChildren {
   appLayoutAuthenticatedRoute: typeof appLayoutAuthenticatedRouteWithChildren
   appLayoutNotauthenticatedRoute: typeof appLayoutNotauthenticatedRouteWithChildren
   appLayoutAboutRoute: typeof appLayoutAboutRoute
+  appLayoutForgotPasswordRoute: typeof appLayoutForgotPasswordRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
   appLayoutResetPasswordTokenRoute: typeof appLayoutResetPasswordTokenRoute
   appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
@@ -435,6 +450,7 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAuthenticatedRoute: appLayoutAuthenticatedRouteWithChildren,
   appLayoutNotauthenticatedRoute: appLayoutNotauthenticatedRouteWithChildren,
   appLayoutAboutRoute: appLayoutAboutRoute,
+  appLayoutForgotPasswordRoute: appLayoutForgotPasswordRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
   appLayoutResetPasswordTokenRoute: appLayoutResetPasswordTokenRoute,
   appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
@@ -480,6 +496,7 @@ export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
   '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
+  '/forgot-password': typeof appLayoutForgotPasswordRoute
   '/cart': typeof cartLayoutCartRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
@@ -499,6 +516,7 @@ export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
   '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
+  '/forgot-password': typeof appLayoutForgotPasswordRoute
   '/cart': typeof cartLayoutCartRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
@@ -523,6 +541,7 @@ export interface FileRoutesById {
   '/(app)/_layout/_authenticated': typeof appLayoutAuthenticatedRouteWithChildren
   '/(app)/_layout/_not_authenticated': typeof appLayoutNotauthenticatedRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
+  '/(app)/_layout/forgot-password': typeof appLayoutForgotPasswordRoute
   '/(cart)/_layout/cart': typeof cartLayoutCartRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
   '/(app)/_layout/_not_authenticated/sign-in': typeof appLayoutNotauthenticatedSignInRoute
@@ -546,6 +565,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/about'
+    | '/forgot-password'
     | '/cart'
     | '/sign-in'
     | '/sign-up'
@@ -564,6 +584,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/about'
+    | '/forgot-password'
     | '/cart'
     | '/sign-in'
     | '/sign-up'
@@ -586,6 +607,7 @@ export interface FileRouteTypes {
     | '/(app)/_layout/_authenticated'
     | '/(app)/_layout/_not_authenticated'
     | '/(app)/_layout/about'
+    | '/(app)/_layout/forgot-password'
     | '/(cart)/_layout/cart'
     | '/(app)/_layout/'
     | '/(app)/_layout/_not_authenticated/sign-in'
@@ -641,6 +663,7 @@ export const routeTree = rootRoute
         "/(app)/_layout/_authenticated",
         "/(app)/_layout/_not_authenticated",
         "/(app)/_layout/about",
+        "/(app)/_layout/forgot-password",
         "/(app)/_layout/",
         "/(app)/_layout/reset-password/$token",
         "/(app)/_layout/shop/item/$handle"
@@ -676,6 +699,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/about": {
       "filePath": "(app)/_layout/about.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/forgot-password": {
+      "filePath": "(app)/_layout/forgot-password.tsx",
       "parent": "/(app)/_layout"
     },
     "/(cart)/_layout/cart": {
