@@ -4,7 +4,6 @@ import {
   CardFooter,
   CardHeader
 } from '@medusa-starter/ui/card'
-import { useQuery } from '@tanstack/react-query'
 import {
   Building2,
   Check,
@@ -15,7 +14,7 @@ import {
   User
 } from 'lucide-react'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { getAddressQueryOptions } from '../actions'
+import { useAddressQuery } from '../hooks/useAddressQuery'
 import { AddressDetailItem } from './AddressDetailItem'
 import { DeleteAddressButton } from './DeleteAddressButton'
 
@@ -24,15 +23,7 @@ type AddressDetailsProps = {
 }
 
 export const AddressDetails: React.FC<AddressDetailsProps> = ({ id }) => {
-  const getAddressQuery = useQuery(
-    getAddressQueryOptions({
-      id,
-      fields: {
-        fields:
-          'address_1,address_2,city,company,country_code,first_name,last_name,phone,postal_code,province,address_name,is_default_billing,is_default_shipping'
-      }
-    })
-  )
+  const getAddressQuery = useAddressQuery(id)
 
   return (
     <QueryBoundary query={getAddressQuery}>
