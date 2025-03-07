@@ -33,7 +33,7 @@ export const Addresses = () => {
       }
     >
       {data => (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           {data.customer.addresses.map(address => (
             <AddressSummaryTile
               key={address.id}
