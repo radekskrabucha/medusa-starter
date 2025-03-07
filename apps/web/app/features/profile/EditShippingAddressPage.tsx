@@ -1,4 +1,5 @@
 import { DeleteAddressButton } from './components/DeleteAddressButton'
+import { EditShippingAddressForm } from './components/EditShippingAddressForm'
 import { editAddressPageRouteApi } from './utils'
 
 export const EditShippingAddressPage = () => {
@@ -10,6 +11,7 @@ export const EditShippingAddressPage = () => {
         <h2 className="text-2xl font-semibold">Edit Shipping Address</h2>
         <DeleteAddressButton id={id} />
       </div>
+      <EditShippingAddressForm id={id} />
     </section>
   )
 }
