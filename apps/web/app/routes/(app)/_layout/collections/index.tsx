@@ -7,7 +7,10 @@ import { seo } from '~web/utils/seo'
 export const Route = createFileRoute('/(app)/_layout/collections/')({
   component: CollectionsPage,
   loader: async () => {
-    return await actions.store.getCollections({ limit: COLLECTIONS_PER_PAGE })
+    return await actions.store.getCollections({
+      limit: COLLECTIONS_PER_PAGE,
+      fields: 'id,title,handle,*products'
+    })
   },
   head: () => ({
     meta: [...seo({ title: 'Collections' })]

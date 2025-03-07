@@ -6,7 +6,10 @@ import { seo } from '~web/utils/seo'
 export const Route = createFileRoute('/(app)/_layout/collections/$handle')({
   component: CollectionPage,
   loader: async ({ params: { handle } }) => {
-    const { collections } = await actions.store.getCollections({ handle })
+    const { collections } = await actions.store.getCollections({
+      handle,
+      fields: 'id,title,handle,*products'
+    })
 
     const collection = collections[0]
 
