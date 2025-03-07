@@ -6,19 +6,21 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { actions } from '~web/lib/medusa'
+import { handleSignUp } from '../actions'
 import { onLogIn } from '../utils'
 
 const signUpSchema = z.object({
   email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters')
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  firstName: z.string(),
+  lastName: z.string()
 })
 
 export const SignUpForm = () => {
   const navigate = useNavigate()
   const signUpMutation = useMutation({
-    mutationFn: actions.auth.signUpWithEmail,
-    mutationKey: ['actions.auth.signUpWithEmail'],
+    mutationFn: handleSignUp,
+    mutationKey: ['handleSignUp'],
     onError: error => {
       toast.error('Sign up failed', {
         description: error.message
@@ -32,12 +34,27 @@ export const SignUpForm = () => {
     }
   })
   const form = useForm({
-    onSubmit: ({ value }) => {
-      signUpMutation.mutate(value)
+    onSubmit: ({ value: { password, email, firstName, lastName } }) => {
+      signUpMutation.mutate({
+        createCustomerParams: {
+          body: {
+            email,
+            first_name: firstName ? firstName : undefined,
+            last_name: lastName ? lastName : undefined
+          },
+          fields: {}
+        },
+        signUpParams: {
+          email,
+          password
+        }
+      })
     },
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
+      firstName: '',
+      lastName: ''
     },
     validators: {
       onSubmit: signUpSchema
@@ -55,6 +72,37 @@ export const SignUpForm = () => {
       }}
       noValidate
     >
+      <div className="flex gap-4">
+        <form.Field name="firstName">
+          {field => (
+            <InputForm
+              fieldName={field.name}
+              label="First name"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="John"
+              disabled={signUpMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
+          )}
+        </form.Field>
+
+        <form.Field name="lastName">
+          {field => (
+            <InputForm
+              fieldName={field.name}
+              label="Last name"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="Doe"
+              disabled={signUpMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
+          )}
+        </form.Field>
+      </div>
       <form.Field name="email">
         {field => (
           <InputForm
