@@ -1,9 +1,9 @@
 import { Button } from '@medusa-starter/ui/button'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { useResetPassword } from '~web/features/auth/hooks/useResetPassword'
 import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
-import { actions } from '~web/lib/medusa'
 import { getMeQueryOptions } from '../actions'
 
 export const ChangePassword = () => {
@@ -12,11 +12,8 @@ export const ChangePassword = () => {
   const email = getMeQuery.data?.customer.email
 
   const navigate = useNavigate()
-  const changePasswordMutation = useMutation({
-    mutationFn: email
-      ? () => actions.auth.resetPassword({ identifier: email })
-      : undefined,
-    mutationKey: ['actions.auth.setNewPassword'],
+  const resetPasswordMutation = useResetPassword({
+    email,
     onError: error => {
       toast.error('Failed to send password reset email', {
         description: error.message
@@ -40,9 +37,9 @@ export const ChangePassword = () => {
         link to reset your password.
       </p>
       <Button
-        onClick={() => changePasswordMutation.mutate()}
+        onClick={() => resetPasswordMutation.mutate()}
         className="capitalize md:self-start"
-        disabled={changePasswordMutation.isPending || getMeQuery.isPending}
+        disabled={resetPasswordMutation.isPending || getMeQuery.isPending}
       >
         Send password reset email
       </Button>
