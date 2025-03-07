@@ -1,11 +1,10 @@
 import { Button } from '@medusa-starter/ui/button'
+import type { NoEmpty } from '@medusa-starter/utils/types'
 import type { UseQueryResult } from '@tanstack/react-query'
 import {
   DefaultErrorFallback as ErrorFallback,
   NavigateToHomeButton
 } from './DefaultErrorFallback'
-
-type NoEmpty<T> = T extends null | false | undefined ? never : T
 
 type QueryBoundaryProps<T = unknown, E extends Error = Error> = {
   query: UseQueryResult<T, E>
