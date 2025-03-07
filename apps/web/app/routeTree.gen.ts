@@ -21,7 +21,9 @@ import { Route as appLayoutForgotPasswordImport } from './routes/(app)/_layout/f
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 import { Route as appLayoutNotauthenticatedImport } from './routes/(app)/_layout/_not_authenticated'
 import { Route as appLayoutAuthenticatedImport } from './routes/(app)/_layout/_authenticated'
+import { Route as appLayoutCollectionsIndexImport } from './routes/(app)/_layout/collections/index'
 import { Route as appLayoutResetPasswordTokenImport } from './routes/(app)/_layout/reset-password.$token'
+import { Route as appLayoutCollectionsHandleImport } from './routes/(app)/_layout/collections/$handle'
 import { Route as appLayoutNotauthenticatedSignUpImport } from './routes/(app)/_layout/_not_authenticated/sign-up'
 import { Route as appLayoutNotauthenticatedSignInImport } from './routes/(app)/_layout/_not_authenticated/sign-in'
 import { Route as appLayoutShopItemHandleImport } from './routes/(app)/_layout/shop/item/$handle'
@@ -105,12 +107,26 @@ const appLayoutAuthenticatedProfileRoute =
     getParentRoute: () => appLayoutAuthenticatedRoute,
   } as any)
 
+const appLayoutCollectionsIndexRoute = appLayoutCollectionsIndexImport.update({
+  id: '/collections/',
+  path: '/collections/',
+  getParentRoute: () => appLayoutRoute,
+} as any)
+
 const appLayoutResetPasswordTokenRoute =
   appLayoutResetPasswordTokenImport.update({
     id: '/reset-password/$token',
     path: '/reset-password/$token',
     getParentRoute: () => appLayoutRoute,
   } as any)
+
+const appLayoutCollectionsHandleRoute = appLayoutCollectionsHandleImport.update(
+  {
+    id: '/collections/$handle',
+    path: '/collections/$handle',
+    getParentRoute: () => appLayoutRoute,
+  } as any,
+)
 
 const appLayoutNotauthenticatedSignUpRoute =
   appLayoutNotauthenticatedSignUpImport.update({
@@ -275,11 +291,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutNotauthenticatedSignUpImport
       parentRoute: typeof appLayoutNotauthenticatedImport
     }
+    '/(app)/_layout/collections/$handle': {
+      id: '/(app)/_layout/collections/$handle'
+      path: '/collections/$handle'
+      fullPath: '/collections/$handle'
+      preLoaderRoute: typeof appLayoutCollectionsHandleImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(app)/_layout/reset-password/$token': {
       id: '/(app)/_layout/reset-password/$token'
       path: '/reset-password/$token'
       fullPath: '/reset-password/$token'
       preLoaderRoute: typeof appLayoutResetPasswordTokenImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/collections/': {
+      id: '/(app)/_layout/collections/'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof appLayoutCollectionsIndexImport
       parentRoute: typeof appLayoutImport
     }
     '/(app)/_layout/_authenticated/profile': {
@@ -442,7 +472,9 @@ interface appLayoutRouteChildren {
   appLayoutAboutRoute: typeof appLayoutAboutRoute
   appLayoutForgotPasswordRoute: typeof appLayoutForgotPasswordRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
+  appLayoutCollectionsHandleRoute: typeof appLayoutCollectionsHandleRoute
   appLayoutResetPasswordTokenRoute: typeof appLayoutResetPasswordTokenRoute
+  appLayoutCollectionsIndexRoute: typeof appLayoutCollectionsIndexRoute
   appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
 }
 
@@ -452,7 +484,9 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAboutRoute: appLayoutAboutRoute,
   appLayoutForgotPasswordRoute: appLayoutForgotPasswordRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
+  appLayoutCollectionsHandleRoute: appLayoutCollectionsHandleRoute,
   appLayoutResetPasswordTokenRoute: appLayoutResetPasswordTokenRoute,
+  appLayoutCollectionsIndexRoute: appLayoutCollectionsIndexRoute,
   appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
 }
 
@@ -500,7 +534,9 @@ export interface FileRoutesByFullPath {
   '/cart': typeof cartLayoutCartRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
+  '/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
+  '/collections': typeof appLayoutCollectionsIndexRoute
   '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
@@ -520,7 +556,9 @@ export interface FileRoutesByTo {
   '/cart': typeof cartLayoutCartRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
+  '/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
+  '/collections': typeof appLayoutCollectionsIndexRoute
   '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
@@ -546,7 +584,9 @@ export interface FileRoutesById {
   '/(app)/_layout/': typeof appLayoutIndexRoute
   '/(app)/_layout/_not_authenticated/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/(app)/_layout/_not_authenticated/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
+  '/(app)/_layout/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/(app)/_layout/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
+  '/(app)/_layout/collections/': typeof appLayoutCollectionsIndexRoute
   '/(app)/_layout/_authenticated/profile': typeof appLayoutAuthenticatedProfileRouteWithChildren
   '/(app)/_layout/_authenticated/profile/_layout': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
@@ -569,7 +609,9 @@ export interface FileRouteTypes {
     | '/cart'
     | '/sign-in'
     | '/sign-up'
+    | '/collections/$handle'
     | '/reset-password/$token'
+    | '/collections'
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
@@ -588,7 +630,9 @@ export interface FileRouteTypes {
     | '/cart'
     | '/sign-in'
     | '/sign-up'
+    | '/collections/$handle'
     | '/reset-password/$token'
+    | '/collections'
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
@@ -612,7 +656,9 @@ export interface FileRouteTypes {
     | '/(app)/_layout/'
     | '/(app)/_layout/_not_authenticated/sign-in'
     | '/(app)/_layout/_not_authenticated/sign-up'
+    | '/(app)/_layout/collections/$handle'
     | '/(app)/_layout/reset-password/$token'
+    | '/(app)/_layout/collections/'
     | '/(app)/_layout/_authenticated/profile'
     | '/(app)/_layout/_authenticated/profile/_layout'
     | '/(app)/_layout/shop/item/$handle'
@@ -665,7 +711,9 @@ export const routeTree = rootRoute
         "/(app)/_layout/about",
         "/(app)/_layout/forgot-password",
         "/(app)/_layout/",
+        "/(app)/_layout/collections/$handle",
         "/(app)/_layout/reset-password/$token",
+        "/(app)/_layout/collections/",
         "/(app)/_layout/shop/item/$handle"
       ]
     },
@@ -721,8 +769,16 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/_not_authenticated/sign-up.tsx",
       "parent": "/(app)/_layout/_not_authenticated"
     },
+    "/(app)/_layout/collections/$handle": {
+      "filePath": "(app)/_layout/collections/$handle.tsx",
+      "parent": "/(app)/_layout"
+    },
     "/(app)/_layout/reset-password/$token": {
       "filePath": "(app)/_layout/reset-password.$token.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/collections/": {
+      "filePath": "(app)/_layout/collections/index.tsx",
       "parent": "/(app)/_layout"
     },
     "/(app)/_layout/_authenticated/profile": {
