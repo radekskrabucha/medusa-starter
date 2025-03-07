@@ -20,7 +20,7 @@ export const AddressSummaryTile = ({ address }: AddressSummaryTileProps) => (
   >
     <Card className="group gap-2">
       <CardHeader>
-        <h3 className="font-medium">
+        <h3 className="line-clamp-1 font-medium">
           {address.address_name ||
             getName({
               firstName: address.first_name,
@@ -29,14 +29,20 @@ export const AddressSummaryTile = ({ address }: AddressSummaryTileProps) => (
         </h3>
       </CardHeader>
       <CardContent className="flex flex-col gap-1">
-        <p className="text-muted-foreground text-sm">{address.address_1}</p>
+        <p className="text-muted-foreground line-clamp-1 text-sm">
+          {address.address_1}
+        </p>
         {address.address_2 && (
-          <p className="text-muted-foreground text-sm">{address.address_2}</p>
+          <p className="text-muted-foreground line-clamp-1 text-sm">
+            {address.address_2}
+          </p>
         )}
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground line-clamp-1 text-sm">
           {address.city}, {address.province} {address.postal_code}
         </p>
-        <p className="text-muted-foreground text-sm">{address.country_code}</p>
+        <p className="text-muted-foreground line-clamp-1 text-sm">
+          {address.country_code}
+        </p>
       </CardContent>
       <CardFooter className="text-muted-foreground justify-end gap-2 text-sm">
         See details
