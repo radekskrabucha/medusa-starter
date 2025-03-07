@@ -3,7 +3,6 @@ import { Button } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import placeholderImage from '~web/public/images/shared/placeholder-image.avif'
 import { getNavigationImageId, productPageRouteApi } from '../utils'
 
 type ProductImageGalleryProps = {
@@ -11,6 +10,8 @@ type ProductImageGalleryProps = {
   title: string
   handle: string
 }
+
+const placeholderImage = '/images/shared/placeholder-image.avif?url'
 
 export const ProductImageGallery = ({
   images,
