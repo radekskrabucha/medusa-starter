@@ -1,3 +1,5 @@
+import { ForgotPasswordForm } from './components/ForgotPasswordForm'
+
 export const ForgotPasswordPage = () => (
   <section className="layout-section flex-1 items-center justify-center gap-10">
     <div className="max-w-xl text-center text-balance">
@@ -7,5 +9,6 @@ export const ForgotPasswordPage = () => (
         password.
       </p>
     </div>
+    <ForgotPasswordForm />
   </section>
 )
