@@ -7,16 +7,19 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
-import { onLogIn, signInPageRouteApi } from '../utils'
+import { onLogIn } from '../utils'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email'),
   password: z.string().min(8, 'Password must be at least 8 characters')
 })
 
-export const SignInForm = () => {
+type SignInFormProps = {
+  redirect: string | undefined
+}
+
+export const SignInForm: React.FC<SignInFormProps> = ({ redirect }) => {
   const navigate = useNavigate()
-  const { redirect } = signInPageRouteApi.useSearch()
   const signInMutation = useMutation({
     mutationFn: actions.auth.logInWithEmail,
     mutationKey: ['actions.auth.logInWithEmail'],

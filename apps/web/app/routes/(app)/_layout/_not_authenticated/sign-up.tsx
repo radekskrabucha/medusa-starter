@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SignUpPage } from '~web/features/auth/SignUpPage'
+import { signInSearchParamsSchema } from '~web/features/auth/validationSchemas'
 import { seo } from '~web/utils/seo'
 
 export const Route = createFileRoute(
@@ -8,5 +9,6 @@ export const Route = createFileRoute(
   component: SignUpPage,
   head: () => ({
     meta: [...seo({ title: 'Sign Up' })]
-  })
+  }),
+  validateSearch: signInSearchParamsSchema
 })

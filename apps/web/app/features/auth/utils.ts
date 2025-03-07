@@ -4,6 +4,9 @@ import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
 export const signInPageRouteApi = getRouteApi(
   '/(app)/_layout/_not_authenticated/sign-in'
 )
+export const signUpPageRouteApi = getRouteApi(
+  '/(app)/_layout/_not_authenticated/sign-up'
+)
 
 export const resetPasswordPageRouteApi = getRouteApi(
   '/(app)/_layout/reset-password/$token'

@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { handleSignUp } from '../actions'
-import { onLogIn } from '../utils'
+import { onLogIn, signUpPageRouteApi } from '../utils'
 
 const signUpSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -18,6 +18,7 @@ const signUpSchema = z.object({
 
 export const SignUpForm = () => {
   const navigate = useNavigate()
+  const { redirect } = signUpPageRouteApi.useSearch()
   const signUpMutation = useMutation({
     mutationFn: handleSignUp,
     mutationKey: ['handleSignUp'],
@@ -29,7 +30,7 @@ export const SignUpForm = () => {
     onSuccess: () => {
       onLogIn()
       navigate({
-        to: '/'
+        to: redirect ?? '/'
       })
     }
   })
