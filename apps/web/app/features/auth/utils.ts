@@ -1,4 +1,6 @@
+import { getNowUnix } from '@medusa-starter/utils/date'
 import { getRouteApi } from '@tanstack/react-router'
+import { decode } from 'hono/jwt'
 import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
 
 export const signInPageRouteApi = getRouteApi(
@@ -26,4 +28,30 @@ export const onLogIn = () => {
   dispatchAuthTokenEvent()
 }
 
-export const isAuthenticated = () => Boolean(getAuthToken())
+export const isAuthenticated = (): boolean => {
+  try {
+    const token = getAuthToken()
+
+    if (!token) {
+      return false
+    }
+
+    const {
+      payload: { exp }
+    } = decode(token)
+
+    if (!exp) {
+      return false
+    }
+
+    const nowUnix = getNowUnix()
+
+    if (nowUnix > exp) {
+      return false
+    }
+
+    return true
+  } catch {
+    return false
+  }
+}
