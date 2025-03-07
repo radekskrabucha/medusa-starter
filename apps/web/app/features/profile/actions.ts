@@ -1,4 +1,8 @@
-import type { GetMeCustomerParams } from '@medusa-starter/medusa-utils/types'
+import type {
+  GetAddressesParams,
+  GetAddressParams,
+  GetMeCustomerParams
+} from '@medusa-starter/medusa-utils/types'
 import { FetchError } from '@medusajs/js-sdk'
 import { queryOptions } from '@tanstack/react-query'
 import { actions } from '~web/lib/medusa'
@@ -23,4 +27,16 @@ export const getMeQueryOptions = (
         throw error
       }
     }
+  })
+
+export const getAddressesQueryOptions = (params: GetAddressesParams) =>
+  queryOptions({
+    queryKey: ['actions.customer.address.getAddresses', params],
+    queryFn: () => actions.customer.address.getAddresses(params)
+  })
+
+export const getAddressQueryOptions = (params: GetAddressParams) =>
+  queryOptions({
+    queryKey: ['actions.customer.address.getAddress', params],
+    queryFn: () => actions.customer.address.getAddress(params)
   })
