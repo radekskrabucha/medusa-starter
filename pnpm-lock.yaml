@@ -23,6 +23,9 @@ importers:
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
+      date-fns:
+        specifier: 4.1.0
+        version: 4.1.0
       hono:
         specifier: 4.7.4
         version: 4.7.4
@@ -5751,6 +5754,9 @@ packages:
 
   date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   dax-sh@0.39.2:
     resolution: {integrity: sha512-gpuGEkBQM+5y6p4cWaw9+ePy5TNon+fdwFVtTI8leU3UhwhsBfPewRxMXGuQNC+M2b/MDGMlfgpqynkcd0C3FQ==}
@@ -17274,6 +17280,8 @@ snapshots:
   dataloader@2.2.3: {}
 
   date-fns@3.6.0: {}
+
+  date-fns@4.1.0: {}
 
   dax-sh@0.39.2:
     dependencies:
