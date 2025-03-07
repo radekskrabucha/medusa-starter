@@ -1,8 +1,6 @@
-import { Button } from '@medusa-starter/ui/button'
-import { Input, PasswordInput } from '@medusa-starter/ui/input'
-import { Label } from '@medusa-starter/ui/label'
-import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
-import { StatusMessage } from '@medusa-starter/ui/status-message'
+import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
+import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
@@ -60,54 +58,35 @@ export const SignInForm = () => {
     >
       <form.Field name="email">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Email</Label>
-            <Input
-              id={field.name}
-              type="email"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="john@example.com"
-              disabled={signInMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Email"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="john@example.com"
+            disabled={signInMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="password">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Password</Label>
-            <PasswordInput
-              id={field.name}
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              disabled={signInMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <PasswordInputForm
+            fieldName={field.name}
+            label="Password"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="••••••••"
+            disabled={signInMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
-      <Button
-        type="submit"
-        disabled={signInMutation.isPending}
-      >
-        {signInMutation.isPending && <LoadingCircleIndicator />}
-        Sign In
-      </Button>
+
+      <SubmitButton isPending={signInMutation.isPending} />
     </form>
   )
 }
