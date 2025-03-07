@@ -3,7 +3,7 @@ import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-f
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
@@ -85,6 +85,12 @@ export const SignInForm = () => {
           />
         )}
       </form.Field>
+      <Link
+        to="/forgot-password"
+        className="hover:text-foreground text-muted-foreground -mt-3 text-xs underline underline-offset-4 transition-colors"
+      >
+        Forgot your password?
+      </Link>
 
       <SubmitButton isPending={signInMutation.isPending} />
     </form>
