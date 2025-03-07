@@ -5,6 +5,10 @@ export const signInPageRouteApi = getRouteApi(
   '/(app)/_layout/_not_authenticated/sign-in'
 )
 
+export const resetPasswordPageRouteApi = getRouteApi(
+  '/(app)/_layout/reset-password/$token'
+)
+
 export const LOG_IN_EVENT_NAME = 'storage'
 
 export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY)

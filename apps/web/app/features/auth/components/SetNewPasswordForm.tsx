@@ -1,6 +1,5 @@
-import { Button } from '@medusa-starter/ui/button'
 import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
-import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
+import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -93,13 +92,7 @@ export const SetNewPasswordForm = () => {
         )}
       </form.Field>
 
-      <Button
-        type="submit"
-        disabled={setNewPasswordMutation.isPending}
-      >
-        {setNewPasswordMutation.isPending && <LoadingCircleIndicator />}
-        Update Profile
-      </Button>
+      <SubmitButton isPending={setNewPasswordMutation.isPending} />
     </form>
   )
 }
