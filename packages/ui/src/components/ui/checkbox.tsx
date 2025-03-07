@@ -5,10 +5,7 @@ import { cn } from '~ui/utils/styles.js'
 
 export type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>
 
-function Checkbox({
-  className,
-  ...props
-}: CheckboxProps) {
+function Checkbox({ className, ...props }: CheckboxProps) {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
