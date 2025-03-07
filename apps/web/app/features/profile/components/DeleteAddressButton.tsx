@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@medusa-starter/ui/alert-dialog'
 import { Button } from '@medusa-starter/ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
@@ -38,13 +49,33 @@ export const DeleteAddressButton: React.FC<DeleteAddressButtonProps> = ({
   })
 
   return (
-    <Button
-      onClick={() => deleteAddressMutation.mutate({ id })}
-      disabled={deleteAddressMutation.isPending}
-      variant="outline"
-      className="hover:bg-destructive/10 hover:text-destructive"
-    >
-      Delete address
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          variant="outline"
+          className="hover:bg-destructive/30 bg-destructive/15 hover:text-destructive"
+        >
+          Delete address
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            You will not be able to recover this address after deletion.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={() => deleteAddressMutation.mutate({ id })}
+            disabled={deleteAddressMutation.isPending}
+            className="hover:bg-destructive/30 bg-destructive/15 hover:text-destructive"
+          >
+            Delete address
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }
