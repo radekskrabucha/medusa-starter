@@ -1,7 +1,6 @@
-import { Button } from '@medusa-starter/ui/button'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
-import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
+import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
@@ -84,13 +83,7 @@ export const SignUpForm = () => {
           />
         )}
       </form.Field>
-      <Button
-        type="submit"
-        disabled={signUpMutation.isPending}
-      >
-        {signUpMutation.isPending && <LoadingCircleIndicator />}
-        Sign Up
-      </Button>
+      <SubmitButton isPending={signUpMutation.isPending} />
     </form>
   )
 }
