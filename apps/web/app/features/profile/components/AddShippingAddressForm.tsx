@@ -1,9 +1,6 @@
-import { Button } from '@medusa-starter/ui/button'
-import { Checkbox } from '@medusa-starter/ui/checkbox'
-import { Input } from '@medusa-starter/ui/input'
-import { Label } from '@medusa-starter/ui/label'
-import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
-import { StatusMessage } from '@medusa-starter/ui/status-message'
+import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
+import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
@@ -104,71 +101,47 @@ export const AddShippingAddressForm = () => {
     >
       <form.Field name="addressName">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Address name</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="Home"
-              disabled={addShippingAddressMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Address name"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="Home"
+            disabled={addShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <div className="flex gap-4">
         <form.Field name="firstName">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>First name</Label>
-              <Input
-                id={field.name}
-                type="text"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="John"
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="First name"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="John"
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
 
         <form.Field name="lastName">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>Last name</Label>
-              <Input
-                id={field.name}
-                type="text"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="Doe"
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="Last name"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="Doe"
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
       </div>
@@ -176,164 +149,108 @@ export const AddShippingAddressForm = () => {
       <div className="flex gap-4">
         <form.Field name="phoneNumber">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>Phone number</Label>
-              <Input
-                id={field.name}
-                type="tel"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="+1 234 567 890"
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="Phone number"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="+1 234 567 890"
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
 
         <form.Field name="companyName">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>Company name</Label>
-              <Input
-                id={field.name}
-                type="text"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="Company Ltd."
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="Company name"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="Company Ltd."
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
       </div>
 
       <form.Field name="address1">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Address line 1</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="123 Main St"
-              disabled={addShippingAddressMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Address line 1"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="123 Main St"
+            disabled={addShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="address2">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Address line 2</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="Apt 4B"
-              disabled={addShippingAddressMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Address line 2"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="Apt 4B"
+            disabled={addShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="city">
         {field => (
-          <div className="flex flex-1 flex-col gap-2">
-            <Label htmlFor={field.name}>City</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="New York"
-              disabled={addShippingAddressMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="City"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="New York"
+            disabled={addShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <div className="flex gap-4">
         <form.Field name="province">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>Province/State</Label>
-              <Input
-                id={field.name}
-                type="text"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="NY"
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="Province/State"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="NY"
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
 
         <form.Field name="postalCode">
           {field => (
-            <div className="flex flex-1 flex-col gap-2">
-              <Label htmlFor={field.name}>Postal code</Label>
-              <Input
-                id={field.name}
-                type="text"
-                name={field.name}
-                value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                placeholder="10001"
-                disabled={addShippingAddressMutation.isPending}
-              />
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <InputForm
+              fieldName={field.name}
+              label="Postal code"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="10001"
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
       </div>
@@ -341,66 +258,38 @@ export const AddShippingAddressForm = () => {
       <div className="flex flex-col gap-4">
         <form.Field name="isDefaultBilling">
           {field => (
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id={field.name}
-                  name={field.name}
-                  checked={field.state.value}
-                  onCheckedChange={checked =>
-                    typeof checked === 'boolean' && field.handleChange(checked)
-                  }
-                  onBlur={field.handleBlur}
-                  disabled={addShippingAddressMutation.isPending}
-                />
-                <Label htmlFor={field.name}>
-                  Set as default billing address
-                </Label>
-              </div>
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <CheckboxForm
+              fieldName={field.name}
+              label="Set as default billing address"
+              checked={field.state.value}
+              onCheckedChange={checked =>
+                typeof checked === 'boolean' && field.handleChange(checked)
+              }
+              onBlur={field.handleBlur}
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
 
         <form.Field name="isDefaultShipping">
           {field => (
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id={field.name}
-                  name={field.name}
-                  checked={field.state.value}
-                  onCheckedChange={checked =>
-                    typeof checked === 'boolean' && field.handleChange(checked)
-                  }
-                  onBlur={field.handleBlur}
-                  disabled={addShippingAddressMutation.isPending}
-                />
-                <Label htmlFor={field.name}>
-                  Set as default shipping address
-                </Label>
-              </div>
-              {field.state.meta.errors ? (
-                <StatusMessage variant="error">
-                  {field.state.meta.errors[0]?.message}
-                </StatusMessage>
-              ) : null}
-            </div>
+            <CheckboxForm
+              fieldName={field.name}
+              label="Set as default shipping address"
+              checked={field.state.value}
+              onCheckedChange={checked =>
+                typeof checked === 'boolean' && field.handleChange(checked)
+              }
+              onBlur={field.handleBlur}
+              disabled={addShippingAddressMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
           )}
         </form.Field>
       </div>
 
-      <Button
-        type="submit"
-        disabled={addShippingAddressMutation.isPending}
-      >
-        {addShippingAddressMutation.isPending && <LoadingCircleIndicator />}
-        Add Address
-      </Button>
+      <SubmitButton isPending={addShippingAddressMutation.isPending} />
     </form>
   )
 }
