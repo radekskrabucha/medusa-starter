@@ -3,7 +3,7 @@ import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { ProfileCard, ProfileCardNoUser } from './ProfileCard'
 
 export const ProfileButton = () => {
-  const { getMeQuery } = useGetMeQuery()
+  const { getMeQuery, token } = useGetMeQuery()
 
   return (
     <QueryBoundary
@@ -12,7 +12,12 @@ export const ProfileButton = () => {
       noDataFallback={<ProfileCardNoUser />}
       loadingFallback={<ProfileCardNoUser disabled />}
     >
-      {data => <ProfileCard customer={data.customer} />}
+      {data => (
+        <ProfileCard
+          customer={data.customer}
+          token={token}
+        />
+      )}
     </QueryBoundary>
   )
 }
