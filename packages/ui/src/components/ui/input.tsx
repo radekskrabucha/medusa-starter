@@ -2,7 +2,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import * as React from 'react'
 import { cn } from '~ui/utils/styles.js'
 
-type InputProps = React.ComponentProps<'input'>
+export type InputProps = React.ComponentProps<'input'>
 
 export const Input: React.FC<InputProps> = ({ className, type, ...props }) => (
   <input
