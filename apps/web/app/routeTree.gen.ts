@@ -21,6 +21,7 @@ import { Route as appLayoutForgotPasswordImport } from './routes/(app)/_layout/f
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 import { Route as appLayoutNotauthenticatedImport } from './routes/(app)/_layout/_not_authenticated'
 import { Route as appLayoutAuthenticatedImport } from './routes/(app)/_layout/_authenticated'
+import { Route as appLayoutShopIndexImport } from './routes/(app)/_layout/shop/index'
 import { Route as appLayoutCollectionsIndexImport } from './routes/(app)/_layout/collections/index'
 import { Route as appLayoutResetPasswordTokenImport } from './routes/(app)/_layout/reset-password.$token'
 import { Route as appLayoutCollectionsHandleImport } from './routes/(app)/_layout/collections/$handle'
@@ -106,6 +107,12 @@ const appLayoutAuthenticatedProfileRoute =
     path: '/profile',
     getParentRoute: () => appLayoutAuthenticatedRoute,
   } as any)
+
+const appLayoutShopIndexRoute = appLayoutShopIndexImport.update({
+  id: '/shop/',
+  path: '/shop/',
+  getParentRoute: () => appLayoutRoute,
+} as any)
 
 const appLayoutCollectionsIndexRoute = appLayoutCollectionsIndexImport.update({
   id: '/collections/',
@@ -312,6 +319,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutCollectionsIndexImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/shop/': {
+      id: '/(app)/_layout/shop/'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof appLayoutShopIndexImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(app)/_layout/_authenticated/profile': {
       id: '/(app)/_layout/_authenticated/profile'
       path: '/profile'
@@ -475,6 +489,7 @@ interface appLayoutRouteChildren {
   appLayoutCollectionsHandleRoute: typeof appLayoutCollectionsHandleRoute
   appLayoutResetPasswordTokenRoute: typeof appLayoutResetPasswordTokenRoute
   appLayoutCollectionsIndexRoute: typeof appLayoutCollectionsIndexRoute
+  appLayoutShopIndexRoute: typeof appLayoutShopIndexRoute
   appLayoutShopItemHandleRoute: typeof appLayoutShopItemHandleRoute
 }
 
@@ -487,6 +502,7 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutCollectionsHandleRoute: appLayoutCollectionsHandleRoute,
   appLayoutResetPasswordTokenRoute: appLayoutResetPasswordTokenRoute,
   appLayoutCollectionsIndexRoute: appLayoutCollectionsIndexRoute,
+  appLayoutShopIndexRoute: appLayoutShopIndexRoute,
   appLayoutShopItemHandleRoute: appLayoutShopItemHandleRoute,
 }
 
@@ -537,6 +553,7 @@ export interface FileRoutesByFullPath {
   '/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
   '/collections': typeof appLayoutCollectionsIndexRoute
+  '/shop': typeof appLayoutShopIndexRoute
   '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
@@ -559,6 +576,7 @@ export interface FileRoutesByTo {
   '/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
   '/collections': typeof appLayoutCollectionsIndexRoute
+  '/shop': typeof appLayoutShopIndexRoute
   '/profile': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/shop/item/$handle': typeof appLayoutShopItemHandleRoute
   '/profile/change-password': typeof appLayoutAuthenticatedProfileLayoutChangePasswordRoute
@@ -587,6 +605,7 @@ export interface FileRoutesById {
   '/(app)/_layout/collections/$handle': typeof appLayoutCollectionsHandleRoute
   '/(app)/_layout/reset-password/$token': typeof appLayoutResetPasswordTokenRoute
   '/(app)/_layout/collections/': typeof appLayoutCollectionsIndexRoute
+  '/(app)/_layout/shop/': typeof appLayoutShopIndexRoute
   '/(app)/_layout/_authenticated/profile': typeof appLayoutAuthenticatedProfileRouteWithChildren
   '/(app)/_layout/_authenticated/profile/_layout': typeof appLayoutAuthenticatedProfileLayoutRouteWithChildren
   '/(app)/_layout/shop/item/$handle': typeof appLayoutShopItemHandleRoute
@@ -612,6 +631,7 @@ export interface FileRouteTypes {
     | '/collections/$handle'
     | '/reset-password/$token'
     | '/collections'
+    | '/shop'
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
@@ -633,6 +653,7 @@ export interface FileRouteTypes {
     | '/collections/$handle'
     | '/reset-password/$token'
     | '/collections'
+    | '/shop'
     | '/profile'
     | '/shop/item/$handle'
     | '/profile/change-password'
@@ -659,6 +680,7 @@ export interface FileRouteTypes {
     | '/(app)/_layout/collections/$handle'
     | '/(app)/_layout/reset-password/$token'
     | '/(app)/_layout/collections/'
+    | '/(app)/_layout/shop/'
     | '/(app)/_layout/_authenticated/profile'
     | '/(app)/_layout/_authenticated/profile/_layout'
     | '/(app)/_layout/shop/item/$handle'
@@ -714,6 +736,7 @@ export const routeTree = rootRoute
         "/(app)/_layout/collections/$handle",
         "/(app)/_layout/reset-password/$token",
         "/(app)/_layout/collections/",
+        "/(app)/_layout/shop/",
         "/(app)/_layout/shop/item/$handle"
       ]
     },
@@ -779,6 +802,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/collections/": {
       "filePath": "(app)/_layout/collections/index.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/shop/": {
+      "filePath": "(app)/_layout/shop/index.tsx",
       "parent": "/(app)/_layout"
     },
     "/(app)/_layout/_authenticated/profile": {
