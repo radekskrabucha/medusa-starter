@@ -11,6 +11,7 @@ type InputFormProps = {
   onBlur: InputProps['onBlur']
   placeholder: InputProps['placeholder']
   disabled: InputProps['disabled']
+  type?: InputProps['type']
   errorMessage?: string
 }
 
@@ -22,13 +23,14 @@ export const InputForm: React.FC<InputFormProps> = ({
   onChange,
   disabled,
   placeholder,
+  type = 'text',
   errorMessage
 }) => (
   <div className="flex flex-1 flex-col gap-2">
     <Label htmlFor={fieldName}>{label}</Label>
     <Input
       id={fieldName}
-      type="text"
+      type={type}
       name={fieldName}
       value={value}
       onChange={onChange}
