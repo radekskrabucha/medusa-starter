@@ -92,7 +92,10 @@ export const SignInForm = () => {
         Forgot your password?
       </Link>
 
-      <SubmitButton isPending={signInMutation.isPending} />
+      <SubmitButton
+        isPending={signInMutation.isPending}
+        text="Sign In"
+      />
     </form>
   )
 }

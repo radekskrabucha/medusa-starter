@@ -156,7 +156,10 @@ export const EditProfileForm = () => {
         )}
       </form.Field>
 
-      <SubmitButton isPending={updateCustomerMutation.isPending} />
+      <SubmitButton
+        isPending={updateCustomerMutation.isPending}
+        text="Update"
+      />
     </form>
   )
 }

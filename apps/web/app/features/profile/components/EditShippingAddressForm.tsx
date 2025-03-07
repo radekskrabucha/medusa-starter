@@ -311,7 +311,10 @@ export const EditShippingAddressForm: React.FC<
         </form.Field>
       </div>
 
-      <SubmitButton isPending={editShippingAddressMutation.isPending} />
+      <SubmitButton
+        isPending={editShippingAddressMutation.isPending}
+        text="Update Address"
+      />
     </form>
   )
 }

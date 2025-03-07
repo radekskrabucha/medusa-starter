@@ -289,7 +289,10 @@ export const AddShippingAddressForm = () => {
         </form.Field>
       </div>
 
-      <SubmitButton isPending={addShippingAddressMutation.isPending} />
+      <SubmitButton
+        isPending={addShippingAddressMutation.isPending}
+        text="Add Address"
+      />
     </form>
   )
 }

@@ -83,7 +83,10 @@ export const SignUpForm = () => {
           />
         )}
       </form.Field>
-      <SubmitButton isPending={signUpMutation.isPending} />
+      <SubmitButton
+        isPending={signUpMutation.isPending}
+        text="Sign Up"
+      />
     </form>
   )
 }

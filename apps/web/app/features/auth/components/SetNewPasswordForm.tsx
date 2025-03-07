@@ -92,7 +92,10 @@ export const SetNewPasswordForm = () => {
         )}
       </form.Field>
 
-      <SubmitButton isPending={setNewPasswordMutation.isPending} />
+      <SubmitButton
+        isPending={setNewPasswordMutation.isPending}
+        text="Set New Password"
+      />
     </form>
   )
 }
