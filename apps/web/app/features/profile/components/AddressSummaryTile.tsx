@@ -15,7 +15,7 @@ type AddressSummaryTileProps = {
 
 export const AddressSummaryTile = ({ address }: AddressSummaryTileProps) => (
   <Link
-    to="/profile/shipping-addresses/edit/$id"
+    to="/profile/shipping-address/$id"
     params={{ id: address.id }}
   >
     <Card className="group gap-2">

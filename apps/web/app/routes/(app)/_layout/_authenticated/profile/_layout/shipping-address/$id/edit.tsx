@@ -3,7 +3,7 @@ import { EditShippingAddressPage } from '~web/features/profile/EditShippingAddre
 import { seo } from '~web/utils/seo'
 
 export const Route = createFileRoute(
-  '/(app)/_layout/_authenticated/profile/_layout/shipping-addresses/edit/$id'
+  '/(app)/_layout/_authenticated/profile/_layout/shipping-address/$id/edit'
 )({
   component: EditShippingAddressPage,
   head: () => ({

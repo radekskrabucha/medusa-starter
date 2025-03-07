@@ -22,7 +22,7 @@ export const Addresses = () => {
           description="Create your first shipping address to start receiving shipments."
           action={
             <Link
-              to="/profile/shipping-addresses/add"
+              to="/profile/shipping-address/add"
               className={buttonVariants({ variant: 'outline' })}
             >
               Add your first address

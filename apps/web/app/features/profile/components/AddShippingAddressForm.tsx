@@ -46,7 +46,7 @@ export const AddShippingAddressForm = () => {
     onSuccess: data => {
       toast.success('Shipping address added successfully')
       navigate({
-        to: '/profile/shipping-addresses/list'
+        to: '/profile/shipping-address'
       })
 
       queryClient.setQueryData(meQueryOptions.queryKey, data)

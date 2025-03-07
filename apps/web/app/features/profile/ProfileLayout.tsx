@@ -50,11 +50,11 @@ const Sidebar = () => (
           <span>Change password</span>
         </Link>
         <Link
-          to="/profile/shipping-addresses/list"
+          to="/profile/shipping-address"
           className={buttonVariants({
             variant: 'ghost',
             className:
-              'data-[status=active]:bg-foreground/10 hover:bg-foreground/5 justify-start aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
+              'data-[status=active]:bg-foreground/10 hover:bg-foreground/5 justify-start'
           })}
         >
           <Truck className="size-4" />

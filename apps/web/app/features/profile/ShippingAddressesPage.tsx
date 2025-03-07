@@ -8,7 +8,7 @@ export const ShippingAddressesPage = () => {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-2xl font-semibold">Shipping Addresses</h2>
         <Link
-          to="/profile/shipping-addresses/add"
+          to="/profile/shipping-address/add"
           className={buttonVariants({ variant: 'outline' })}
         >
           Add Address
