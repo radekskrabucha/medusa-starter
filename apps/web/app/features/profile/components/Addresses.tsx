@@ -1,32 +1,40 @@
 import { buttonVariants } from '@medusa-starter/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import { Truck } from 'lucide-react'
+import { EmptyState } from '~web/components/EmptyState'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { getAddressesQueryOptions } from '../actions'
+import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { getMeQueryOptions } from '../actions'
 import { AddressSummaryTile } from './AddressSummaryTile'
 
 export const Addresses = () => {
-  const getAddressesQuery = useQuery(getAddressesQueryOptions({}))
+  const token = useSyncAuthToken()
+  const getMeQuery = useQuery(getMeQueryOptions(token))
 
   return (
     <QueryBoundary
-      query={getAddressesQuery}
-      isDataEmpty={data => data?.addresses.length === 0}
+      query={getMeQuery}
+      isDataEmpty={data => data?.customer.addresses.length === 0}
       noDataFallback={
-        <div className="flex flex-col items-center justify-center gap-4 py-8 text-center">
-          <p className="text-muted-foreground">No shipping addresses found</p>
-          <Link
-            to="/profile/shipping-addresses/add"
-            className={buttonVariants({ variant: 'outline' })}
-          >
-            Add your first address
-          </Link>
-        </div>
+        <EmptyState
+          title="No shipping addresses found"
+          description="Create your first shipping address to start receiving shipments."
+          action={
+            <Link
+              to="/profile/shipping-addresses/add"
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              Add your first address
+            </Link>
+          }
+          icon={Truck}
+        />
       }
     >
       {data => (
         <div className="flex flex-col gap-4">
-          {data.addresses.map(address => (
+          {data.customer.addresses.map(address => (
             <AddressSummaryTile
               key={address.id}
               address={address}
