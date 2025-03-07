@@ -1,15 +1,12 @@
 import { getName } from '@medusa-starter/utils/name'
-import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { Building2, Lock, Mail, Phone, User2 } from 'lucide-react'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
-import { getMeQueryOptions } from '../actions'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { ProfileDetailsTile } from './ProfileDetailsTile'
 
 export const ProfilePageDetails = () => {
-  const token = useSyncAuthToken()
-  const getMeQuery = useQuery(getMeQueryOptions(token))
+  const { getMeQuery } = useGetMeQuery()
 
   return (
     <QueryBoundary query={getMeQuery}>

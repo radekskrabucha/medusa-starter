@@ -2,19 +2,16 @@ import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { actions } from '~web/lib/medusa'
-import { getMeQueryOptions } from '../actions'
 import { shippingAddressSchema } from '../validationSchemas'
 
 export const AddShippingAddressForm = () => {
   const navigate = useNavigate()
-  const token = useSyncAuthToken()
-  const meQueryOptions = getMeQueryOptions(token)
-  const getMeQuery = useQuery(meQueryOptions)
+  const { getMeQuery, getMeQueryOptions } = useGetMeQuery()
   const queryClient = useQueryClient()
 
   const addShippingAddressMutation = useMutation({
@@ -31,7 +28,7 @@ export const AddShippingAddressForm = () => {
         to: '/profile/shipping-address'
       })
 
-      queryClient.setQueryData(meQueryOptions.queryKey, data)
+      queryClient.setQueryData(getMeQueryOptions.queryKey, data)
     }
   })
   const form = useForm({

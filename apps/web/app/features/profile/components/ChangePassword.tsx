@@ -1,14 +1,11 @@
 import { Button } from '@medusa-starter/ui/button'
-import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { useResetPassword } from '~web/features/auth/hooks/useResetPassword'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
-import { getMeQueryOptions } from '../actions'
 
 export const ChangePassword = () => {
-  const token = useSyncAuthToken()
-  const getMeQuery = useQuery(getMeQueryOptions(token))
+  const { getMeQuery } = useGetMeQuery()
   const email = getMeQuery.data?.customer.email
 
   const navigate = useNavigate()

@@ -1,16 +1,13 @@
 import { buttonVariants } from '@medusa-starter/ui/button'
-import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { Truck } from 'lucide-react'
 import { EmptyState } from '~web/components/EmptyState'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
-import { getMeQueryOptions } from '../actions'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { AddressSummaryTile } from './AddressSummaryTile'
 
 export const Addresses = () => {
-  const token = useSyncAuthToken()
-  const getMeQuery = useQuery(getMeQueryOptions(token))
+  const { getMeQuery } = useGetMeQuery()
 
   return (
     <QueryBoundary

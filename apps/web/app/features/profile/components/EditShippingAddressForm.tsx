@@ -24,7 +24,6 @@ export const EditShippingAddressForm: React.FC<
 > = ({ id }) => {
   const navigate = useNavigate()
   const token = useSyncAuthToken()
-  const meQueryOptions = getMeQueryOptions(token)
   const queryClient = useQueryClient()
   const getAddressQuery = useAddressQuery(id)
 
@@ -46,7 +45,7 @@ export const EditShippingAddressForm: React.FC<
       queryClient.invalidateQueries({
         queryKey: getAddressQueryOptions(id).queryKey
       })
-      queryClient.setQueryData(meQueryOptions.queryKey, data)
+      queryClient.setQueryData(getMeQueryOptions(token).queryKey, data)
     }
   })
   const form = useForm({

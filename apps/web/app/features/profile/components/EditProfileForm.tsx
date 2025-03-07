@@ -3,13 +3,12 @@ import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { phoneNumberRegex } from '@medusa-starter/utils/regex'
 import { useForm } from '@tanstack/react-form'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { actions } from '~web/lib/medusa'
-import { getMeQueryOptions } from '../actions'
 
 const editProfileSchema = z.object({
   firstName: z
@@ -34,9 +33,7 @@ const editProfileSchema = z.object({
 })
 
 export const EditProfileForm = () => {
-  const token = useSyncAuthToken()
-  const meQueryOptions = getMeQueryOptions(token)
-  const getMeQuery = useQuery(meQueryOptions)
+  const { getMeQuery, getMeQueryOptions } = useGetMeQuery()
   const queryClient = useQueryClient()
 
   const navigate = useNavigate()
@@ -54,7 +51,7 @@ export const EditProfileForm = () => {
         to: '/profile/details'
       })
 
-      queryClient.setQueryData(meQueryOptions.queryKey, data)
+      queryClient.setQueryData(getMeQueryOptions.queryKey, data)
     }
   })
   const form = useForm({
