@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { appName } from '~web/config/app'
+import { Collections } from './Collections'
 import { Copyright } from './Copyright'
 
 export const Footer = () => (
@@ -12,29 +13,7 @@ export const Footer = () => (
         {appName}
       </Link>
       <div className="flex flex-wrap gap-x-20 gap-y-6 md:pr-40">
-        <div className="flex flex-col gap-4">
-          <h3 className="font-semibold">Categories</h3>
-          <div className="flex flex-col gap-2">
-            <Link
-              to="/"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
-              T-shirts
-            </Link>
-            <Link
-              to="/"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
-              Hats
-            </Link>
-            <Link
-              to="/"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
-              Pants
-            </Link>
-          </div>
-        </div>
+        <Collections />
 
         <div className="flex flex-col gap-4">
           <h3 className="font-semibold">Find us on</h3>
