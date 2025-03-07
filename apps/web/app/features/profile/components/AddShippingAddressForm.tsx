@@ -5,7 +5,7 @@ import { Label } from '@medusa-starter/ui/label'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -31,7 +31,9 @@ const addShippingAddressSchema = z.object({
 export const AddShippingAddressForm = () => {
   const navigate = useNavigate()
   const token = useSyncAuthToken()
-  const getMeQuery = useQuery(getMeQueryOptions(token))
+  const meQueryOptions = getMeQueryOptions(token)
+  const getMeQuery = useQuery(meQueryOptions)
+  const queryClient = useQueryClient()
 
   const addShippingAddressMutation = useMutation({
     mutationFn: actions.customer.address.add,
@@ -41,11 +43,13 @@ export const AddShippingAddressForm = () => {
         description: error.message
       })
     },
-    onSuccess: () => {
+    onSuccess: data => {
       toast.success('Shipping address added successfully')
       navigate({
         to: '/profile/shipping-addresses/list'
       })
+
+      queryClient.setQueryData(meQueryOptions.queryKey, data)
     }
   })
   const form = useForm({
