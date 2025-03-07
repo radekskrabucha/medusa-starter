@@ -1,8 +1,5 @@
-import { Button } from '@medusa-starter/ui/button'
-import { Input } from '@medusa-starter/ui/input'
-import { Label } from '@medusa-starter/ui/label'
-import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
-import { StatusMessage } from '@medusa-starter/ui/status-message'
+import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { phoneNumberRegex } from '@medusa-starter/utils/regex'
 import { useForm } from '@tanstack/react-form'
@@ -100,103 +97,66 @@ export const EditProfileForm = () => {
     >
       <form.Field name="firstName">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>First name</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="John"
-              disabled={updateCustomerMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="First name"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="John"
+            disabled={updateCustomerMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="lastName">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Last name</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="Doe"
-              disabled={updateCustomerMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Last name"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="Doe"
+            disabled={updateCustomerMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="phoneNumber">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Phone number</Label>
-            <Input
-              id={field.name}
-              type="tel"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="123-456-7890"
-              disabled={updateCustomerMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            type="tel"
+            label="Phone number"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="+1 234 567 890"
+            disabled={updateCustomerMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
       <form.Field name="companyName">
         {field => (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={field.name}>Company name</Label>
-            <Input
-              id={field.name}
-              type="text"
-              name={field.name}
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              onBlur={field.handleBlur}
-              placeholder="Company name"
-              disabled={updateCustomerMutation.isPending}
-            />
-            {field.state.meta.errors ? (
-              <StatusMessage variant="error">
-                {field.state.meta.errors[0]?.message}
-              </StatusMessage>
-            ) : null}
-          </div>
+          <InputForm
+            fieldName={field.name}
+            label="Company name"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            placeholder="Company name"
+            disabled={updateCustomerMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
         )}
       </form.Field>
 
-      <Button
-        type="submit"
-        disabled={updateCustomerMutation.isPending}
-      >
-        {updateCustomerMutation.isPending && <LoadingCircleIndicator />}
-        Update Profile
-      </Button>
+      <SubmitButton isPending={updateCustomerMutation.isPending} />
     </form>
   )
 }
