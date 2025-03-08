@@ -28,7 +28,7 @@ export const ProductTile: React.FC<ProductTileProps> = ({
         handle
       }}
     >
-      <Card className="group overflow-hidden pt-0">
+      <Card className="group snap-start overflow-hidden pt-0">
         <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm">
           {thumbnail && (
             <img

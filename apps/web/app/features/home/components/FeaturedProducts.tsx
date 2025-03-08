@@ -35,7 +35,7 @@ export const FeaturedProducts = () => {
                 to="/store"
                 className={buttonVariants({
                   variant: 'ghost',
-                  className: 'group w-min self-center'
+                  className: 'group w-min snap-end self-center'
                 })}
               >
                 See all products{' '}

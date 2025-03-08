@@ -39,7 +39,7 @@ export const ProductImageGallery = ({
           className="h-full w-full object-cover object-center"
         />
         {images.length > 1 && (
-          <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-50">
             <Link
               to="/store/item/$handle"
               search={prevState => ({
