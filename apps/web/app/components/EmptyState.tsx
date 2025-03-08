@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader
+} from '@medusa-starter/ui/card'
 import type { LucideIcon } from 'lucide-react'
 
 type EmptyStateProps = {
@@ -13,18 +19,20 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   description,
   action
 }) => (
-  <div className="border-border bg-card flex flex-col items-center justify-center gap-4 rounded-lg border p-8 text-center">
+  <Card className="items-center text-center">
     {Icon && (
-      <div className="bg-muted flex size-12 items-center justify-center rounded-full">
-        <Icon className="text-muted-foreground size-6" />
-      </div>
+      <CardHeader className="items-center">
+        <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
+          <Icon className="text-muted-foreground size-6" />
+        </div>
+      </CardHeader>
     )}
-    <div className="flex max-w-[280px] flex-col gap-1">
+    <CardContent className="flex max-w-sm flex-col items-center gap-1">
       <h3 className="text-lg font-semibold">{title}</h3>
       {description && (
         <p className="text-muted-foreground text-sm">{description}</p>
       )}
-    </div>
-    {action}
-  </div>
+    </CardContent>
+    {action && <CardFooter>{action}</CardFooter>}
+  </Card>
 )
