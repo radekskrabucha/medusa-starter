@@ -96,112 +96,106 @@ export const getMedusaClientStoreActions = (
         )
     },
     store: {
-      getProducts: (params: GetProductsParams) =>
+      getProducts: (params?: GetProductsParams) =>
         client.store.product.list(params),
       getProduct: (params: GetProductParams) =>
-        client.store.product.retrieve(params.id, params.fields),
-      getCategories: (params: GetCategoriesParams) =>
+        client.store.product.retrieve(params.id, { fields: params.fields }),
+      getCategories: (params?: GetCategoriesParams) =>
         client.store.category.list(params),
       getCategory: (params: GetCategoryParams) =>
-        client.store.category.retrieve(params.id, params.fields),
-      getCollections: (params: GetCollectionsParams) =>
+        client.store.category.retrieve(params.id, { fields: params.fields }),
+      getCollections: (params?: GetCollectionsParams) =>
         client.store.collection.list(params),
       getCollection: (params: GetCollectionParams) =>
-        client.store.collection.retrieve(params.id, params.fields)
+        client.store.collection.retrieve(params.id, { fields: params.fields })
     },
     region: {
-      getRegions: (params: GetRegionsParams) =>
+      getRegions: (params?: GetRegionsParams) =>
         client.store.region.list(params),
       getRegion: (params: GetRegionParams) =>
-        client.store.region.retrieve(params.id, params.fields)
+        client.store.region.retrieve(params.id, { fields: params.fields })
     },
     order: {
-      getOrders: (params: GetOrdersParams) => client.store.order.list(params),
+      getOrders: (params?: GetOrdersParams) => client.store.order.list(params),
       getOrder: (params: GetOrderParams) =>
-        client.store.order.retrieve(params.id, params.fields),
+        client.store.order.retrieve(params.id, { fields: params.fields }),
       requestOrderTransfer: (params: RequestOrderTransferParams) =>
-        client.store.order.requestTransfer(
-          params.id,
-          params.body,
-          params.fields
-        ),
+        client.store.order.requestTransfer(params.id, params.body, {
+          fields: params.fields
+        }),
       cancelOrderTransfer: (params: CancelOrderTransferParams) =>
-        client.store.order.cancelTransfer(params.id, params.fields),
+        client.store.order.cancelTransfer(params.id, { fields: params.fields }),
       acceptOrderTransfer: (params: AcceptOrderTransferParams) =>
-        client.store.order.acceptTransfer(
-          params.id,
-          params.body,
-          params.fields
-        ),
+        client.store.order.acceptTransfer(params.id, params.body, {
+          fields: params.fields
+        }),
       rejectOrderTransfer: (params: RejectOrderTransferParams) =>
-        client.store.order.declineTransfer(
-          params.id,
-          params.body,
-          params.fields
-        )
+        client.store.order.declineTransfer(params.id, params.body, {
+          fields: params.fields
+        })
     },
     cart: {
       create: (params: CreateCartParams) =>
-        client.store.cart.create(params.body, params.fields),
+        client.store.cart.create(params.body, { fields: params.fields }),
       update: (params: UpdateCartParams) =>
-        client.store.cart.update(params.id, params.body, params.fields),
+        client.store.cart.update(params.id, params.body, {
+          fields: params.fields
+        }),
       get: (params: GetCartParams) =>
-        client.store.cart.retrieve(params.id, params.fields),
+        client.store.cart.retrieve(params.id, { fields: params.fields }),
       addProduct: (params: AddProductToCartParams) =>
-        client.store.cart.createLineItem(
-          params.cartId,
-          params.body,
-          params.fields
-        ),
+        client.store.cart.createLineItem(params.cartId, params.body, {
+          fields: params.fields
+        }),
       updateProduct: (params: UpdateCartProductParams) =>
         client.store.cart.updateLineItem(
           params.cartId,
           params.id,
           params.body,
-          params.fields
+          { fields: params.fields }
         ),
       removeProduct: (params: RemoveCartProductParams) =>
         client.store.cart.deleteLineItem(params.cartId, params.id),
       complete: (params: CompleteCartParams) =>
-        client.store.cart.complete(params.cartId, params.fields),
+        client.store.cart.complete(params.cartId, { fields: params.fields }),
       transfer: (params: TransferCartParams) =>
-        client.store.cart.transferCart(params.cartId, params.fields)
+        client.store.cart.transferCart(params.cartId, { fields: params.fields })
     },
     customer: {
       create: (params: CreateCustomerParams) =>
-        client.store.customer.create(params.body, params.fields),
+        client.store.customer.create(params.body, { fields: params.fields }),
       update: (params: UpdateCustomerParams) =>
-        client.store.customer.update(params.body, params.fields),
+        client.store.customer.update(params.body, { fields: params.fields }),
       getMe: (params?: GetMeCustomerParams) =>
-        client.store.customer.retrieve(params?.fields),
+        client.store.customer.retrieve({ fields: params?.fields }),
       address: {
         add: (params: AddNewAddressParams) =>
-          client.store.customer.createAddress(params.body, params.fields),
+          client.store.customer.createAddress(params.body, {
+            fields: params.fields
+          }),
         update: (params: UpdateAddressParams) =>
-          client.store.customer.updateAddress(
-            params.id,
-            params.body,
-            params.fields
-          ),
+          client.store.customer.updateAddress(params.id, params.body, {
+            fields: params.fields
+          }),
         getAddress: (params: GetAddressParams) =>
-          client.store.customer.retrieveAddress(params.id, params.fields),
-        getAddresses: (params: GetAddressesParams) =>
+          client.store.customer.retrieveAddress(params.id, {
+            fields: params.fields
+          }),
+        getAddresses: (params?: GetAddressesParams) =>
           client.store.customer.listAddress(params),
         delete: (params: DeleteAddressParams) =>
           client.store.customer.deleteAddress(params.id)
       }
     },
     fulfillment: {
-      getCartShippingOptions: (params: GetCartShippingOptionsParams) =>
+      getCartShippingOptions: (params?: GetCartShippingOptionsParams) =>
         client.store.fulfillment.listCartOptions(params),
       calculateShippingOptionCost: (
         params: CalculateShippingOptionCostParams
       ) =>
-        client.store.fulfillment.calculate(
-          params.id,
-          params.body,
-          params.fields
-        )
+        client.store.fulfillment.calculate(params.id, params.body, {
+          fields: params.fields
+        })
     }
   }
 })

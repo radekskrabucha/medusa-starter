@@ -36,8 +36,7 @@ type GetProductId = Parameters<GetProduct>[0]
 type GetProductFields = Parameters<GetProduct>[1]
 export type GetProductParams = {
   id: GetProductId
-  fields: GetProductFields
-}
+} & GetProductFields
 export type GetProductResponse = ReturnType<GetProduct>
 
 type GetCategories = MedusaClient['store']['category']['list']
@@ -49,8 +48,7 @@ type GetCategoryId = Parameters<GetCategory>[0]
 type GetCategoryFields = Parameters<GetCategory>[1]
 export type GetCategoryParams = {
   id: GetCategoryId
-  fields: GetCategoryFields
-}
+} & GetCategoryFields
 export type GetCategoryResponse = ReturnType<GetCategory>
 
 type GetCollections = MedusaClient['store']['collection']['list']
@@ -62,8 +60,7 @@ type GetCollectionId = Parameters<GetCollection>[0]
 type GetCollectionFields = Parameters<GetCollection>[1]
 export type GetCollectionParams = {
   id: GetCollectionId
-  fields: GetCollectionFields
-}
+} & GetCollectionFields
 export type GetCollectionResponse = ReturnType<GetCollection>
 
 type GetRegions = MedusaClient['store']['region']['list']
@@ -75,8 +72,7 @@ type GetRegionId = Parameters<GetRegion>[0]
 type GetRegionFields = Parameters<GetRegion>[1]
 export type GetRegionParams = {
   id: GetRegionId
-  fields: GetRegionFields
-}
+} & GetRegionFields
 export type GetRegionResponse = ReturnType<GetRegion>
 
 type GetOrders = MedusaClient['store']['order']['list']
@@ -88,8 +84,7 @@ type GetOrderId = Parameters<GetOrder>[0]
 type GetOrderFields = Parameters<GetOrder>[1]
 export type GetOrderParams = {
   id: GetOrderId
-  fields: GetOrderFields
-}
+} & GetOrderFields
 export type GetOrderResponse = ReturnType<GetOrder>
 
 type RequestOrderTransfer = MedusaClient['store']['order']['requestTransfer']
@@ -99,8 +94,7 @@ type RequestOrderTransferFields = Parameters<RequestOrderTransfer>[2]
 export type RequestOrderTransferParams = {
   id: RequestOrderTransferID
   body: RequestOrderTransferBody
-  fields: RequestOrderTransferFields
-}
+} & RequestOrderTransferFields
 export type RequestOrderTransferResponse = ReturnType<RequestOrderTransfer>
 
 type CancelOrderTransfer = MedusaClient['store']['order']['cancelTransfer']
@@ -108,8 +102,7 @@ type CancelOrderTransferID = Parameters<CancelOrderTransfer>[0]
 type CancelOrderTransferFields = Parameters<CancelOrderTransfer>[1]
 export type CancelOrderTransferParams = {
   id: CancelOrderTransferID
-  fields: CancelOrderTransferFields
-}
+} & CancelOrderTransferFields
 export type CancelOrderTransferResponse = ReturnType<CancelOrderTransfer>
 
 type AcceptOrderTransfer = MedusaClient['store']['order']['acceptTransfer']
@@ -119,8 +112,7 @@ type AcceptOrderTransferFields = Parameters<AcceptOrderTransfer>[2]
 export type AcceptOrderTransferParams = {
   id: AcceptOrderTransferID
   body: AcceptOrderTransferBody
-  fields: AcceptOrderTransferFields
-}
+} & AcceptOrderTransferFields
 export type AcceptOrderTransferResponse = ReturnType<AcceptOrderTransfer>
 
 type RejectOrderTransfer = MedusaClient['store']['order']['declineTransfer']
@@ -130,8 +122,7 @@ type RejectOrderTransferFields = Parameters<RejectOrderTransfer>[2]
 export type RejectOrderTransferParams = {
   id: RejectOrderTransferID
   body: RejectOrderTransferBody
-  fields: RejectOrderTransferFields
-}
+} & RejectOrderTransferFields
 export type RejectOrderTransferResponse = ReturnType<RejectOrderTransfer>
 
 type CreateCart = MedusaClient['store']['cart']['create']
@@ -139,8 +130,7 @@ type CreateCartBody = Parameters<CreateCart>[0]
 type CreateCartFields = Parameters<CreateCart>[1]
 export type CreateCartParams = {
   body: CreateCartBody
-  fields: CreateCartFields
-}
+} & CreateCartFields
 export type CreateCartResponse = ReturnType<CreateCart>
 
 type UpdateCart = MedusaClient['store']['cart']['update']
@@ -150,8 +140,7 @@ type UpdateCartFields = Parameters<UpdateCart>[2]
 export type UpdateCartParams = {
   id: UpdateCartID
   body: UpdateCartBody
-  fields: UpdateCartFields
-}
+} & UpdateCartFields
 export type UpdateCartResponse = ReturnType<UpdateCart>
 
 type GetCart = MedusaClient['store']['cart']['retrieve']
@@ -159,8 +148,7 @@ type GetCartID = Parameters<GetCart>[0]
 type GetCartFields = Parameters<GetCart>[1]
 export type GetCartParams = {
   id: GetCartID
-  fields: GetCartFields
-}
+} & GetCartFields
 export type GetCartResponse = ReturnType<GetCart>
 
 type AddProductToCart = MedusaClient['store']['cart']['createLineItem']
@@ -170,8 +158,7 @@ type AddProductToCartFields = Parameters<AddProductToCart>[2]
 export type AddProductToCartParams = {
   cartId: AddProductToCartID
   body: AddProductToCartBody
-  fields: AddProductToCartFields
-}
+} & AddProductToCartFields
 export type AddProductToCartResponse = ReturnType<AddProductToCart>
 
 type UpdateCartProduct = MedusaClient['store']['cart']['updateLineItem']
@@ -183,8 +170,7 @@ export type UpdateCartProductParams = {
   cartId: UpdateCartProductCartID
   id: UpdateCartProductID
   body: UpdateCartProductBody
-  fields: UpdateCartProductFields
-}
+} & UpdateCartProductFields
 export type UpdateCartProductResponse = ReturnType<UpdateCartProduct>
 
 type RemoveCartProduct = MedusaClient['store']['cart']['deleteLineItem']
@@ -203,8 +189,7 @@ type AddCartShippingMethodFields = Parameters<AddCartShippingMethod>[2]
 export type AddCartShippingMethodParams = {
   cartId: AddCartShippingMethodCartID
   body: AddCartShippingMethodBody
-  fields: AddCartShippingMethodFields
-}
+} & AddCartShippingMethodFields
 export type AddCartShippingMethodResponse = ReturnType<AddCartShippingMethod>
 
 type CompleteCart = MedusaClient['store']['cart']['complete']
@@ -212,8 +197,7 @@ type CompleteCartCartID = Parameters<CompleteCart>[0]
 type CompleteCartFields = Parameters<CompleteCart>[1]
 export type CompleteCartParams = {
   cartId: CompleteCartCartID
-  fields: CompleteCartFields
-}
+} & CompleteCartFields
 export type CompleteCartResponse = ReturnType<CompleteCart>
 
 type TransferCart = MedusaClient['store']['cart']['transferCart']
@@ -221,8 +205,7 @@ type TransferCartCartID = Parameters<TransferCart>[0]
 type TransferCartFields = Parameters<TransferCart>[1]
 export type TransferCartParams = {
   cartId: TransferCartCartID
-  fields: TransferCartFields
-}
+} & TransferCartFields
 export type TransferCartResponse = ReturnType<TransferCart>
 
 type CreateCustomer = MedusaClient['store']['customer']['create']
@@ -230,8 +213,7 @@ type CreateCustomerBody = Parameters<CreateCustomer>[0]
 type CreateCustomerFields = Parameters<CreateCustomer>[1]
 export type CreateCustomerParams = {
   body: CreateCustomerBody
-  fields: CreateCustomerFields
-}
+} & CreateCustomerFields
 export type CreateCustomerResponse = ReturnType<CreateCustomer>
 
 type UpdateCustomer = MedusaClient['store']['customer']['update']
@@ -239,15 +221,12 @@ type UpdateCustomerBody = Parameters<UpdateCustomer>[0]
 type UpdateCustomerFields = Parameters<UpdateCustomer>[1]
 export type UpdateCustomerParams = {
   body: UpdateCustomerBody
-  fields: UpdateCustomerFields
-}
+} & UpdateCustomerFields
 export type UpdateCustomerResponse = ReturnType<UpdateCustomer>
 
 type GetCustomer = MedusaClient['store']['customer']['retrieve']
 type GetCustomerFields = Parameters<GetCustomer>[0]
-export type GetMeCustomerParams = {
-  fields?: GetCustomerFields
-}
+export type GetMeCustomerParams = GetCustomerFields
 export type GetMeCustomerResponse = ReturnType<GetCustomer>
 
 type AddNewAddress = MedusaClient['store']['customer']['createAddress']
@@ -255,8 +234,7 @@ type AddNewAddressBody = Parameters<AddNewAddress>[0]
 type AddNewAddressFields = Parameters<AddNewAddress>[1]
 export type AddNewAddressParams = {
   body: AddNewAddressBody
-  fields: AddNewAddressFields
-}
+} & AddNewAddressFields
 export type AddNewAddressResponse = ReturnType<AddNewAddress>
 
 type UpdateAddress = MedusaClient['store']['customer']['updateAddress']
@@ -266,8 +244,7 @@ type UpdateAddressFields = Parameters<UpdateAddress>[2]
 export type UpdateAddressParams = {
   id: UpdateAddressID
   body: UpdateAddressBody
-  fields: UpdateAddressFields
-}
+} & UpdateAddressFields
 export type UpdateAddressResponse = ReturnType<UpdateAddress>
 
 type GetAddress = MedusaClient['store']['customer']['retrieveAddress']
@@ -275,8 +252,7 @@ type GetAddressID = Parameters<GetAddress>[0]
 type GetAddressFields = Parameters<GetAddress>[1]
 export type GetAddressParams = {
   id: GetAddressID
-  fields: GetAddressFields
-}
+} & GetAddressFields
 export type GetAddressResponse = ReturnType<GetAddress>
 
 type GetAddresses = MedusaClient['store']['customer']['listAddress']
@@ -304,7 +280,6 @@ type CalculateShippingOptionCostFields =
 export type CalculateShippingOptionCostParams = {
   id: CalculateShippingOptionCostID
   body: CalculateShippingOptionCostBody
-  fields: CalculateShippingOptionCostFields
-}
+} & CalculateShippingOptionCostFields
 export type CalculateShippingOptionCostResponse =
   ReturnType<CalculateShippingOptionCost>
