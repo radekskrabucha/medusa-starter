@@ -1,4 +1,10 @@
 import { Button } from '@medusa-starter/ui/button'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader
+} from '@medusa-starter/ui/card'
 import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import { X } from 'lucide-react'
@@ -20,25 +26,25 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => (
       onClick={onClose}
     />
 
-    <div
+    <Card
       className={cx(
-        'bg-background fixed top-0 left-0 z-50 mt-6 ml-6 h-[calc(100vh-3rem)] w-[min(30rem,calc(100vw-3rem))] rounded-lg shadow-lg transition-transform duration-300',
+        'fixed top-0 left-0 z-50 mt-6 ml-6 h-[calc(100vh-3rem)] w-[min(30rem,calc(100vw-3rem))] transition-transform duration-300',
         isOpen ? 'translate-x-0' : '-translate-x-[calc(100%+3rem)]'
       )}
     >
-      <div className="flex h-full flex-col">
-        <div className="flex items-center justify-between border-b p-6">
-          <HeaderLogo />
-          <Button
-            onClick={onClose}
-            variant="ghost"
-            size="icon"
-            className="hover:bg-foreground/5"
-          >
-            <X className="size-6" />
-          </Button>
-        </div>
-        <nav className="flex flex-1 flex-col justify-center p-6">
+      <CardHeader className="flex flex-row items-center justify-between border-b pb-6">
+        <HeaderLogo />
+        <Button
+          onClick={onClose}
+          variant="ghost"
+          size="icon"
+          className="hover:bg-foreground/5"
+        >
+          <X className="size-6" />
+        </Button>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <nav className="flex h-full flex-col justify-center">
           <ul className="flex flex-col gap-8">
             <li>
               <Link
@@ -87,11 +93,10 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => (
             </li>
           </ul>
         </nav>
-
-        <div className="p-6">
-          <Copyright />
-        </div>
-      </div>
-    </div>
+      </CardContent>
+      <CardFooter>
+        <Copyright />
+      </CardFooter>
+    </Card>
   </>
 )
