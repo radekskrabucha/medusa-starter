@@ -11,7 +11,7 @@ export const CollectionProductTile: React.FC<CollectionProductTileProps> = ({
   product: { thumbnail, title, handle, description }
 }) => (
   <Link
-    to="/shop/item/$handle"
+    to="/store/item/$handle"
     params={{
       handle
     }}

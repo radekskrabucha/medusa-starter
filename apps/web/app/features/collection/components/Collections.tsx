@@ -15,7 +15,7 @@ export const Collections = () => {
         description="We are working hard to add more collections to our store. Stay tuned!"
         action={
           <Link
-            to="/shop"
+            to="/store"
             className={buttonVariants({ variant: 'outline' })}
           >
             See all products

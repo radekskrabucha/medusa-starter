@@ -32,7 +32,7 @@ export const FeaturedProducts = () => {
                 />
               ))}
               <Link
-                to="/shop"
+                to="/store"
                 className={buttonVariants({
                   variant: 'ghost',
                   className: 'group w-min self-center'

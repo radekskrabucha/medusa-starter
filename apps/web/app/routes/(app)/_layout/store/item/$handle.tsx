@@ -4,7 +4,7 @@ import { productSearchSchema } from '~web/features/products/validationSchemas'
 import { actions } from '~web/lib/medusa'
 import { seo } from '~web/utils/seo'
 
-export const Route = createFileRoute('/(app)/_layout/shop/item/$handle')({
+export const Route = createFileRoute('/(app)/_layout/store/item/$handle')({
   component: RouteComponent,
   validateSearch: productSearchSchema,
   loader: async ({ params: { handle } }) => {

@@ -3,7 +3,7 @@ import { getRouteApi } from '@tanstack/react-router'
 import type { ProductSearch } from './validationSchemas'
 
 export const productPageRouteApi = getRouteApi(
-  '/(app)/_layout/shop/item/$handle'
+  '/(app)/_layout/store/item/$handle'
 )
 
 type Direction = 'prev' | 'next'

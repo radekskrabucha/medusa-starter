@@ -41,7 +41,7 @@ export const ProductImageGallery = ({
         {images.length > 1 && (
           <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 transition-opacity group-hover:opacity-100">
             <Link
-              to="/shop/item/$handle"
+              to="/store/item/$handle"
               search={prevState => ({
                 ...prevState,
                 image: getPrevImageId()
@@ -55,7 +55,7 @@ export const ProductImageGallery = ({
               <ChevronLeft className="h-6 w-6" />
             </Link>
             <Link
-              to="/shop/item/$handle"
+              to="/store/item/$handle"
               search={prevState => ({
                 ...prevState,
                 image: getNextImageId()
@@ -76,7 +76,7 @@ export const ProductImageGallery = ({
           {images.map((image, index) => (
             <Link
               key={image.id}
-              to="/shop/item/$handle"
+              to="/store/item/$handle"
               replace
               search={prevState => ({
                 ...prevState,
