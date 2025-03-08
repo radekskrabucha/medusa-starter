@@ -62,8 +62,7 @@ export const AddShippingAddressForm = () => {
           postal_code: postalCode ? postalCode : undefined,
           is_default_billing: isDefaultBilling ? isDefaultBilling : undefined,
           is_default_shipping: isDefaultShipping ? isDefaultShipping : undefined
-        },
-        fields: {}
+        }
       })
     },
     defaultValues: {

@@ -42,8 +42,7 @@ export const SignUpForm = () => {
             email,
             first_name: firstName ? firstName : undefined,
             last_name: lastName ? lastName : undefined
-          },
-          fields: {}
+          }
         },
         signUpParams: {
           email,

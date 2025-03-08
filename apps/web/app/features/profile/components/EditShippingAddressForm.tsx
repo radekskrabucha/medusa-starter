@@ -84,8 +84,7 @@ export const EditShippingAddressForm: React.FC<
           is_default_shipping: nonNullable(isDefaultShipping)
             ? isDefaultShipping
             : undefined
-        },
-        fields: {}
+        }
       })
     },
     defaultValues: {

@@ -66,8 +66,7 @@ export const EditProfileForm = () => {
           company_name: nonNullable(companyName)
             ? companyName.trim()
             : undefined
-        },
-        fields: {}
+        }
       })
     },
     defaultValues: {
