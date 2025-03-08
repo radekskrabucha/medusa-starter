@@ -46,7 +46,7 @@ export const AddressSummaryTile = ({ address }: AddressSummaryTileProps) => (
       </CardContent>
       <CardFooter className="text-muted-foreground justify-end gap-2 text-sm">
         See details
-        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
       </CardFooter>
     </Card>
   </Link>

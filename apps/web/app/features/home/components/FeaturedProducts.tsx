@@ -32,13 +32,14 @@ export const FeaturedProducts = () => {
                 />
               ))}
               <Link
-                to="/"
+                to="/shop"
                 className={buttonVariants({
                   variant: 'ghost',
-                  className: 'self-center'
+                  className: 'group w-min self-center'
                 })}
               >
-                <ArrowRight /> See all products
+                See all products{' '}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
           </Slider>

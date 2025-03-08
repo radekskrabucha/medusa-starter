@@ -44,7 +44,7 @@ export const CollectionSummaryTile: React.FC<CollectionSummaryTileProps> = ({
         </CardContent>
         <CardFooter className="text-muted-foreground justify-end gap-2 text-sm">
           See collection
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </CardFooter>
       </Card>
     </Link>
