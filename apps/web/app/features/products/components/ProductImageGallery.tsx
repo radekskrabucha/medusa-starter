@@ -31,8 +31,8 @@ export const ProductImageGallery = ({
   )
 
   return (
-    <div className="flex max-w-3xl flex-1 flex-col gap-6 max-lg:max-w-none max-lg:flex-row max-md:flex-col">
-      <div className="group relative aspect-square overflow-hidden rounded-lg max-lg:flex-1">
+    <div className="flex max-w-3xl flex-1 flex-col gap-6 max-lg:max-w-none">
+      <div className="group relative aspect-square flex-1 overflow-hidden rounded-lg">
         <img
           src={selectedImage?.url || placeholderImage}
           alt={title}
@@ -72,7 +72,7 @@ export const ProductImageGallery = ({
         )}
       </div>
       {images.length > 0 && (
-        <div className="grid h-min grid-cols-[repeat(auto-fit,minmax(min(calc(100vw-3rem),80px),120px))] gap-5 max-md:grid-cols-[repeat(auto-fit,minmax(min(calc(100vw-3rem),50px),80px))]">
+        <div className="grid h-min grid-cols-[repeat(auto-fill,minmax(min(calc(100vw-3rem),80px),1fr))] gap-5">
           {images.map((image, index) => (
             <Link
               key={image.id}

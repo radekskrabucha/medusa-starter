@@ -9,8 +9,8 @@ type ProductPageProps = {
 }
 
 export const ProductPage: React.FC<ProductPageProps> = ({ product }) => (
-  <div className="layout-section">
-    <div className="flex gap-8 max-lg:flex-col">
+  <section className="layout-section">
+    <div className="flex gap-8 max-md:flex-col">
       <ProductImageGallery
         images={product.images || []}
         title={product.title}
@@ -25,5 +25,5 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => (
         <ProductAddToCartButton />
       </div>
     </div>
-  </div>
+  </section>
 )
