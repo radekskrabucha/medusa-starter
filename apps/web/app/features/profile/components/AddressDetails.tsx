@@ -14,7 +14,7 @@ import {
   User
 } from 'lucide-react'
 import { QueryBoundary } from '~web/components/QueryBoundary'
-import { useAddressQuery } from '../hooks/useAddressQuery'
+import { useAddressQuery } from '~web/features/profile/hooks/useAddressQuery'
 import { AddressDetailItem } from './AddressDetailItem'
 import { DeleteAddressButton } from './DeleteAddressButton'
 

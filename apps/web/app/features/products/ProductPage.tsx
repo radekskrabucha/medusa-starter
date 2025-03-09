@@ -4,7 +4,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@medusa-starter/ui/breadcrumb'
-import { StorePageBreadcrumb } from '../store/components/StorePageBreadcrumb'
+import { StorePageBreadcrumb } from '~web/features/store/components/StorePageBreadcrumb'
 import { ProductAddToCartButton } from './components/ProductAddToCartButton'
 import { ProductImageGallery } from './components/ProductImageGallery'
 import { ProductInfo } from './components/ProductInfo'
