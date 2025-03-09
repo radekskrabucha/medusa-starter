@@ -1,3 +1,4 @@
+import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { getRouteApi } from '@tanstack/react-router'
 import { decode } from 'hono/jwt'
@@ -36,15 +37,15 @@ export const isAuthenticated = (): boolean => {
       return false
     }
 
-    const exp = getExpTimestampFromToken(token)
+    const timestamps = getAuthTokenTimestamps(token)
 
-    if (!exp) {
+    if (!timestamps) {
       return false
     }
 
     const nowUnix = getNowUnix()
 
-    if (nowUnix > exp) {
+    if (nowUnix > timestamps.exp) {
       return false
     }
 
@@ -54,15 +55,22 @@ export const isAuthenticated = (): boolean => {
   }
 }
 
-const getExpTimestampFromToken = (token: string) => {
+export const getAuthTokenTimestamps = (token: string) => {
   try {
     const decoded = decode(token)
 
-    if (!decoded.payload.exp) {
-      return null
+    if (nonNullable(decoded.payload.exp) && nonNullable(decoded.payload.iat)) {
+      const exp = decoded.payload.exp
+      const iat = decoded.payload.iat
+
+      return {
+        exp,
+        iat,
+        difference: () => exp - iat
+      }
     }
 
-    return decoded.payload.exp
+    return null
   } catch {
     return null
   }
