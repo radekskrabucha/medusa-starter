@@ -36,9 +36,7 @@ export const isAuthenticated = (): boolean => {
       return false
     }
 
-    const {
-      payload: { exp }
-    } = decode(token)
+    const exp = getExpTimestampFromToken(token)
 
     if (!exp) {
       return false
@@ -53,5 +51,19 @@ export const isAuthenticated = (): boolean => {
     return true
   } catch {
     return false
+  }
+}
+
+const getExpTimestampFromToken = (token: string) => {
+  try {
+    const decoded = decode(token)
+
+    if (!decoded.payload.exp) {
+      return null
+    }
+
+    return decoded.payload.exp
+  } catch {
+    return null
   }
 }
