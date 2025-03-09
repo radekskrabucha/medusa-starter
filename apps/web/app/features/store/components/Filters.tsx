@@ -47,28 +47,28 @@ export const Filters = () => {
           <FiltersLabel>Sort by date</FiltersLabel>
           <FilterCheckboxItem
             label="From oldest to newest"
-            value="asc"
-            option="date"
+            value="created_at"
+            option="order"
             isChecked={matchFilter}
           />
           <FilterCheckboxItem
             label="From newest to oldest"
-            value="desc"
-            option="date"
+            value="-created_at"
+            option="order"
             isChecked={matchFilter}
           />
           <Separator />
           <FiltersLabel>Sort by price</FiltersLabel>
           <FilterCheckboxItem
             label="From lowest to highest"
-            value="asc"
-            option="price"
+            value="price_asc"
+            option="order"
             isChecked={matchFilter}
           />
           <FilterCheckboxItem
             label="From highest to lowest"
-            value="desc"
-            option="price"
+            value="price_desc"
+            option="order"
             isChecked={matchFilter}
           />
         </CardContent>

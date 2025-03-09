@@ -1,12 +1,16 @@
 import { z } from 'zod'
 
-export const sortSchema = z.enum(['asc', 'desc'])
+export const sortOrderSchema = z.enum([
+  'created_at',
+  '-created_at',
+  'price_asc',
+  'price_desc'
+])
 
 export const storeSearchSchema = z.object({
-  date: sortSchema.optional(),
-  price: sortSchema.optional()
+  order: sortOrderSchema.optional()
 })
 
-export type StoreSort = z.infer<typeof sortSchema>
+export type StoreSortOrder = z.infer<typeof sortOrderSchema>
 export type StoreSearch = z.infer<typeof storeSearchSchema>
 export type StoreSortOptions = keyof StoreSearch
