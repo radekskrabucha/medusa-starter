@@ -7,9 +7,9 @@ import {
 } from '@medusa-starter/ui/breadcrumb'
 import { Link } from '@tanstack/react-router'
 
-export const StorePageBreadcrumb: React.FC<
-  React.PropsWithChildren
-> = ({ children }) => (
+export const StorePageBreadcrumb: React.FC<React.PropsWithChildren> = ({
+  children
+}) => (
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
