@@ -38,7 +38,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
               queryOption => queryOption.name === option.title
             ) || {
               name: option.title,
-              value: option.values?.[0]?.id ?? ''
+              value: option.values?.[0]?.value ?? ''
             }
           }
         />
@@ -64,7 +64,7 @@ const Option: React.FC<OptionProps> = ({ option, handle, selectedOption }) => (
             optionValue={optionValue}
             handle={handle}
             optionName={option.title}
-            isSelected={selectedOption.value === optionValue.id}
+            isSelected={selectedOption.value === optionValue.value}
           />
         ))}
       </div>
@@ -90,7 +90,7 @@ const OptionValue: React.FC<OptionValueProps> = ({
     replace
     params={{ handle }}
     search={prevState =>
-      handleSelectOptionParams(prevState, optionName, optionValue.id)
+      handleSelectOptionParams(prevState, optionName, optionValue.value)
     }
     className={cx(
       'hover:ring-primary shrink-0 cursor-pointer rounded-sm px-3 py-1 ring-2 ring-offset-2 transition-colors',
