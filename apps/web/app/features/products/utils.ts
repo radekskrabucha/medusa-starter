@@ -43,7 +43,7 @@ export const getNavigationImageId = (
 export const handleSelectOptionParams = (
   prevState: ProductSearch,
   optionName: string,
-  optionValueId: string
+  optionValue: string
 ): ProductSearch => {
   const prevStateOptions = prevState.options
 
@@ -53,7 +53,7 @@ export const handleSelectOptionParams = (
       options: [
         {
           name: optionName,
-          value: optionValueId
+          value: optionValue
         }
       ]
     }
@@ -69,7 +69,7 @@ export const handleSelectOptionParams = (
         ...prevStateOptions,
         {
           name: optionName,
-          value: optionValueId
+          value: optionValue
         }
       ]
     }
@@ -81,7 +81,7 @@ export const handleSelectOptionParams = (
       option.name === optionName
         ? {
             name: optionName,
-            value: optionValueId
+            value: optionValue
           }
         : option
     )
@@ -114,7 +114,7 @@ export const getProductSelectedOptionsFromQuery = (
     }, undefined)
 
     const selectedOptionValue = option.values?.find(
-      value => value.id === selectedQueryOption?.value
+      value => value.value === selectedQueryOption?.value
     )
 
     if (!selectedOptionValue) {
