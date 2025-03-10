@@ -6,7 +6,7 @@ import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import type React from 'react'
 import { handleSelectOptionParams, productPageRouteApi } from '../utils'
-import type { ProductOption as ValidationProductOption } from '../validationSchemas'
+import type { QueryProductOption } from '../validationSchemas'
 
 type ProductOptionsProps = {
   options: Array<ProductOption> | null
@@ -50,7 +50,7 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
 type OptionProps = {
   option: ProductOption
   handle: string
-  selectedOption: ValidationProductOption
+  selectedOption: QueryProductOption
 }
 
 const Option: React.FC<OptionProps> = ({ option, handle, selectedOption }) => (
