@@ -10,6 +10,7 @@ import { cx } from 'class-variance-authority'
 import { X } from 'lucide-react'
 import { Copyright } from './Copyright'
 import { HeaderLogo } from './HeaderLogo'
+import { Regions } from './Regions'
 
 type SideMenuProps = {
   isOpen: boolean
@@ -103,7 +104,8 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => (
           </ul>
         </nav>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col items-stretch gap-3">
+        <Regions />
         <Copyright />
       </CardFooter>
     </Card>
