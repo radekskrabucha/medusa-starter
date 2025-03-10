@@ -3,14 +3,14 @@ import { Card, CardContent, CardHeader } from '@medusa-starter/ui/card'
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { Filter } from 'lucide-react'
-import { storePageRouteApi } from '../utils'
+import { calculateAppliedFilters, storePageRouteApi } from '../utils'
 import { CategoriesFilter } from './CategoriesFilter'
 import { CollectionsFilter } from './CollectionsFilter'
 import { SortByFilters } from './SortByFilters'
 
 export const Filters = () => {
   const options = storePageRouteApi.useSearch()
-  const optionsLength = Object.keys(options).length
+  const appliedFilters = calculateAppliedFilters(options)
 
   return (
     <aside className="layout-section !self-start">
@@ -20,14 +20,14 @@ export const Filters = () => {
             <Filter className="size-4 shrink-0" />
             <h3 className="text-2xl font-semibold">
               Filters{' '}
-              {optionsLength ? (
+              {appliedFilters ? (
                 <span className="text-muted-foreground text-sm">
-                  ({optionsLength})
+                  ({appliedFilters})
                 </span>
               ) : null}
             </h3>
           </div>
-          {optionsLength ? (
+          {appliedFilters ? (
             <Link
               to="/store"
               replace
