@@ -139,8 +139,8 @@ importers:
   apps/medusa:
     dependencies:
       '@medusajs/admin-sdk':
-        specifier: 2.5.1
-        version: 2.5.1
+        specifier: 2.6.0
+        version: 2.6.0
       '@medusajs/cli':
         specifier: 2.5.1
         version: 2.5.1(@mikro-orm/core@6.4.3)(@mikro-orm/knex@6.4.3(@mikro-orm/core@6.4.3)(pg@8.13.3))(@mikro-orm/migrations@6.4.3(@mikro-orm/core@6.4.3)(@types/node@22.13.10)(pg@8.13.3))(@mikro-orm/postgresql@6.4.3(@mikro-orm/core@6.4.3))(awilix@8.0.1)(ioredis@5.5.0)(pg@8.13.3)(vite@5.4.14(@types/node@22.13.10)(lightningcss@1.29.1)(terser@5.39.0))
@@ -1659,8 +1659,8 @@ packages:
     peerDependencies:
       react-dom: ^18.0.0
 
-  '@medusajs/admin-sdk@2.5.1':
-    resolution: {integrity: sha512-WkFIMtT+/SqkRNgNxQ/524hdwd7N1+LA0K6l+kyPOQYAILJS1DEE/vaVeAph3wj7WjQTHMesWlKIVb/h4ycW/Q==}
+  '@medusajs/admin-sdk@2.6.0':
+    resolution: {integrity: sha512-GY2K5U2fbkgsQQHifzawA+0LFrEu28Wp7EM2WYi46XyFx1o2uugtzvicNCbttsOI0ypedUm9onRz9hXsgtUmvw==}
 
   '@medusajs/admin-shared@2.6.0':
     resolution: {integrity: sha512-ZemC7C58vuEjDDAgr/5cb1DDyOc+VFvuLzxd7nAXM6yxKILjt9vnJH94AR5W3okEEVyFh9+RIG/fJAdUF6+W4g==}
@@ -11436,7 +11436,7 @@ snapshots:
       - ts-node
       - typescript
 
-  '@medusajs/admin-sdk@2.5.1':
+  '@medusajs/admin-sdk@2.6.0':
     dependencies:
       '@medusajs/admin-shared': 2.6.0
       zod: 3.22.4
