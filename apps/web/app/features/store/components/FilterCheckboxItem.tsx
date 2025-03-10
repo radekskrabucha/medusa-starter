@@ -8,18 +8,31 @@ export type IsChecked<T extends StoreSortOptions> = (
   value: StoreSearch[T]
 ) => boolean
 
+export type State = StoreSearch
+export type OnChangeParams<T extends StoreSortOptions> = {
+  prevState: State
+  checked: boolean
+  value: StoreSearch[T]
+  option: T
+}
+export type OnChange<T extends StoreSortOptions> = (
+  params: OnChangeParams<T>
+) => State
+
 type FilterCheckboxItemProps<T extends StoreSortOptions> = {
   label: React.ReactNode
   value: StoreSearch[T]
   option: T
   isChecked: IsChecked<T>
+  onChange: OnChange<T>
 }
 
 export const FilterCheckboxItem = <T extends StoreSortOptions>({
   label,
   value,
   option,
-  isChecked
+  isChecked,
+  onChange
 }: FilterCheckboxItemProps<T>) => {
   const checked = isChecked(option, value)
 
@@ -27,19 +40,7 @@ export const FilterCheckboxItem = <T extends StoreSortOptions>({
     <Link
       to="/store"
       replace
-      search={prevState => {
-        if (checked) {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { [option]: _, ...rest } = prevState
-
-          return rest
-        }
-
-        return {
-          ...prevState,
-          [option]: value
-        }
-      }}
+      search={prevState => onChange({ prevState, checked, value, option })}
       className="flex items-center gap-2 self-start"
     >
       <Checkbox
