@@ -5,7 +5,8 @@ import { Link } from '@tanstack/react-router'
 import { Filter } from 'lucide-react'
 import { storePageRouteApi } from '../utils'
 import type { StoreSortOptions, StoreSearch } from '../validationSchemas'
-import { FilterCheckboxItem, type OnChangeParams } from './FilterCheckboxItem'
+import { type OnChangeParams } from './FilterCheckboxItem'
+import { SortByFilters } from './SortByFilters'
 
 const createFilterMatcher =
   (options: StoreSearch) =>
@@ -62,43 +63,9 @@ export const Filters = () => {
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           <Separator />
-          <FiltersLabel>Sort by date</FiltersLabel>
-          <FilterCheckboxItem
-            label="From oldest to newest"
-            value="created_at"
-            option="order"
-            isChecked={matchFilter}
-            onChange={handleFilterCheckboxChange}
-          />
-          <FilterCheckboxItem
-            label="From newest to oldest"
-            value="-created_at"
-            option="order"
-            isChecked={matchFilter}
-            onChange={handleFilterCheckboxChange}
-          />
-          <Separator />
-          <FiltersLabel>Sort by price</FiltersLabel>
-          <FilterCheckboxItem
-            label="From lowest to highest"
-            value="price_asc"
-            option="order"
-            isChecked={matchFilter}
-            onChange={handleFilterCheckboxChange}
-          />
-          <FilterCheckboxItem
-            label="From highest to lowest"
-            value="price_desc"
-            option="order"
-            isChecked={matchFilter}
-            onChange={handleFilterCheckboxChange}
-          />
+          <SortByFilters options={options} />
         </CardContent>
       </Card>
     </aside>
   )
 }
-
-const FiltersLabel: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <h3 className="text-md font-semibold">{children}</h3>
-)
