@@ -30,7 +30,7 @@ const Region: React.FC<RegionProps> = ({ region }) => (
     <div className="flex flex-wrap gap-2 text-xl leading-none">
       {region?.countries?.map(country => (
         <Country
-          key={country.id}
+          key={country.iso_2}
           country={country}
         />
       ))}
