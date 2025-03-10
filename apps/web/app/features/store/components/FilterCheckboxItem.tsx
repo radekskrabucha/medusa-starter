@@ -1,30 +1,17 @@
 import { Checkbox } from '@medusa-starter/ui/checkbox'
 import { Label } from '@medusa-starter/ui/label'
 import { Link } from '@tanstack/react-router'
+import type { IsChecked, OnChange } from '../types'
 import type { StoreSortOptions, StoreSearch } from '../validationSchemas'
 
-export type IsChecked<T extends StoreSortOptions> = (
-  option: T,
-  value: StoreSearch[T]
-) => boolean
+export type Value<T extends StoreSortOptions> = StoreSearch[T]
 
-export type State = StoreSearch
-export type OnChangeParams<T extends StoreSortOptions> = {
-  prevState: State
-  checked: boolean
-  value: StoreSearch[T]
-  option: T
-}
-export type OnChange<T extends StoreSortOptions> = (
-  params: OnChangeParams<T>
-) => State
-
-type FilterCheckboxItemProps<T extends StoreSortOptions> = {
+type FilterCheckboxItemProps<T extends StoreSortOptions, TValue> = {
   label: React.ReactNode
   value: StoreSearch[T]
   option: T
-  isChecked: IsChecked<T>
-  onChange: OnChange<T>
+  isChecked: IsChecked<T, TValue>
+  onChange: OnChange<T, TValue>
 }
 
 export const FilterCheckboxItem = <T extends StoreSortOptions>({
@@ -33,7 +20,7 @@ export const FilterCheckboxItem = <T extends StoreSortOptions>({
   option,
   isChecked,
   onChange
-}: FilterCheckboxItemProps<T>) => {
+}: FilterCheckboxItemProps<T, Value<T>>) => {
   const checked = isChecked(option, value)
 
   return (

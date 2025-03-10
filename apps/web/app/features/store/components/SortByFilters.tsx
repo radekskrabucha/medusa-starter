@@ -1,7 +1,8 @@
 import { Separator } from '@medusa-starter/ui/separator'
 import type React from 'react'
+import type { OnChangeParams } from '../types'
 import type { StoreSearch, StoreSortOptions } from '../validationSchemas'
-import { FilterCheckboxItem, type OnChangeParams } from './FilterCheckboxItem'
+import { FilterCheckboxItem, type Value } from './FilterCheckboxItem'
 import { FiltersLabel } from './FilterLabel'
 
 type SortByFiltersProps = {
@@ -58,7 +59,7 @@ const handleFilterCheckboxChange = <T extends StoreSortOptions>({
   option,
   prevState,
   value
-}: OnChangeParams<T>): StoreSearch => {
+}: OnChangeParams<T, Value<T>>): StoreSearch => {
   if (checked) {
     const { [option]: _, ...rest } = prevState
 
