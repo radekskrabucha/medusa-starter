@@ -50,3 +50,23 @@ export const createPrimitiveFilterMatcher =
   (options: StoreSearch) =>
   <T extends StoreSortOptions>(option: T, value: CheckboxValue<T>) =>
     options[option] === value
+
+type BaseTarget = {
+  id: string
+  handle: string
+}
+
+export const getIdsFromHandles = <T extends BaseTarget>(
+  targetHandles: Array<string> | undefined,
+  target: Array<T>
+): Array<string> | null => {
+  if (!targetHandles?.length) {
+    return null
+  }
+
+  return targetHandles.flatMap(handle => {
+    const t = target.find(t => t.handle === handle)?.id
+
+    return t ?? []
+  })
+}
