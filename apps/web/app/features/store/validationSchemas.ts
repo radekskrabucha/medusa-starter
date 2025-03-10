@@ -7,10 +7,14 @@ export const sortOrderSchema = z.enum([
   'price_desc'
 ])
 
+export const collectionsSchema = z.array(z.string())
+
 export const storeSearchSchema = z.object({
-  order: sortOrderSchema.optional()
+  order: sortOrderSchema.optional(),
+  collections: z.array(z.string()).optional()
 })
 
 export type StoreSortOrder = z.infer<typeof sortOrderSchema>
 export type StoreSearch = z.infer<typeof storeSearchSchema>
+export type StoreCollections = StoreSearch['collections']
 export type StoreSortOptions = keyof StoreSearch
