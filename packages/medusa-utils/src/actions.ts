@@ -213,19 +213,19 @@ export type ClientActions = {
     setNewPassword: (params: SetNewPasswordParams) => SetNewPasswordResponse
   }
   store: {
-    getProducts: (params: GetProductsParams) => GetProductsResponse
+    getProducts: (params?: GetProductsParams) => GetProductsResponse
     getProduct: (params: GetProductParams) => GetProductResponse
-    getCategories: (params: GetCategoriesParams) => GetCategoriesResponse
+    getCategories: (params?: GetCategoriesParams) => GetCategoriesResponse
     getCategory: (params: GetCategoryParams) => GetCategoryResponse
-    getCollections: (params: GetCollectionsParams) => GetCollectionsResponse
+    getCollections: (params?: GetCollectionsParams) => GetCollectionsResponse
     getCollection: (params: GetCollectionParams) => GetCollectionResponse
   }
   region: {
-    getRegions: (params: GetRegionsParams) => GetRegionsResponse
+    getRegions: (params?: GetRegionsParams) => GetRegionsResponse
     getRegion: (params: GetRegionParams) => GetRegionResponse
   }
   order: {
-    getOrders: (params: GetOrdersParams) => GetOrdersResponse
+    getOrders: (params?: GetOrdersParams) => GetOrdersResponse
     getOrder: (params: GetOrderParams) => GetOrderResponse
     requestOrderTransfer: (
       params: RequestOrderTransferParams
@@ -262,13 +262,13 @@ export type ClientActions = {
       add: (params: AddNewAddressParams) => AddNewAddressResponse
       update: (params: UpdateAddressParams) => UpdateAddressResponse
       getAddress: (params: GetAddressParams) => GetAddressResponse
-      getAddresses: (params: GetAddressesParams) => GetAddressesResponse
+      getAddresses: (params?: GetAddressesParams) => GetAddressesResponse
       delete: (params: DeleteAddressParams) => DeleteAddressResponse
     }
   }
   fulfillment: {
     getCartShippingOptions: (
-      params: GetCartShippingOptionsParams
+      params?: GetCartShippingOptionsParams
     ) => GetCartShippingOptionsResponse
     calculateShippingOptionCost: (
       params: CalculateShippingOptionCostParams
