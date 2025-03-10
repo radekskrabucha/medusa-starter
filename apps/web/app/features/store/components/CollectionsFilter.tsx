@@ -21,7 +21,7 @@ export const CollectionsFilter: React.FC<CollectionsFilterProps> = ({
         <FilterRadioItem
           key={collection.id}
           label={collection.title}
-          value={collection.id}
+          value={collection.handle}
           option="collections"
           isChecked={matchFilter}
           onChange={handleFilterCheckboxChange}
