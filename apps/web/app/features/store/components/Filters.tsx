@@ -4,6 +4,7 @@ import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { Filter } from 'lucide-react'
 import { storePageRouteApi } from '../utils'
+import { CategoriesFilter } from './CategoriesFilter'
 import { CollectionsFilter } from './CollectionsFilter'
 import { SortByFilters } from './SortByFilters'
 
@@ -41,6 +42,8 @@ export const Filters = () => {
           <SortByFilters options={options} />
           <Separator />
           <CollectionsFilter options={options} />
+          <Separator />
+          <CategoriesFilter options={options} />
         </CardContent>
       </Card>
     </aside>
