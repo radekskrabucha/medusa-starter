@@ -8,20 +8,14 @@ import {
 } from '@medusa-starter/ui/hover-card'
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
-import { format, fromUnixTime } from 'date-fns'
-import { decode } from 'hono/jwt'
 import { LogIn, User2 } from 'lucide-react'
 import { LogOutButton } from '~web/features/auth/components/LogOutButton'
 
 type ProfileCardProps = {
   customer: Customer
-  token: string | null
 }
 
-export const ProfileCard: React.FC<ProfileCardProps> = ({
-  customer,
-  token
-}) => (
+export const ProfileCard: React.FC<ProfileCardProps> = ({ customer }) => (
   <HoverCard>
     <HoverCardTrigger asChild>
       <Link
@@ -41,10 +35,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         <div className="text-muted-foreground text-center text-sm">
           <span>{getCustomerDisplayName(customer)}</span>
         </div>
-
-        {/* TEMP */}
-        <TempTokenExpDate token={token} />
-        {/* TEMP */}
 
         <Separator />
         <Link
@@ -106,29 +96,3 @@ export const ProfileCardNoUser: React.FC<ProfileCardNoUserProps> = ({
     )}
   </HoverCard>
 )
-
-type TempTokenExpDateProps = {
-  token: string | null
-}
-
-const TempTokenExpDate: React.FC<TempTokenExpDateProps> = ({ token }) => {
-  if (!token) {
-    return null
-  }
-
-  const expTime = decode(token).payload.exp
-
-  if (!expTime) {
-    return null
-  }
-
-  return (
-    <>
-      <Separator />
-      <div className="text-muted-foreground text-center text-sm">
-        <p>Token expires at:</p>
-        <span>{format(fromUnixTime(expTime), 'PPPpp')}</span>
-      </div>
-    </>
-  )
-}
