@@ -1,6 +1,10 @@
-import type { ProductImage } from '@medusa-starter/medusa-utils/models'
+import type {
+  ProductImage,
+  ProductOption,
+  ProductOptionValue
+} from '@medusa-starter/medusa-utils/models'
 import { getRouteApi } from '@tanstack/react-router'
-import type { ProductSearch } from './validationSchemas'
+import type { ProductSearch, QueryProductOption } from './validationSchemas'
 
 export const productPageRouteApi = getRouteApi(
   '/(app)/_layout/store/item/$handle'
@@ -82,4 +86,43 @@ export const handleSelectOptionParams = (
         : option
     )
   }
+}
+
+type Result = Array<ProductOptionValue>
+
+export const getProductSelectedOptionsFromQuery = (
+  queryOptions: ProductSearch['options'],
+  options: Array<ProductOption>
+): Result => {
+  const selectedOptions = options.flatMap<ProductOptionValue>(option => {
+    const defaultValue = option.values?.[0]
+
+    if (!defaultValue) {
+      return []
+    }
+
+    const selectedQueryOption = queryOptions?.reduce<
+      QueryProductOption | undefined
+    >((acc, curr) => {
+      if (acc) {
+        return acc
+      }
+      if (curr.name === option.title) {
+        return curr
+      }
+      return undefined
+    }, undefined)
+
+    const selectedOptionValue = option.values?.find(
+      value => value.id === selectedQueryOption?.value
+    )
+
+    if (!selectedOptionValue) {
+      return defaultValue
+    }
+
+    return selectedOptionValue
+  })
+
+  return selectedOptions
 }
