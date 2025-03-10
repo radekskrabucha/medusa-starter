@@ -34,5 +34,6 @@ export const addProductToCart = async (
 export const getCartQueryOptions = (params: GetCartParams) =>
   queryOptions({
     queryFn: () => actions.cart.get(params),
-    queryKey: ['actions.cart.get', params]
+    queryKey: ['actions.cart.get', params],
+    enabled: Boolean(params.id)
   })
