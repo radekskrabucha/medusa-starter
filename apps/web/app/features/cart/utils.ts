@@ -1,6 +1,7 @@
+import { appName } from '~web/config/app'
 import { getItem, removeItem, setItem } from '~web/utils/localStorage'
 
-export const CART_KEY = 'medusa_cart'
+export const CART_KEY = `${appName}.medusa_cart`
 export const CART_EVENT_NAME = 'cart'
 
 export const localCart = {
