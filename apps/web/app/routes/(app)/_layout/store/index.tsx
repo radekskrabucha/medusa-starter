@@ -12,10 +12,16 @@ export const Route = createFileRoute('/(app)/_layout/store/')({
     order
   }),
   loader: async ({ deps: { order } }) => {
-    return await actions.store.getProducts({
-      limit: LIMIT_PER_PAGE,
-      order: order ?? SORT_BY_DEFAULT
-    })
+    const [productsData, collectionsData, categoriesData] = await Promise.all([
+      actions.store.getProducts({
+        limit: LIMIT_PER_PAGE,
+        order: order ?? SORT_BY_DEFAULT
+      }),
+      actions.store.getCollections(),
+      actions.store.getCategories()
+    ])
+
+    return { productsData, collectionsData, categoriesData }
   },
   head: () => ({
     meta: [...seo({ title: 'Store' })]

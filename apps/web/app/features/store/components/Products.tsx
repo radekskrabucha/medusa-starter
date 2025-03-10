@@ -6,9 +6,9 @@ import { ProductTile } from '~web/features/products/components/ProductTile'
 import { storePageRouteApi } from '../utils'
 
 export const Products = () => {
-  const { products } = storePageRouteApi.useLoaderData()
+  const { productsData } = storePageRouteApi.useLoaderData()
 
-  if (!products.length) {
+  if (!productsData.products.length) {
     return (
       <EmptyState
         title="No products found"
@@ -29,7 +29,7 @@ export const Products = () => {
 
   return (
     <div className="grid grid-cols-[repeat(auto-fill,minmax(min(calc(100vw-3rem),250px),1fr))] gap-8">
-      {products.map(product => (
+      {productsData.products.map(product => (
         <ProductTile
           key={product.id}
           product={product}
