@@ -5,12 +5,14 @@ import { actions } from '~web/lib/medusa'
 export const Route = createFileRoute('/(app)/_layout')({
   component: AppLayout,
   loader: async () => {
-    try {
-      const res = await actions.store.getCollections({ limit: 5 })
+    const [regionsData, collectionsData] = await Promise.all([
+      actions.region.getRegions(),
+      actions.store.getCollections({ limit: 5 })
+    ])
 
-      return res.collections
-    } catch {
-      return []
+    return {
+      regionsData,
+      collectionsData
     }
   }
 })
