@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router'
 import type { IsChecked, OnChange } from '../types'
 import type { StoreSortOptions, StoreSearch } from '../validationSchemas'
 
-export type Value<T extends StoreSortOptions> = StoreSearch[T]
+export type CheckboxValue<T extends StoreSortOptions> = StoreSearch[T]
 
 type FilterCheckboxItemProps<T extends StoreSortOptions, TValue> = {
   label: React.ReactNode
@@ -20,7 +20,7 @@ export const FilterCheckboxItem = <T extends StoreSortOptions>({
   option,
   isChecked,
   onChange
-}: FilterCheckboxItemProps<T, Value<T>>) => {
+}: FilterCheckboxItemProps<T, CheckboxValue<T>>) => {
   const checked = isChecked(option, value)
 
   return (

@@ -1,8 +1,9 @@
 import { Separator } from '@medusa-starter/ui/separator'
 import type React from 'react'
 import type { OnChangeParams } from '../types'
+import { createPrimitiveFilterMatcher } from '../utils'
 import type { StoreSearch, StoreSortOptions } from '../validationSchemas'
-import { FilterCheckboxItem, type Value } from './FilterCheckboxItem'
+import { FilterCheckboxItem, type CheckboxValue } from './FilterCheckboxItem'
 import { FiltersLabel } from './FilterLabel'
 
 type SortByFiltersProps = {
@@ -10,7 +11,7 @@ type SortByFiltersProps = {
 }
 
 export const SortByFilters: React.FC<SortByFiltersProps> = ({ options }) => {
-  const matchFilter = createFilterMatcher(options)
+  const matchFilter = createPrimitiveFilterMatcher(options)
 
   return (
     <>
@@ -49,17 +50,12 @@ export const SortByFilters: React.FC<SortByFiltersProps> = ({ options }) => {
   )
 }
 
-const createFilterMatcher =
-  (options: StoreSearch) =>
-  <T extends StoreSortOptions>(option: T, value: StoreSearch[T]) =>
-    options[option] === value
-
 const handleFilterCheckboxChange = <T extends StoreSortOptions>({
   checked,
   option,
   prevState,
   value
-}: OnChangeParams<T, Value<T>>): StoreSearch => {
+}: OnChangeParams<T, CheckboxValue<T>>): StoreSearch => {
   if (checked) {
     const { [option]: _, ...rest } = prevState
 

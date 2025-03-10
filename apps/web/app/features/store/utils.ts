@@ -1,5 +1,11 @@
 import { getRouteApi } from '@tanstack/react-router'
-import type { StoreSortOrder } from './validationSchemas'
+import type { CheckboxValue } from './components/FilterCheckboxItem'
+import type { RadioValue } from './components/FilterRadioItem'
+import type {
+  StoreSearch,
+  StoreSortOptions,
+  StoreSortOrder
+} from './validationSchemas'
 
 export const storePageRouteApi = getRouteApi('/(app)/_layout/store/')
 
@@ -23,3 +29,24 @@ export const calculateAppliedFilters = (
     return total
   }, 0)
 }
+
+export const createArrayFilterMatcher =
+  (options: StoreSearch) =>
+  <T extends StoreSortOptions>(option: T, value: RadioValue<T>) => {
+    if (!value) {
+      return false
+    }
+
+    const selectedOption = options[option]
+
+    if (!selectedOption) {
+      return false
+    }
+
+    return selectedOption?.includes(value)
+  }
+
+export const createPrimitiveFilterMatcher =
+  (options: StoreSearch) =>
+  <T extends StoreSortOptions>(option: T, value: CheckboxValue<T>) =>
+    options[option] === value

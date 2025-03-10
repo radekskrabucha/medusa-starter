@@ -8,7 +8,9 @@ import { Link } from '@tanstack/react-router'
 import type { IsChecked, OnChange } from '../types'
 import type { StoreSortOptions, StoreSearch } from '../validationSchemas'
 
-export type Value<T extends StoreSortOptions> = ArrayElementType<StoreSearch[T]>
+export type RadioValue<T extends StoreSortOptions> = ArrayElementType<
+  StoreSearch[T]
+>
 
 type FilterRadioItemProps<T extends StoreSortOptions, TValue> = {
   label: React.ReactNode
@@ -24,7 +26,7 @@ export const FilterRadioItem = <T extends StoreSortOptions>({
   option,
   isChecked,
   onChange
-}: FilterRadioItemProps<T, Value<T>>) => {
+}: FilterRadioItemProps<T, RadioValue<T>>) => {
   const checked = isChecked(option, value)
 
   return (

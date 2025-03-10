@@ -1,8 +1,8 @@
 import type { OnChangeParams } from '../types'
-import { storePageRouteApi } from '../utils'
+import { createArrayFilterMatcher, storePageRouteApi } from '../utils'
 import type { StoreSearch, StoreSortOptions } from '../validationSchemas'
 import { FiltersLabel } from './FilterLabel'
-import { FilterRadioItem, type Value } from './FilterRadioItem'
+import { FilterRadioItem, type RadioValue } from './FilterRadioItem'
 
 type CategoriesFilterProps = {
   options: StoreSearch
@@ -12,7 +12,7 @@ export const CategoriesFilter: React.FC<CategoriesFilterProps> = ({
   options
 }) => {
   const { categoriesData } = storePageRouteApi.useLoaderData()
-  const matchFilter = createFilterMatcher(options)
+  const matchFilter = createArrayFilterMatcher(options)
 
   return (
     <>
@@ -31,28 +31,12 @@ export const CategoriesFilter: React.FC<CategoriesFilterProps> = ({
   )
 }
 
-const createFilterMatcher =
-  (options: StoreSearch) =>
-  <T extends StoreSortOptions>(option: T, value: Value<T>) => {
-    if (!value) {
-      return false
-    }
-
-    const selectedOption = options[option]
-
-    if (!selectedOption) {
-      return false
-    }
-
-    return selectedOption?.includes(value)
-  }
-
 const handleFilterCheckboxChange = <T extends StoreSortOptions>({
   checked,
   option,
   prevState,
   value
-}: OnChangeParams<T, Value<T>>): StoreSearch => {
+}: OnChangeParams<T, RadioValue<T>>): StoreSearch => {
   const { [option]: _categories, ...rest } = prevState
   const categories = _categories as StoreSearch['categories']
 
