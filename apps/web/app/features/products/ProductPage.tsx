@@ -36,7 +36,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => (
           handle={product.handle}
           options={product.options}
         />
-        <ProductAddToCartButton />
+        <ProductAddToCartButton product={product} />
       </div>
     </div>
   </section>
