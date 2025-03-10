@@ -8,8 +8,9 @@ import { seo } from '~web/utils/seo'
 export const Route = createFileRoute('/(app)/_layout/store/')({
   validateSearch: storeSearchSchema,
   component: StorePage,
-  loaderDeps: ({ search: { order } }) => ({
-    order
+  loaderDeps: ({ search: { order, collections } }) => ({
+    order,
+    collections
   }),
   loader: async ({ deps: { order } }) => {
     const [productsData, collectionsData, categoriesData] = await Promise.all([
