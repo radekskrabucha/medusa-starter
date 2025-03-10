@@ -1,19 +1,14 @@
-export const getItem = <T = string>(key: string): T | null => {
+export const getItem = (key: string) => {
   const item = localStorage.getItem(key)
 
   if (!item) {
     return null
   }
 
-  return JSON.parse(item) as T
+  return item
 }
 
-export const setItem = <T>(key: string, value: T): void => {
-  const item = JSON.stringify(value)
+export const setItem = (key: string, value: string) =>
+  localStorage.setItem(key, value)
 
-  localStorage.setItem(key, item)
-}
-
-export const removeItem = (key: string): void => {
-  localStorage.removeItem(key)
-}
+export const removeItem = (key: string) => localStorage.removeItem(key)
