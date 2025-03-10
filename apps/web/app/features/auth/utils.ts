@@ -3,6 +3,7 @@ import { getNowUnix } from '@medusa-starter/utils/date'
 import { getRouteApi } from '@tanstack/react-router'
 import { decode } from 'hono/jwt'
 import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
+import { getItem, removeItem } from '~web/utils/localStorage'
 
 export const signInPageRouteApi = getRouteApi(
   '/(app)/_layout/_not_authenticated/sign-in'
@@ -17,10 +18,9 @@ export const resetPasswordPageRouteApi = getRouteApi(
 
 export const LOG_IN_EVENT_NAME = 'storage'
 
-export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY)
+export const getAuthToken = () => getItem(AUTH_TOKEN_KEY)
 
-export const removeAuthToken = () =>
-  window.localStorage.removeItem(AUTH_TOKEN_KEY)
+export const removeAuthToken = () => removeItem(AUTH_TOKEN_KEY)
 
 export const dispatchAuthTokenEvent = () =>
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
