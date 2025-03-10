@@ -4,36 +4,10 @@ import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { Filter } from 'lucide-react'
 import { storePageRouteApi } from '../utils'
-import type { StoreSortOptions, StoreSearch } from '../validationSchemas'
-import { type OnChangeParams } from './FilterCheckboxItem'
 import { SortByFilters } from './SortByFilters'
-
-const createFilterMatcher =
-  (options: StoreSearch) =>
-  <T extends StoreSortOptions>(option: T, value: StoreSearch[T]) =>
-    options[option] === value
-
-const handleFilterCheckboxChange = <T extends StoreSortOptions>({
-  checked,
-  option,
-  prevState,
-  value
-}: OnChangeParams<T>): StoreSearch => {
-  if (checked) {
-    const { [option]: _, ...rest } = prevState
-
-    return rest
-  }
-
-  return {
-    ...prevState,
-    [option]: value
-  }
-}
 
 export const Filters = () => {
   const options = storePageRouteApi.useSearch()
-  const matchFilter = createFilterMatcher(options)
   const optionsLength = Object.keys(options).length
 
   return (
