@@ -13,7 +13,7 @@ import { Button } from '@medusa-starter/ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { useSyncAuthToken } from '~web/features/auth/hooks/useSyncAuthToken'
 import { actions } from '~web/lib/medusa'
 import { getMeQueryOptions } from '../actions'
 

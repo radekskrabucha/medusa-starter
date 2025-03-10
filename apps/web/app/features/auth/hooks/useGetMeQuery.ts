@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getMeQueryOptions as getQueryOptions } from '~web/features/profile/actions'
-import { useSyncAuthToken } from '~web/hooks/useSyncAuthToken'
+import { useSyncAuthToken } from './useSyncAuthToken'
 
 export const useGetMeQuery = () => {
   const token = useSyncAuthToken()

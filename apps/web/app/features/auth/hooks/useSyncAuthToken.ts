@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { getAuthToken, LOG_IN_EVENT_NAME } from '~web/features/auth/utils'
+import { getAuthToken, LOG_IN_EVENT_NAME } from '../utils'
 
 const subscribe = (callback: VoidFunction) => {
   window.addEventListener(LOG_IN_EVENT_NAME, callback)
