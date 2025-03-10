@@ -17,7 +17,7 @@ export const CollectionProductTile: React.FC<CollectionProductTileProps> = ({
     }}
   >
     <Card className="group overflow-hidden pt-0">
-      <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm">
+      <div className="relative aspect-square w-full overflow-hidden rounded-b-xl shadow-sm">
         {thumbnail && (
           <img
             src={thumbnail}

@@ -19,7 +19,7 @@ export const CollectionSummaryTile: React.FC<CollectionSummaryTileProps> = ({
       params={{ handle: collection.handle }}
     >
       <Card className="group pt-0">
-        <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm">
+        <div className="relative aspect-square w-full overflow-hidden rounded-b-xl shadow-sm">
           {thumbnail1 && (
             <>
               <img

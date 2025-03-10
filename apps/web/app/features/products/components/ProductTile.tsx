@@ -7,7 +7,7 @@ type ProductTileProps = {
 }
 
 export const ProductTile: React.FC<ProductTileProps> = ({
-  product: { thumbnail, title, subtitle, handle, variants }
+  product: { thumbnail, title, handle, variants }
 }) => {
   const variant = variants?.[0]
 
@@ -29,7 +29,7 @@ export const ProductTile: React.FC<ProductTileProps> = ({
       }}
     >
       <Card className="group snap-start overflow-hidden pt-0">
-        <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm">
+        <div className="relative aspect-square w-full overflow-hidden rounded-b-xl shadow-sm">
           {thumbnail && (
             <img
               src={thumbnail}
@@ -40,11 +40,6 @@ export const ProductTile: React.FC<ProductTileProps> = ({
         </div>
         <CardContent className="flex flex-col gap-2 pt-4">
           <h3 className="line-clamp-2 text-lg font-medium">{title}</h3>
-          {subtitle && (
-            <p className="text-muted-foreground line-clamp-2 text-sm">
-              {subtitle}
-            </p>
-          )}
           <p className="text-xl font-bold">{formattedPrice}</p>
         </CardContent>
       </Card>
