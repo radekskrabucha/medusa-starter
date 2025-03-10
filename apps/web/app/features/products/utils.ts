@@ -1,7 +1,9 @@
 import type {
+  Product,
   ProductImage,
   ProductOption,
-  ProductOptionValue
+  ProductOptionValue,
+  ProductVariant
 } from '@medusa-starter/medusa-utils/models'
 import { getRouteApi } from '@tanstack/react-router'
 import type { ProductSearch, QueryProductOption } from './validationSchemas'
@@ -88,12 +90,10 @@ export const handleSelectOptionParams = (
   }
 }
 
-type Result = Array<ProductOptionValue>
-
 export const getProductSelectedOptionsFromQuery = (
   queryOptions: ProductSearch['options'],
   options: Array<ProductOption>
-): Result => {
+): Array<ProductOptionValue> => {
   const selectedOptions = options.flatMap<ProductOptionValue>(option => {
     const defaultValue = option.values?.[0]
 
@@ -125,4 +125,43 @@ export const getProductSelectedOptionsFromQuery = (
   })
 
   return selectedOptions
+}
+
+export const getProductVariantFromOptionValues = (
+  options: Array<ProductOptionValue>,
+  variants: Array<ProductVariant>
+): ProductVariant => {
+  const defaultVariant = variants[0]
+
+  if (!defaultVariant) {
+    throw new Error('No default variant found')
+  }
+
+  const variant = variants.find(variant =>
+    options.every(optionValue =>
+      variant?.options?.some(option => option.value === optionValue.value)
+    )
+  )
+
+  if (!variant) {
+    return defaultVariant
+  }
+
+  return variant
+}
+
+export const getProductSelectedVariant = (
+  product: Product,
+  queryOptions: ProductSearch['options']
+): ProductVariant => {
+  const { options, variants } = product
+
+  if (!options || !variants) {
+    throw new Error('No options or variants found')
+  }
+
+  return getProductVariantFromOptionValues(
+    getProductSelectedOptionsFromQuery(queryOptions, options),
+    variants
+  )
 }
