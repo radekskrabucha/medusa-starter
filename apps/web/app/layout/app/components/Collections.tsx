@@ -2,9 +2,9 @@ import { Link } from '@tanstack/react-router'
 import { appLayoutRouteApi } from '../utils'
 
 export const Collections = () => {
-  const collections = appLayoutRouteApi.useLoaderData()
+  const { collectionsData } = appLayoutRouteApi.useLoaderData()
 
-  if (!collections.length) {
+  if (!collectionsData.collections.length) {
     return null
   }
 
@@ -17,7 +17,7 @@ export const Collections = () => {
         Collections
       </Link>
       <div className="flex flex-col gap-2">
-        {collections.map(collection => (
+        {collectionsData.collections.map(collection => (
           <Link
             key={collection.id}
             to="/collections/$handle"
