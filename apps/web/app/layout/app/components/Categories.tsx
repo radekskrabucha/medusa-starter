@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { appLayoutRouteApi } from '../utils'
 
-// TODO: links to categories - for now to store
 export const Categories = () => {
   const { categoriesData } = appLayoutRouteApi.useLoaderData()
 
@@ -11,17 +10,15 @@ export const Categories = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Link
-        to="/store"
-        className="font-semibold"
-      >
-        Categories
-      </Link>
+      <h4 className="font-semibold">Categories</h4>
       <div className="flex flex-col gap-2">
         {categoriesData.product_categories.map(category => (
           <Link
             key={category.id}
             to="/store"
+            search={{
+              categories: [category.handle]
+            }}
             className="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
             {category.name}
