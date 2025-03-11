@@ -36,7 +36,12 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
           handle={product.handle}
         />
         <div className="flex flex-1 flex-col gap-10">
-          <ProductInfo product={product} />
+          <ProductInfo
+            selectedVariant={selectedVariant}
+            title={product.title}
+            description={product.description}
+            subtitle={product.subtitle}
+          />
           <ProductOptions
             handle={product.handle}
             options={product.options}
