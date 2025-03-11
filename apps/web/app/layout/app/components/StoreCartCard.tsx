@@ -11,13 +11,27 @@ import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { ShoppingCart } from 'lucide-react'
 import { EmptyState } from '~web/components/EmptyState'
+import { calculateNumOfItems } from '../utils'
+import { CartItem } from './CartItem'
 
 type StoreCartCardProps = {
   cart: Cart
 }
 
 export const StoreCartCard: React.FC<StoreCartCardProps> = ({ cart }) => (
-  <HoverWrapper numOfItems={cart?.items?.length ?? 0}>
+  <HoverWrapper numOfItems={calculateNumOfItems(cart)}>
+    <Separator />
+    {cart.items && cart.items.length > 0 ? (
+      <div className="flex flex-col gap-3">
+        {cart.items.map(item => (
+          <CartItem
+            key={item.id}
+            item={item}
+            currencyCode={cart.currency_code}
+          />
+        ))}
+      </div>
+    ) : null}
     <Separator />
     <div className="flex items-center justify-between gap-2">
       <Label>Total</Label>
@@ -74,7 +88,9 @@ const CartIcon: React.FC<CartIconProps> = props => (
     })}
     {...props}
   >
-    {props.numOfItems && <NumOfItemsIndicator numOfItems={props.numOfItems} />}
+    {props.numOfItems ? (
+      <NumOfItemsIndicator numOfItems={props.numOfItems} />
+    ) : null}
     <ShoppingCart className="size-5" />
   </Link>
 )
@@ -97,7 +113,7 @@ const HoverWrapper: React.FC<HoverWrapperProps> = ({
     </HoverCardTrigger>
     <HoverCardContent
       collisionPadding={16}
-      className="flex min-w-[min(calc(100vw-2rem),400px)] flex-col gap-2"
+      className="flex min-w-[min(calc(100vw-2rem),400px)] flex-col gap-4"
     >
       <CartHeader />
       {children}
