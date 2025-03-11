@@ -21,6 +21,7 @@ export type ProductOptionWithVariants = ProductOption & {
 }
 export type Address = Awaited<GetAddressResponse>['address']
 export type Cart = Awaited<GetCartResponse>['cart']
+export type CartItem = NonNullable<Cart['items']>[number]
 export type Customer = Awaited<GetMeCustomerResponse>['customer']
 export type Region = Awaited<GetRegionResponse>['region']
 export type RegionCountry = NonNullable<Region['countries']>[number]
