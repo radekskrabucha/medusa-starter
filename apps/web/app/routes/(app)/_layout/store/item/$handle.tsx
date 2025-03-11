@@ -22,8 +22,8 @@ export const Route = createFileRoute('/(app)/_layout/store/item/$handle')({
         return product
       })
   },
-  head: ({ loaderData: { title } }) => ({
-    meta: [...seo({ title })]
+  head: ({ loaderData: { title, description } }) => ({
+    meta: [...seo({ title, description: description ?? undefined })]
   })
 })
 
