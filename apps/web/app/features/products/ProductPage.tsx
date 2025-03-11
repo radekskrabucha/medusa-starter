@@ -9,35 +9,41 @@ import { ProductAddToCartButton } from './components/ProductAddToCartButton'
 import { ProductImageGallery } from './components/ProductImageGallery'
 import { ProductInfo } from './components/ProductInfo'
 import { ProductOptions } from './components/ProductOptions'
+import { getProductSelectedVariant, productPageRouteApi } from './utils'
 
 type ProductPageProps = {
   product: Product
 }
 
-export const ProductPage: React.FC<ProductPageProps> = ({ product }) => (
-  <section className="layout-section gap-4">
-    <StorePageBreadcrumb>
-      <>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{product.title}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </>
-    </StorePageBreadcrumb>
-    <div className="flex gap-8 max-md:flex-col">
-      <ProductImageGallery
-        images={product.images || []}
-        title={product.title}
-        handle={product.handle}
-      />
-      <div className="flex flex-1 flex-col gap-10">
-        <ProductInfo product={product} />
-        <ProductOptions
+export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+  const { options } = productPageRouteApi.useSearch()
+  const selectedVariant = getProductSelectedVariant(product, options)
+
+  return (
+    <section className="layout-section gap-4">
+      <StorePageBreadcrumb>
+        <>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{product.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </>
+      </StorePageBreadcrumb>
+      <div className="flex gap-8 max-md:flex-col">
+        <ProductImageGallery
+          images={product.images || []}
+          title={product.title}
           handle={product.handle}
-          options={product.options}
         />
-        <ProductAddToCartButton product={product} />
+        <div className="flex flex-1 flex-col gap-10">
+          <ProductInfo product={product} />
+          <ProductOptions
+            handle={product.handle}
+            options={product.options}
+          />
+          <ProductAddToCartButton selectedVariant={selectedVariant} />
+        </div>
       </div>
-    </div>
-  </section>
-)
+    </section>
+  )
+}

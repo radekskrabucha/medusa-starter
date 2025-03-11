@@ -1,4 +1,4 @@
-import type { Product } from '@medusa-starter/medusa-utils/models'
+import type { ProductVariant } from '@medusa-starter/medusa-utils/models'
 import { Button } from '@medusa-starter/ui/button'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
 import { useMutation } from '@tanstack/react-query'
@@ -9,23 +9,20 @@ import {
   addProductToCart,
   type AddProductToCartReq
 } from '~web/features/cart/actions'
-import { localCart } from '~web/features/cart/utils'
-import { getProductSelectedVariant, productPageRouteApi } from '../utils'
+import { useSyncLocalCart } from '~web/features/cart/hooks/useSyncCartToken'
 
 type ProductAddToCartButtonProps = {
-  product: Product
+  selectedVariant: ProductVariant
 }
 
 export const ProductAddToCartButton: React.FC<ProductAddToCartButtonProps> = ({
-  product
+  selectedVariant
 }) => {
-  const { options } = productPageRouteApi.useSearch()
-  const cartId = localCart.get()
-  const variant = getProductSelectedVariant(product, options)
+  const cartId = useSyncLocalCart()
 
   const addToCartMutation = useMutation({
     mutationFn: (res: AddProductToCartReq) => addProductToCart(cartId, res),
-    mutationKey: ['addProductToCart', cartId],
+    mutationKey: ['addProductToCart', cartId, selectedVariant.id],
     onError: error => {
       toast.error('Failed to add product to cart', {
         description: error.message
@@ -41,7 +38,7 @@ export const ProductAddToCartButton: React.FC<ProductAddToCartButtonProps> = ({
       onClick={() =>
         addToCartMutation.mutate({
           quantity: 1,
-          variant_id: variant.id
+          variant_id: selectedVariant.id
         })
       }
       disabled={addToCartMutation.isPending}
