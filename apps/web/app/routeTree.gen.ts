@@ -17,6 +17,8 @@ import { Route as checkoutLayoutImport } from './routes/(checkout)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
 import { Route as checkoutLayoutCheckoutImport } from './routes/(checkout)/_layout/checkout'
+import { Route as appLayoutTermsAndConditionsImport } from './routes/(app)/_layout/terms-and-conditions'
+import { Route as appLayoutPrivacyPolicyImport } from './routes/(app)/_layout/privacy-policy'
 import { Route as appLayoutForgotPasswordImport } from './routes/(app)/_layout/forgot-password'
 import { Route as appLayoutCartImport } from './routes/(app)/_layout/cart'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
@@ -78,6 +80,19 @@ const checkoutLayoutCheckoutRoute = checkoutLayoutCheckoutImport.update({
   id: '/checkout',
   path: '/checkout',
   getParentRoute: () => checkoutLayoutRoute,
+} as any)
+
+const appLayoutTermsAndConditionsRoute =
+  appLayoutTermsAndConditionsImport.update({
+    id: '/terms-and-conditions',
+    path: '/terms-and-conditions',
+    getParentRoute: () => appLayoutRoute,
+  } as any)
+
+const appLayoutPrivacyPolicyRoute = appLayoutPrivacyPolicyImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => appLayoutRoute,
 } as any)
 
 const appLayoutForgotPasswordRoute = appLayoutForgotPasswordImport.update({
@@ -282,6 +297,20 @@ declare module '@tanstack/react-router' {
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof appLayoutForgotPasswordImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/privacy-policy': {
+      id: '/(app)/_layout/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof appLayoutPrivacyPolicyImport
+      parentRoute: typeof appLayoutImport
+    }
+    '/(app)/_layout/terms-and-conditions': {
+      id: '/(app)/_layout/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof appLayoutTermsAndConditionsImport
       parentRoute: typeof appLayoutImport
     }
     '/(checkout)/_layout/checkout': {
@@ -500,6 +529,8 @@ interface appLayoutRouteChildren {
   appLayoutAboutRoute: typeof appLayoutAboutRoute
   appLayoutCartRoute: typeof appLayoutCartRoute
   appLayoutForgotPasswordRoute: typeof appLayoutForgotPasswordRoute
+  appLayoutPrivacyPolicyRoute: typeof appLayoutPrivacyPolicyRoute
+  appLayoutTermsAndConditionsRoute: typeof appLayoutTermsAndConditionsRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
   appLayoutCollectionsHandleRoute: typeof appLayoutCollectionsHandleRoute
   appLayoutResetPasswordTokenRoute: typeof appLayoutResetPasswordTokenRoute
@@ -514,6 +545,8 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAboutRoute: appLayoutAboutRoute,
   appLayoutCartRoute: appLayoutCartRoute,
   appLayoutForgotPasswordRoute: appLayoutForgotPasswordRoute,
+  appLayoutPrivacyPolicyRoute: appLayoutPrivacyPolicyRoute,
+  appLayoutTermsAndConditionsRoute: appLayoutTermsAndConditionsRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
   appLayoutCollectionsHandleRoute: appLayoutCollectionsHandleRoute,
   appLayoutResetPasswordTokenRoute: appLayoutResetPasswordTokenRoute,
@@ -566,6 +599,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof appLayoutAboutRoute
   '/cart': typeof appLayoutCartRoute
   '/forgot-password': typeof appLayoutForgotPasswordRoute
+  '/privacy-policy': typeof appLayoutPrivacyPolicyRoute
+  '/terms-and-conditions': typeof appLayoutTermsAndConditionsRoute
   '/checkout': typeof checkoutLayoutCheckoutRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
@@ -590,6 +625,8 @@ export interface FileRoutesByTo {
   '/about': typeof appLayoutAboutRoute
   '/cart': typeof appLayoutCartRoute
   '/forgot-password': typeof appLayoutForgotPasswordRoute
+  '/privacy-policy': typeof appLayoutPrivacyPolicyRoute
+  '/terms-and-conditions': typeof appLayoutTermsAndConditionsRoute
   '/checkout': typeof checkoutLayoutCheckoutRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
@@ -619,6 +656,8 @@ export interface FileRoutesById {
   '/(app)/_layout/about': typeof appLayoutAboutRoute
   '/(app)/_layout/cart': typeof appLayoutCartRoute
   '/(app)/_layout/forgot-password': typeof appLayoutForgotPasswordRoute
+  '/(app)/_layout/privacy-policy': typeof appLayoutPrivacyPolicyRoute
+  '/(app)/_layout/terms-and-conditions': typeof appLayoutTermsAndConditionsRoute
   '/(checkout)/_layout/checkout': typeof checkoutLayoutCheckoutRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
   '/(app)/_layout/_not_authenticated/sign-in': typeof appLayoutNotauthenticatedSignInRoute
@@ -647,6 +686,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/cart'
     | '/forgot-password'
+    | '/privacy-policy'
+    | '/terms-and-conditions'
     | '/checkout'
     | '/sign-in'
     | '/sign-up'
@@ -670,6 +711,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/cart'
     | '/forgot-password'
+    | '/privacy-policy'
+    | '/terms-and-conditions'
     | '/checkout'
     | '/sign-in'
     | '/sign-up'
@@ -697,6 +740,8 @@ export interface FileRouteTypes {
     | '/(app)/_layout/about'
     | '/(app)/_layout/cart'
     | '/(app)/_layout/forgot-password'
+    | '/(app)/_layout/privacy-policy'
+    | '/(app)/_layout/terms-and-conditions'
     | '/(checkout)/_layout/checkout'
     | '/(app)/_layout/'
     | '/(app)/_layout/_not_authenticated/sign-in'
@@ -757,6 +802,8 @@ export const routeTree = rootRoute
         "/(app)/_layout/about",
         "/(app)/_layout/cart",
         "/(app)/_layout/forgot-password",
+        "/(app)/_layout/privacy-policy",
+        "/(app)/_layout/terms-and-conditions",
         "/(app)/_layout/",
         "/(app)/_layout/collections/$handle",
         "/(app)/_layout/reset-password/$token",
@@ -803,6 +850,14 @@ export const routeTree = rootRoute
     },
     "/(app)/_layout/forgot-password": {
       "filePath": "(app)/_layout/forgot-password.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/privacy-policy": {
+      "filePath": "(app)/_layout/privacy-policy.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/terms-and-conditions": {
+      "filePath": "(app)/_layout/terms-and-conditions.tsx",
       "parent": "/(app)/_layout"
     },
     "/(checkout)/_layout/checkout": {
