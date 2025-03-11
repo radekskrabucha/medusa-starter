@@ -1,6 +1,6 @@
 import { Link, Outlet } from '@tanstack/react-router'
 
-export const CartLayout = () => (
+export const CheckoutLayout = () => (
   <div className="p-2">
     <div className="flex items-center gap-4">
       <Link to="/">Home</Link>
