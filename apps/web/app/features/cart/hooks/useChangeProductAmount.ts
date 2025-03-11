@@ -13,7 +13,12 @@ type OnChangeQuantityParams<T extends number | undefined> = {
 }
 
 export const useChangeProductAmount = () => {
-  const cartId = useSyncLocalCart() ?? ''
+  const cartId = useSyncLocalCart()
+
+  if (!cartId) {
+    throw new Error('No cart id found')
+  }
+
   const queryClient = useQueryClient()
 
   const changeProductAmountMutation = useMutation({
