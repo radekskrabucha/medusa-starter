@@ -1,16 +1,9 @@
 import type { ProductVariant } from '@medusa-starter/medusa-utils/models'
 import { Button } from '@medusa-starter/ui/button'
 import { LoadingCircleIndicator } from '@medusa-starter/ui/loading-circle-indicator'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ShoppingCart } from 'lucide-react'
 import type React from 'react'
-import { toast } from 'sonner'
-import {
-  addProductToCart,
-  getCartQueryOptions,
-  type AddProductToCartReq
-} from '~web/features/cart/actions'
-import { useSyncLocalCart } from '~web/features/cart/hooks/useSyncCartToken'
+import { useAddProductToCart } from '~web/features/cart/hooks/useAddProductToCart'
 
 type ProductAddToCartButtonProps = {
   selectedVariant: ProductVariant
@@ -19,26 +12,7 @@ type ProductAddToCartButtonProps = {
 export const ProductAddToCartButton: React.FC<ProductAddToCartButtonProps> = ({
   selectedVariant
 }) => {
-  const cartId = useSyncLocalCart()
-  const queryClient = useQueryClient()
-
-  const addToCartMutation = useMutation({
-    mutationFn: (res: AddProductToCartReq) => addProductToCart(cartId, res),
-    mutationKey: ['addProductToCart', cartId, selectedVariant.id],
-    onError: error => {
-      toast.error('Failed to add product to cart', {
-        description: error.message
-      })
-    },
-    onSuccess: data => {
-      toast.success('Product added to cart')
-
-      queryClient.setQueryData(
-        getCartQueryOptions({ id: cartId ?? '' }).queryKey,
-        data
-      )
-    }
-  })
+  const { addToCartMutation } = useAddProductToCart(selectedVariant.id)
 
   return (
     <Button
