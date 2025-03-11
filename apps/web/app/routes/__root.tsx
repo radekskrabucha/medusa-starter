@@ -6,7 +6,7 @@ import {
   Scripts,
   createRootRouteWithContext
 } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import * as React from 'react'
 import { DefaultCatchBoundary } from '~web/components/DefaultCatchBoundary'
 import { NotFound } from '~web/components/NotFound'

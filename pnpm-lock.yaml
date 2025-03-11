@@ -226,9 +226,6 @@ importers:
       '@tanstack/react-start':
         specifier: 1.114.12
         version: 1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.13.10)(db0@0.3.1)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
-      '@tanstack/router-devtools':
-        specifier: 1.114.12
-        version: 1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(csstype@3.1.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -236,6 +233,9 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
+      '@tanstack/react-router-devtools':
+        specifier: 1.114.13
+        version: 1.114.13(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/react':
         specifier: 19.0.10
         version: 19.0.10
@@ -4640,11 +4640,11 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@tanstack/react-router-devtools@1.114.12':
-    resolution: {integrity: sha512-o36zDgdG+COjTbUCJcSj5t+6MVSrDkrLhdNriE4vzRDozfuhZ26gyVAwgaD6D7D46E2asE0L5HoWKNpeqj5/zA==}
+  '@tanstack/react-router-devtools@1.114.13':
+    resolution: {integrity: sha512-YFAer7H4H8Io34mMu+kQU1p2/Vl4bon62g8Tha+b0pfnMnWhTjkJAapYIr8JCs1HsHD1F/R4CXR0REbOUMWEzQ==}
     engines: {node: '>=12'}
     peerDependencies:
-      '@tanstack/react-router': ^1.114.12
+      '@tanstack/react-router': ^1.114.13
       '@tanstack/router-devtools-core': ^1.114.12
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
@@ -4735,18 +4735,6 @@ packages:
       csstype: ^3.0.10
       solid-js: '>=1.9.5'
       tiny-invariant: ^1.3.3
-    peerDependenciesMeta:
-      csstype:
-        optional: true
-
-  '@tanstack/router-devtools@1.114.12':
-    resolution: {integrity: sha512-WRFXFFkICKLcKpLwz9MjqNaGLTHIpxHhZI8VXMTaGC2P5pwqT1L+no0DRvN3YI1zCfcy4AqxgidYYJ2yjLvOFw==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      '@tanstack/react-router': ^1.114.12
-      csstype: ^3.0.10
-      react: '>=18.0.0 || >=19.0.0'
-      react-dom: '>=18.0.0 || >=19.0.0'
     peerDependenciesMeta:
       csstype:
         optional: true
@@ -10361,7 +10349,7 @@ snapshots:
       '@babel/traverse': 7.26.9
       '@babel/types': 7.26.9
       convert-source-map: 2.0.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -10627,7 +10615,7 @@ snapshots:
       '@babel/parser': 7.26.9
       '@babel/template': 7.26.9
       '@babel/types': 7.26.9
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -11472,7 +11460,7 @@ snapshots:
     dependencies:
       consola: 3.4.0
       detect-libc: 2.0.3
-      https-proxy-agent: 7.0.6
+      https-proxy-agent: 7.0.6(supports-color@9.4.0)
       node-fetch: 2.7.0
       nopt: 8.1.0
       semver: 7.7.1
@@ -15500,7 +15488,7 @@ snapshots:
       '@tanstack/query-core': 5.67.2
       react: 19.0.0
 
-  '@tanstack/react-router-devtools@1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@tanstack/react-router-devtools@1.114.13(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@tanstack/react-router': 1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/router-devtools-core': 1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3)
@@ -15832,19 +15820,6 @@ snapshots:
       tiny-invariant: 1.3.3
     optionalDependencies:
       csstype: 3.1.3
-
-  '@tanstack/router-devtools@1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(csstype@3.1.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      '@tanstack/react-router': 1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-router-devtools': 1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tanstack/router-devtools-core@1.114.12(@tanstack/router-core@1.114.12)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      clsx: 2.1.1
-      goober: 2.1.16(csstype@3.1.3)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-    optionalDependencies:
-      csstype: 3.1.3
-    transitivePeerDependencies:
-      - '@tanstack/router-devtools-core'
 
   '@tanstack/router-generator@1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
@@ -18337,13 +18312,6 @@ snapshots:
 
   http-shutdown@1.2.2: {}
 
-  https-proxy-agent@7.0.6:
-    dependencies:
-      agent-base: 7.1.3
-      debug: 4.4.0(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   https-proxy-agent@7.0.6(supports-color@9.4.0):
     dependencies:
       agent-base: 7.1.3
@@ -18455,7 +18423,7 @@ snapshots:
     dependencies:
       '@ioredis/commands': 1.2.0
       cluster-key-slot: 1.1.2
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       denque: 2.1.0
       lodash.defaults: 4.2.0
       lodash.isarguments: 3.1.0
@@ -21629,7 +21597,7 @@ snapshots:
 
   vite-tsconfig-paths@5.1.4(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)):
     dependencies:
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       globrex: 0.1.2
       tsconfck: 3.1.5(typescript@5.8.2)
     optionalDependencies:
