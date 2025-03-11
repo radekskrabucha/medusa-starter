@@ -13,7 +13,7 @@ type OnChangeQuantityParams<T extends number | undefined> = {
 }
 
 export const useChangeProductAmount = () => {
-  const cartId = useSyncLocalCart()
+  const cartId = useSyncLocalCart() ?? ''
   const queryClient = useQueryClient()
 
   const changeProductAmountMutation = useMutation({
@@ -27,10 +27,38 @@ export const useChangeProductAmount = () => {
         ...req
       })
     },
-    mutationKey: ['addProductToCart', cartId],
+    mutationKey: ['actions.cart.updateProduct', cartId],
+    onMutate: async ({ id, body }) => {
+      await queryClient.cancelQueries(getCartQueryOptions({ id: cartId }))
+
+      const previousCart = queryClient.getQueryData(
+        getCartQueryOptions({ id: cartId }).queryKey
+      )
+
+      if (previousCart?.cart) {
+        queryClient.setQueryData(getCartQueryOptions({ id: cartId }).queryKey, {
+          cart: {
+            ...previousCart.cart,
+            items: previousCart.cart.items?.map(item =>
+              item.id === id ? { ...item, quantity: body.quantity } : item
+            )
+          }
+        })
+      }
+
+      return { previousCart }
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousCart) {
+        queryClient.setQueryData(
+          getCartQueryOptions({ id: cartId }).queryKey,
+          context.previousCart
+        )
+      }
+    },
     onSuccess: data => {
       queryClient.setQueryData(
-        getCartQueryOptions({ id: cartId ?? '' }).queryKey,
+        getCartQueryOptions({ id: cartId }).queryKey,
         data
       )
     }
