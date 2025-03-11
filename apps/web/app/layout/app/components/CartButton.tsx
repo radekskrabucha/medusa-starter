@@ -1,16 +1,19 @@
-import { buttonVariants } from '@medusa-starter/ui/button'
-import { Link } from '@tanstack/react-router'
-import { ShoppingCart } from 'lucide-react'
+import { QueryBoundary } from '~web/components/QueryBoundary'
+import { useGetCartQuery } from '~web/features/cart/hooks/useGetCartQuery'
+import { StoreCartCard, StoreEmptyCartCard } from './StoreCartCard'
 
-export const CartButton = () => (
-  <Link
-    to="/cart"
-    className={buttonVariants({
-      variant: 'ghost',
-      size: 'icon',
-      className: 'hover:bg-foreground/5 !size-8'
-    })}
-  >
-    <ShoppingCart className="size-5" />
-  </Link>
-)
+export const CartButton = () => {
+  const { getCartQuery } = useGetCartQuery()
+
+  return (
+    <QueryBoundary
+      query={getCartQuery}
+      errorFallback={() => <StoreEmptyCartCard />}
+      noDataFallback={<StoreEmptyCartCard />}
+      loadingFallback={<StoreEmptyCartCard />}
+      isDataEmpty={data => data?.cart?.items?.length === 0}
+    >
+      {data => <StoreCartCard cart={data.cart} />}
+    </QueryBoundary>
+  )
+}
