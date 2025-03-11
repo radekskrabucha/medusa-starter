@@ -3,7 +3,7 @@ import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-f
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { handleSignUp } from '../actions'
@@ -131,6 +131,23 @@ export const SignUpForm = () => {
           />
         )}
       </form.Field>
+      <span className="text-muted-foreground text-xs">
+        By signing up, you agree to the{' '}
+        <Link
+          to="/privacy-policy"
+          className="hover:text-foreground underline underline-offset-4 transition-colors"
+        >
+          Privacy Policy
+        </Link>{' '}
+        and{' '}
+        <Link
+          to="/terms-and-conditions"
+          className="hover:text-foreground underline underline-offset-4 transition-colors"
+        >
+          Terms and Conditions
+        </Link>
+        .
+      </span>
       <SubmitButton
         isPending={signUpMutation.isPending}
         text="Sign Up"
