@@ -108,6 +108,7 @@ export const SignUpForm = () => {
           <InputForm
             fieldName={field.name}
             label="Email"
+            type="email"
             value={field.state.value}
             onChange={e => field.handleChange(e.target.value)}
             onBlur={field.handleBlur}

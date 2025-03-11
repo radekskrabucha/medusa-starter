@@ -64,6 +64,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ redirect }) => {
           <InputForm
             fieldName={field.name}
             label="Email"
+            type="email"
             value={field.state.value}
             onChange={e => field.handleChange(e.target.value)}
             onBlur={field.handleBlur}

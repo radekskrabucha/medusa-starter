@@ -66,6 +66,7 @@ export const ForgotPasswordForm = () => {
           <InputForm
             fieldName={field.name}
             label="Email"
+            type="email"
             placeholder="john@example.com"
             value={field.state.value}
             onChange={e => field.handleChange(e.target.value)}
