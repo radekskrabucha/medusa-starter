@@ -15,7 +15,7 @@ type CartSummaryProps = {
 }
 
 export const CartSummary = ({ cart }: CartSummaryProps) => (
-  <Card>
+  <Card className="h-min">
     <CardHeader>
       <CardTitle>Order Summary</CardTitle>
     </CardHeader>
