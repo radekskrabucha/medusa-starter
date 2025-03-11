@@ -22,7 +22,7 @@ export const CartSummary = ({ cart }: CartSummaryProps) => (
     <CardContent className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground">Subtotal</span>
-        <span>
+        <span className="text-right">
           {convertPriceAmountToLocale({
             amount: cart.subtotal,
             currencyCode: cart.currency_code
@@ -31,16 +31,16 @@ export const CartSummary = ({ cart }: CartSummaryProps) => (
       </div>
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground">Shipping</span>
-        <span>Calculated at checkout</span>
+        <span className="text-right">Calculated at checkout</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground">Tax</span>
-        <span>Calculated at checkout</span>
+        <span className="text-right">Calculated at checkout</span>
       </div>
       <Separator />
       <div className="flex items-center justify-between">
         <span className="font-medium">Total</span>
-        <span className="font-bold">
+        <span className="text-right font-bold">
           {convertPriceAmountToLocale({
             amount: cart.total,
             currencyCode: cart.currency_code

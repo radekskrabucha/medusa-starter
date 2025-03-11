@@ -26,7 +26,7 @@ export const CartLineItem = ({ item, currencyCode }: CartLineItemProps) => {
   return (
     <Card>
       <CardContent className="flex items-start gap-4">
-        <div className="bg-muted relative aspect-square h-24 w-24 shrink-0 overflow-hidden rounded-md">
+        <div className="bg-muted relative aspect-square size-24 shrink-0 overflow-hidden rounded-md max-sm:size-16">
           {item.thumbnail && (
             <img
               src={item.thumbnail}
@@ -65,7 +65,7 @@ export const CartLineItem = ({ item, currencyCode }: CartLineItemProps) => {
               <Trash2 className="size-4" />
             </Button>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1">
               <Button
                 variant="outline"
