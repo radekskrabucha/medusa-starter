@@ -11,7 +11,7 @@ import { Separator } from '@medusa-starter/ui/separator'
 import { Link } from '@tanstack/react-router'
 import { ShoppingCart } from 'lucide-react'
 import { EmptyState } from '~web/components/EmptyState'
-import { calculateNumOfItems } from '../utils'
+import { calculateNumOfItems } from '~web/features/cart/utils'
 import { CartItem } from './CartItem'
 
 type StoreCartCardProps = {

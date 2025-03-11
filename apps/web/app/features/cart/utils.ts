@@ -1,3 +1,4 @@
+import type { Cart } from '@medusa-starter/medusa-utils/models'
 import { appName } from '~web/config/app'
 import { getItem, removeItem, setItem } from '~web/utils/localStorage'
 
@@ -18,3 +19,11 @@ export const localCart = {
 
 export const dispatchCartEvent = () =>
   window.dispatchEvent(new Event(CART_EVENT_NAME))
+
+export const calculateNumOfItems = (cart: Cart) => {
+  if (!cart.items) {
+    return 0
+  }
+
+  return cart.items.reduce((total, item) => total + item.quantity, 0)
+}
