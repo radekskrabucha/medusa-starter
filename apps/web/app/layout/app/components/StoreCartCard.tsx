@@ -17,7 +17,7 @@ type StoreCartCardProps = {
 }
 
 export const StoreCartCard: React.FC<StoreCartCardProps> = ({ cart }) => (
-  <HoverWrapper>
+  <HoverWrapper numOfItems={cart?.items?.length ?? 0}>
     <Separator />
     <div className="flex items-center justify-between gap-2">
       <Label>Total</Label>
@@ -39,7 +39,7 @@ export const StoreCartCard: React.FC<StoreCartCardProps> = ({ cart }) => (
 )
 
 export const StoreEmptyCartCard = () => (
-  <HoverWrapper>
+  <HoverWrapper numOfItems={0}>
     <Separator />
     <EmptyState
       className="border-0 bg-transparent shadow-none"
@@ -59,17 +59,22 @@ export const StoreEmptyCartCard = () => (
   </HoverWrapper>
 )
 
-const CartIcon: React.FC<React.ComponentProps<typeof Link>> = props => (
+type CartIconProps = {
+  numOfItems: number
+}
+
+const CartIcon: React.FC<CartIconProps> = props => (
   <Link
     to="/cart"
     className={buttonVariants({
       variant: 'ghost',
       size: 'icon',
       className:
-        'hover:bg-foreground/5 !size-8 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
+        'hover:bg-foreground/5 relative !size-8 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
     })}
     {...props}
   >
+    {props.numOfItems && <NumOfItemsIndicator numOfItems={props.numOfItems} />}
     <ShoppingCart className="size-5" />
   </Link>
 )
@@ -80,10 +85,15 @@ const CartHeader = () => (
   </div>
 )
 
-const HoverWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
+type HoverWrapperProps = CartIconProps & React.PropsWithChildren
+
+const HoverWrapper: React.FC<HoverWrapperProps> = ({
+  children,
+  numOfItems
+}) => (
   <HoverCard>
     <HoverCardTrigger asChild>
-      <CartIcon />
+      <CartIcon numOfItems={numOfItems} />
     </HoverCardTrigger>
     <HoverCardContent
       collisionPadding={16}
@@ -93,4 +103,10 @@ const HoverWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
       {children}
     </HoverCardContent>
   </HoverCard>
+)
+
+const NumOfItemsIndicator: React.FC<CartIconProps> = ({ numOfItems }) => (
+  <div className="bg-muted absolute -top-2 left-1/2 flex h-5 min-w-5 shrink-0 items-center justify-center rounded-[300px] px-1 text-xs font-semibold">
+    <span>{numOfItems}</span>
+  </div>
 )
