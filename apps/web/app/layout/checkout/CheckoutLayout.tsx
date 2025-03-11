@@ -1,13 +1,13 @@
-import { Link, Outlet } from '@tanstack/react-router'
+import { Outlet } from '@tanstack/react-router'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
 
 export const CheckoutLayout = () => (
-  <div className="p-2">
-    <div className="flex items-center gap-4">
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/cart">Cart</Link>
-    </div>
-    <h3>Cart Layout</h3>
-    <Outlet />
-  </div>
+  <>
+    <Header />
+    <main className="layout-container isolate min-h-0 flex-1 overflow-x-hidden">
+      <Outlet />
+    </main>
+    <Footer />
+  </>
 )
