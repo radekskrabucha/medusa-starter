@@ -4,6 +4,7 @@ import {
   CardFooter,
   CardHeader
 } from '@medusa-starter/ui/card'
+import { cx } from 'class-variance-authority'
 import type { LucideIcon } from 'lucide-react'
 
 type EmptyStateProps = {
@@ -11,15 +12,17 @@ type EmptyStateProps = {
   title: React.ReactNode
   description?: React.ReactNode
   action?: React.ReactNode
+  className?: string
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
   icon: Icon,
   title,
   description,
-  action
+  action,
+  className
 }) => (
-  <Card className="items-center text-center">
+  <Card className={cx('items-center text-center', className)}>
     {Icon && (
       <CardHeader className="items-center">
         <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
