@@ -13,11 +13,12 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as cartLayoutImport } from './routes/(cart)/_layout'
+import { Route as checkoutLayoutImport } from './routes/(checkout)/_layout'
 import { Route as appLayoutImport } from './routes/(app)/_layout'
 import { Route as appLayoutIndexImport } from './routes/(app)/_layout/index'
-import { Route as cartLayoutCartImport } from './routes/(cart)/_layout/cart'
+import { Route as checkoutLayoutCheckoutImport } from './routes/(checkout)/_layout/checkout'
 import { Route as appLayoutForgotPasswordImport } from './routes/(app)/_layout/forgot-password'
+import { Route as appLayoutCartImport } from './routes/(app)/_layout/cart'
 import { Route as appLayoutAboutImport } from './routes/(app)/_layout/about'
 import { Route as appLayoutNotauthenticatedImport } from './routes/(app)/_layout/_not_authenticated'
 import { Route as appLayoutAuthenticatedImport } from './routes/(app)/_layout/_authenticated'
@@ -39,7 +40,7 @@ import { Route as appLayoutAuthenticatedProfileLayoutShippingAddressIdEditImport
 
 // Create Virtual Routes
 
-const cartImport = createFileRoute('/(cart)')()
+const checkoutImport = createFileRoute('/(checkout)')()
 const appImport = createFileRoute('/(app)')()
 const appLayoutAuthenticatedProfileImport = createFileRoute(
   '/(app)/_layout/_authenticated/profile',
@@ -47,8 +48,8 @@ const appLayoutAuthenticatedProfileImport = createFileRoute(
 
 // Create/Update Routes
 
-const cartRoute = cartImport.update({
-  id: '/(cart)',
+const checkoutRoute = checkoutImport.update({
+  id: '/(checkout)',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,9 +58,9 @@ const appRoute = appImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const cartLayoutRoute = cartLayoutImport.update({
+const checkoutLayoutRoute = checkoutLayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => cartRoute,
+  getParentRoute: () => checkoutRoute,
 } as any)
 
 const appLayoutRoute = appLayoutImport.update({
@@ -73,15 +74,21 @@ const appLayoutIndexRoute = appLayoutIndexImport.update({
   getParentRoute: () => appLayoutRoute,
 } as any)
 
-const cartLayoutCartRoute = cartLayoutCartImport.update({
-  id: '/cart',
-  path: '/cart',
-  getParentRoute: () => cartLayoutRoute,
+const checkoutLayoutCheckoutRoute = checkoutLayoutCheckoutImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => checkoutLayoutRoute,
 } as any)
 
 const appLayoutForgotPasswordRoute = appLayoutForgotPasswordImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
+  getParentRoute: () => appLayoutRoute,
+} as any)
+
+const appLayoutCartRoute = appLayoutCartImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => appLayoutRoute,
 } as any)
 
@@ -228,19 +235,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutImport
       parentRoute: typeof appRoute
     }
-    '/(cart)': {
-      id: '/(cart)'
+    '/(checkout)': {
+      id: '/(checkout)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof cartImport
+      preLoaderRoute: typeof checkoutImport
       parentRoute: typeof rootRoute
     }
-    '/(cart)/_layout': {
-      id: '/(cart)/_layout'
+    '/(checkout)/_layout': {
+      id: '/(checkout)/_layout'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof cartLayoutImport
-      parentRoute: typeof cartRoute
+      preLoaderRoute: typeof checkoutLayoutImport
+      parentRoute: typeof checkoutRoute
     }
     '/(app)/_layout/_authenticated': {
       id: '/(app)/_layout/_authenticated'
@@ -263,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutAboutImport
       parentRoute: typeof appLayoutImport
     }
+    '/(app)/_layout/cart': {
+      id: '/(app)/_layout/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof appLayoutCartImport
+      parentRoute: typeof appLayoutImport
+    }
     '/(app)/_layout/forgot-password': {
       id: '/(app)/_layout/forgot-password'
       path: '/forgot-password'
@@ -270,12 +284,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appLayoutForgotPasswordImport
       parentRoute: typeof appLayoutImport
     }
-    '/(cart)/_layout/cart': {
-      id: '/(cart)/_layout/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof cartLayoutCartImport
-      parentRoute: typeof cartLayoutImport
+    '/(checkout)/_layout/checkout': {
+      id: '/(checkout)/_layout/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof checkoutLayoutCheckoutImport
+      parentRoute: typeof checkoutLayoutImport
     }
     '/(app)/_layout/': {
       id: '/(app)/_layout/'
@@ -484,6 +498,7 @@ interface appLayoutRouteChildren {
   appLayoutAuthenticatedRoute: typeof appLayoutAuthenticatedRouteWithChildren
   appLayoutNotauthenticatedRoute: typeof appLayoutNotauthenticatedRouteWithChildren
   appLayoutAboutRoute: typeof appLayoutAboutRoute
+  appLayoutCartRoute: typeof appLayoutCartRoute
   appLayoutForgotPasswordRoute: typeof appLayoutForgotPasswordRoute
   appLayoutIndexRoute: typeof appLayoutIndexRoute
   appLayoutCollectionsHandleRoute: typeof appLayoutCollectionsHandleRoute
@@ -497,6 +512,7 @@ const appLayoutRouteChildren: appLayoutRouteChildren = {
   appLayoutAuthenticatedRoute: appLayoutAuthenticatedRouteWithChildren,
   appLayoutNotauthenticatedRoute: appLayoutNotauthenticatedRouteWithChildren,
   appLayoutAboutRoute: appLayoutAboutRoute,
+  appLayoutCartRoute: appLayoutCartRoute,
   appLayoutForgotPasswordRoute: appLayoutForgotPasswordRoute,
   appLayoutIndexRoute: appLayoutIndexRoute,
   appLayoutCollectionsHandleRoute: appLayoutCollectionsHandleRoute,
@@ -520,34 +536,37 @@ const appRouteChildren: appRouteChildren = {
 
 const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
-interface cartLayoutRouteChildren {
-  cartLayoutCartRoute: typeof cartLayoutCartRoute
+interface checkoutLayoutRouteChildren {
+  checkoutLayoutCheckoutRoute: typeof checkoutLayoutCheckoutRoute
 }
 
-const cartLayoutRouteChildren: cartLayoutRouteChildren = {
-  cartLayoutCartRoute: cartLayoutCartRoute,
+const checkoutLayoutRouteChildren: checkoutLayoutRouteChildren = {
+  checkoutLayoutCheckoutRoute: checkoutLayoutCheckoutRoute,
 }
 
-const cartLayoutRouteWithChildren = cartLayoutRoute._addFileChildren(
-  cartLayoutRouteChildren,
+const checkoutLayoutRouteWithChildren = checkoutLayoutRoute._addFileChildren(
+  checkoutLayoutRouteChildren,
 )
 
-interface cartRouteChildren {
-  cartLayoutRoute: typeof cartLayoutRouteWithChildren
+interface checkoutRouteChildren {
+  checkoutLayoutRoute: typeof checkoutLayoutRouteWithChildren
 }
 
-const cartRouteChildren: cartRouteChildren = {
-  cartLayoutRoute: cartLayoutRouteWithChildren,
+const checkoutRouteChildren: checkoutRouteChildren = {
+  checkoutLayoutRoute: checkoutLayoutRouteWithChildren,
 }
 
-const cartRouteWithChildren = cartRoute._addFileChildren(cartRouteChildren)
+const checkoutRouteWithChildren = checkoutRoute._addFileChildren(
+  checkoutRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
   '/': typeof appLayoutIndexRoute
   '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
+  '/cart': typeof appLayoutCartRoute
   '/forgot-password': typeof appLayoutForgotPasswordRoute
-  '/cart': typeof cartLayoutCartRoute
+  '/checkout': typeof checkoutLayoutCheckoutRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
   '/collections/$handle': typeof appLayoutCollectionsHandleRoute
@@ -569,8 +588,9 @@ export interface FileRoutesByTo {
   '/': typeof appLayoutIndexRoute
   '': typeof appLayoutNotauthenticatedRouteWithChildren
   '/about': typeof appLayoutAboutRoute
+  '/cart': typeof appLayoutCartRoute
   '/forgot-password': typeof appLayoutForgotPasswordRoute
-  '/cart': typeof cartLayoutCartRoute
+  '/checkout': typeof checkoutLayoutCheckoutRoute
   '/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
   '/collections/$handle': typeof appLayoutCollectionsHandleRoute
@@ -592,13 +612,14 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteWithChildren
   '/(app)/_layout': typeof appLayoutRouteWithChildren
-  '/(cart)': typeof cartRouteWithChildren
-  '/(cart)/_layout': typeof cartLayoutRouteWithChildren
+  '/(checkout)': typeof checkoutRouteWithChildren
+  '/(checkout)/_layout': typeof checkoutLayoutRouteWithChildren
   '/(app)/_layout/_authenticated': typeof appLayoutAuthenticatedRouteWithChildren
   '/(app)/_layout/_not_authenticated': typeof appLayoutNotauthenticatedRouteWithChildren
   '/(app)/_layout/about': typeof appLayoutAboutRoute
+  '/(app)/_layout/cart': typeof appLayoutCartRoute
   '/(app)/_layout/forgot-password': typeof appLayoutForgotPasswordRoute
-  '/(cart)/_layout/cart': typeof cartLayoutCartRoute
+  '/(checkout)/_layout/checkout': typeof checkoutLayoutCheckoutRoute
   '/(app)/_layout/': typeof appLayoutIndexRoute
   '/(app)/_layout/_not_authenticated/sign-in': typeof appLayoutNotauthenticatedSignInRoute
   '/(app)/_layout/_not_authenticated/sign-up': typeof appLayoutNotauthenticatedSignUpRoute
@@ -624,8 +645,9 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/about'
-    | '/forgot-password'
     | '/cart'
+    | '/forgot-password'
+    | '/checkout'
     | '/sign-in'
     | '/sign-up'
     | '/collections/$handle'
@@ -646,8 +668,9 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/about'
-    | '/forgot-password'
     | '/cart'
+    | '/forgot-password'
+    | '/checkout'
     | '/sign-in'
     | '/sign-up'
     | '/collections/$handle'
@@ -667,13 +690,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(app)'
     | '/(app)/_layout'
-    | '/(cart)'
-    | '/(cart)/_layout'
+    | '/(checkout)'
+    | '/(checkout)/_layout'
     | '/(app)/_layout/_authenticated'
     | '/(app)/_layout/_not_authenticated'
     | '/(app)/_layout/about'
+    | '/(app)/_layout/cart'
     | '/(app)/_layout/forgot-password'
-    | '/(cart)/_layout/cart'
+    | '/(checkout)/_layout/checkout'
     | '/(app)/_layout/'
     | '/(app)/_layout/_not_authenticated/sign-in'
     | '/(app)/_layout/_not_authenticated/sign-up'
@@ -696,12 +720,12 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   appRoute: typeof appRouteWithChildren
-  cartRoute: typeof cartRouteWithChildren
+  checkoutRoute: typeof checkoutRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   appRoute: appRouteWithChildren,
-  cartRoute: cartRouteWithChildren,
+  checkoutRoute: checkoutRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -715,7 +739,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/(app)",
-        "/(cart)"
+        "/(checkout)"
       ]
     },
     "/(app)": {
@@ -731,6 +755,7 @@ export const routeTree = rootRoute
         "/(app)/_layout/_authenticated",
         "/(app)/_layout/_not_authenticated",
         "/(app)/_layout/about",
+        "/(app)/_layout/cart",
         "/(app)/_layout/forgot-password",
         "/(app)/_layout/",
         "/(app)/_layout/collections/$handle",
@@ -740,17 +765,17 @@ export const routeTree = rootRoute
         "/(app)/_layout/store/item/$handle"
       ]
     },
-    "/(cart)": {
-      "filePath": "(cart)",
+    "/(checkout)": {
+      "filePath": "(checkout)",
       "children": [
-        "/(cart)/_layout"
+        "/(checkout)/_layout"
       ]
     },
-    "/(cart)/_layout": {
-      "filePath": "(cart)/_layout.tsx",
-      "parent": "/(cart)",
+    "/(checkout)/_layout": {
+      "filePath": "(checkout)/_layout.tsx",
+      "parent": "/(checkout)",
       "children": [
-        "/(cart)/_layout/cart"
+        "/(checkout)/_layout/checkout"
       ]
     },
     "/(app)/_layout/_authenticated": {
@@ -772,13 +797,17 @@ export const routeTree = rootRoute
       "filePath": "(app)/_layout/about.tsx",
       "parent": "/(app)/_layout"
     },
+    "/(app)/_layout/cart": {
+      "filePath": "(app)/_layout/cart.tsx",
+      "parent": "/(app)/_layout"
+    },
     "/(app)/_layout/forgot-password": {
       "filePath": "(app)/_layout/forgot-password.tsx",
       "parent": "/(app)/_layout"
     },
-    "/(cart)/_layout/cart": {
-      "filePath": "(cart)/_layout/cart.tsx",
-      "parent": "/(cart)/_layout"
+    "/(checkout)/_layout/checkout": {
+      "filePath": "(checkout)/_layout/checkout.tsx",
+      "parent": "/(checkout)/_layout"
     },
     "/(app)/_layout/": {
       "filePath": "(app)/_layout/index.tsx",
