@@ -1,9 +1,12 @@
+import {
+  getItem,
+  removeItem
+} from '@medusa-starter/browser-utils/local-storage'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { getRouteApi } from '@tanstack/react-router'
 import { decode } from 'hono/jwt'
 import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
-import { getItem, removeItem } from '~web/utils/localStorage'
 
 export const signInPageRouteApi = getRouteApi(
   '/(app)/_layout/_not_authenticated/sign-in'
