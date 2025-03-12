@@ -72,7 +72,9 @@ import type {
   GetAddressParams,
   GetAddressesParams,
   DeleteAddressParams,
-  MedusaClient
+  MedusaClient,
+  AddCartShippingMethodParams,
+  AddCartShippingMethodResponse
 } from './types'
 
 export const getMedusaClientStoreActions = (
@@ -156,6 +158,10 @@ export const getMedusaClientStoreActions = (
         ),
       removeProduct: (params: RemoveCartProductParams) =>
         client.store.cart.deleteLineItem(params.cartId, params.id),
+      addShippingMethod: (params: AddCartShippingMethodParams) =>
+        client.store.cart.addShippingMethod(params.cartId, params.body, {
+          fields: params.fields
+        }),
       complete: (params: CompleteCartParams) =>
         client.store.cart.complete(params.cartId, { fields: params.fields }),
       transfer: (params: TransferCartParams) =>
@@ -251,6 +257,9 @@ export type ClientActions = {
     removeProduct: (
       params: RemoveCartProductParams
     ) => RemoveCartProductResponse
+    addShippingMethod: (
+      params: AddCartShippingMethodParams
+    ) => AddCartShippingMethodResponse
     complete: (params: CompleteCartParams) => CompleteCartResponse
     transfer: (params: TransferCartParams) => TransferCartResponse
   }
