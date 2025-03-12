@@ -10,7 +10,8 @@ export const Route = createFileRoute('/(app)/_layout/store/item/$handle')({
   loader: async ({ params: { handle } }) => {
     return actions.store
       .getProducts({
-        handle
+        handle,
+        fields: '*variants.calculated_price'
       })
       .then(data => {
         const product = data.products[0]

@@ -8,7 +8,12 @@ import { getProductsQueryOptions } from '~web/features/products/actions'
 import { ProductTile } from '~web/features/products/components/ProductTile'
 
 export const FeaturedProducts = () => {
-  const getProductsQuery = useQuery(getProductsQueryOptions({ limit: 5 }))
+  const getProductsQuery = useQuery(
+    getProductsQueryOptions({
+      limit: 5,
+      fields: '*variants.calculated_price'
+    })
+  )
 
   return (
     <section className="layout-section">
