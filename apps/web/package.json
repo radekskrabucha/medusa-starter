@@ -13,6 +13,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@medusa-starter/browser-utils": "workspace:*",
     "@medusa-starter/medusa-utils": "workspace:*",
     "@medusa-starter/ui": "workspace:*",
     "@medusa-starter/utils": "workspace:*",

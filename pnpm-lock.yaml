@@ -214,6 +214,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@medusa-starter/browser-utils':
+        specifier: workspace:*
+        version: link:../../packages/browser-utils
       '@medusa-starter/medusa-utils':
         specifier: workspace:*
         version: link:../../packages/medusa-utils
