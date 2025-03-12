@@ -7,11 +7,25 @@ export const waitFor = (ms: number) =>
 export const isObject = (input: unknown) => input instanceof Object
 export const isArray = (input: unknown) => Array.isArray(input)
 export const isEmpty = (input: unknown) => {
-  return (
-    input === null ||
-    input === undefined ||
-    (isObject(input) && Object.keys(input).length === 0) ||
-    (isArray(input) && (input as unknown[]).length === 0) ||
-    (typeof input === 'string' && input.trim().length === 0)
-  )
+  if (input === null || input === undefined) {
+    return true
+  }
+
+  if (input instanceof Map || input instanceof Set) {
+    return input.size === 0
+  }
+
+  if (isArray(input)) {
+    return (input as unknown[]).length === 0
+  }
+
+  if (typeof input === 'string') {
+    return input.trim().length === 0
+  }
+
+  if (isObject(input)) {
+    return Object.keys(input).length === 0
+  }
+
+  return false
 }
