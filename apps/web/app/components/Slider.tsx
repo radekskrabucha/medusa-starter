@@ -1,7 +1,7 @@
 import { Button } from '@medusa-starter/ui/button'
+import { getTailwindGap } from '@medusa-starter/utils/styles'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef } from 'react'
-import { getTailwindGap } from '~web/utils/styles'
 
 type Header = {
   title: React.ReactNode
