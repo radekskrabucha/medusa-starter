@@ -11,7 +11,13 @@ export default [
     languageOptions: { globals: globals.node },
     rules: {
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/no-empty-object-type': 'off'
+      '@typescript-eslint/no-empty-object-type': 'off',
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "^_$"
+        }
+      ]
     }
   }
 ]
