@@ -5,7 +5,9 @@ describe('name utils', () => {
   describe('getName', () => {
     it('should return full name when both firstName and lastName are provided', () => {
       expect(getName({ firstName: 'John', lastName: 'Doe' })).toBe('John Doe')
-      expect(getName({ firstName: 'Jane', lastName: 'Smith' })).toBe('Jane Smith')
+      expect(getName({ firstName: 'Jane', lastName: 'Smith' })).toBe(
+        'Jane Smith'
+      )
     })
 
     it('should return firstName when only firstName is provided', () => {
@@ -23,7 +25,9 @@ describe('name utils', () => {
     it('should return undefined when neither firstName nor lastName is provided', () => {
       expect(getName({})).toBeUndefined()
       expect(getName({ firstName: null, lastName: null })).toBeUndefined()
-      expect(getName({ firstName: undefined, lastName: undefined })).toBeUndefined()
+      expect(
+        getName({ firstName: undefined, lastName: undefined })
+      ).toBeUndefined()
     })
   })
-}) 
+})

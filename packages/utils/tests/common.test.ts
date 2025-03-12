@@ -124,7 +124,7 @@ describe('isEmpty', () => {
     }
     const instance = new TestClass()
     expect(isEmpty(instance)).toBe(false)
-    
+
     const empty = new TestClass()
     delete empty.inherited
     expect(isEmpty(empty)).toBe(true)
