@@ -6,6 +6,7 @@ import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressForm } from './components/AddressForm'
 import { EmailForm } from './components/EmailForm'
+import { ShippingOptionsWrapper } from './components/ShippingOptionsWrapper'
 
 export const CheckoutPage = () => {
   const { getCartQuery, cartId } = useGetCartQuery()
@@ -62,6 +63,7 @@ export const CheckoutPage = () => {
               address={data.cart.shipping_address}
               cartId={cartId}
             />
+            <ShippingOptionsWrapper cartId={cartId} />
           </>
         )}
       </QueryBoundary>
