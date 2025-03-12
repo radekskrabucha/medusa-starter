@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@medusa-starter/ui/card'
 import type { Product } from '@medusa-starter/utils/medusa/models'
 import { Link } from '@tanstack/react-router'
+import { CalculateVariantPrice } from './CalculateVariantPrice'
 
 type ProductTileProps = {
   product: Product
@@ -14,12 +15,6 @@ export const ProductTile: React.FC<ProductTileProps> = ({
   if (!variant) {
     return null
   }
-
-  const variantPrice = variant?.calculated_price?.calculated_amount ?? 0
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(variantPrice / 100)
 
   return (
     <Link
@@ -40,7 +35,13 @@ export const ProductTile: React.FC<ProductTileProps> = ({
         </div>
         <CardContent className="flex flex-col gap-2 pt-4">
           <h3 className="line-clamp-2 text-lg font-medium">{title}</h3>
-          <p className="text-xl font-bold">{formattedPrice}</p>
+          <CalculateVariantPrice variant={variant}>
+            {variantPrice => (
+              <p className="text-xl font-bold">
+                {variantPrice?.calculatedPrice.formatted()}
+              </p>
+            )}
+          </CalculateVariantPrice>
         </CardContent>
       </Card>
     </Link>
