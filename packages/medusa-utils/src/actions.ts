@@ -188,7 +188,7 @@ export const getMedusaClientStoreActions = (
       }
     },
     fulfillment: {
-      getCartShippingOptions: (params?: GetCartShippingOptionsParams) =>
+      getCartShippingOptions: (params: GetCartShippingOptionsParams) =>
         client.store.fulfillment.listCartOptions(params),
       calculateShippingOptionCost: (
         params: CalculateShippingOptionCostParams
@@ -268,7 +268,7 @@ export type ClientActions = {
   }
   fulfillment: {
     getCartShippingOptions: (
-      params?: GetCartShippingOptionsParams
+      params: GetCartShippingOptionsParams
     ) => GetCartShippingOptionsResponse
     calculateShippingOptionCost: (
       params: CalculateShippingOptionCostParams
