@@ -79,7 +79,7 @@ type CartIconProps = {
   numOfItems: number
 }
 
-const CartIcon: React.FC<CartIconProps> = props => (
+const CartIcon: React.FC<CartIconProps> = ({ numOfItems, ...props }) => (
   <Link
     to="/cart"
     className={buttonVariants({
@@ -90,9 +90,7 @@ const CartIcon: React.FC<CartIconProps> = props => (
     })}
     {...props}
   >
-    {props.numOfItems ? (
-      <NumOfItemsIndicator numOfItems={props.numOfItems} />
-    ) : null}
+    {numOfItems ? <NumOfItemsIndicator numOfItems={numOfItems} /> : null}
     <ShoppingCart className="size-5" />
   </Link>
 )
