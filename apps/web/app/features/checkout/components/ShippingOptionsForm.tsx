@@ -5,7 +5,7 @@ import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import { actions } from '~web/lib/medusa'
-import { ShippingOption } from './ShippingOptions'
+import { ShippingOption } from './ShippingOption'
 
 const shippingOptionSchema = z.object({
   id: z.string().min(1, 'Shipping option is required')
