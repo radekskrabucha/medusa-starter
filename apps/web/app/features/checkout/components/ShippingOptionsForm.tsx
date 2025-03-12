@@ -1,6 +1,7 @@
 import type { CartShippingOption } from '@medusa-starter/medusa-utils/models'
 import type { AddCartShippingMethodParams } from '@medusa-starter/medusa-utils/types'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
+import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
@@ -52,20 +53,25 @@ export const ShippingOptionsForm: React.FC<ShippingOptionsFormProps> = ({
       }}
       noValidate
     >
-      {shippingOptions.map(option => (
-        <form.Field
-          name="id"
-          key={option.id}
-        >
-          {field => (
-            <ShippingOption
-              option={option}
-              isSelected={field.state.value === option.id}
-              onSelect={field.handleChange}
-            />
-          )}
-        </form.Field>
-      ))}
+      <form.Field name="id">
+        {field => (
+          <>
+            {shippingOptions.map(option => (
+              <ShippingOption
+                key={option.id}
+                option={option}
+                isSelected={field.state.value === option.id}
+                onSelect={field.handleChange}
+              />
+            ))}
+            {field.state.meta.errors?.[0]?.message && (
+              <StatusMessage variant="error">
+                {field.state.meta.errors?.[0]?.message}
+              </StatusMessage>
+            )}
+          </>
+        )}
+      </form.Field>
       <SubmitButton
         text="Save"
         isPending={updateCartMutation.isPending}
