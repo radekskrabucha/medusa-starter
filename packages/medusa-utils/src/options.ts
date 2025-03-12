@@ -26,13 +26,15 @@ export const getProductOptionsWithVariants = (product: Product) => {
 
         if (existingOption) {
           // Add variant to existing option if not already present
-          const variantWithoutOptions = { ...variant, options: undefined }
+          const { options: _, ...variantWithoutOptions } = variant
+
           if (!existingOption.variants.some(v => v.id === variant.id)) {
             existingOption.variants.push(variantWithoutOptions)
           }
         } else {
           // Create new option with the current variant
-          const variantWithoutOptions = { ...variant, options: undefined }
+          const { options: _, ...variantWithoutOptions } = variant
+
           acc.push({
             ...option,
             variants: [variantWithoutOptions]
