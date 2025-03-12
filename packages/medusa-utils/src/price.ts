@@ -35,6 +35,10 @@ export const getPercentageDiff = ({
   calculated,
   original
 }: GetPercentageDiffParams) => {
+  if (original === 0 && calculated === 0) {
+    return 0
+  }
+
   const diff = original - calculated
   const decrease = (diff / original) * 100
 
