@@ -23,10 +23,6 @@ export const ShippingOptionsInfo: React.FC<ShippingOptionsInfoProps> = ({
         {shippingOption.name}{' '}
         {price && <span className="text-muted-foreground">{price}</span>}
       </h2>
-      <div className="text-muted-foreground flex flex-col text-sm">
-        <p>{shippingOption.type.label}</p>
-        <p>{shippingOption.type.description}</p>
-      </div>
     </div>
   )
 }
