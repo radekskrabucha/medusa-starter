@@ -21,7 +21,7 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
     <Card
       className={cx(
         '@container flex flex-col gap-4 transition-all',
-        isActive && 'border-primary'
+        isActive && 'border-primary bg-primary/15'
       )}
     >
       <CardHeader className="flex flex-row flex-wrap-reverse items-center justify-between gap-4">
