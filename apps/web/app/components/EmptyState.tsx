@@ -30,7 +30,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         </div>
       </CardHeader>
     )}
-    <CardContent className="flex max-w-sm flex-col items-center gap-1">
+    <CardContent className="flex max-w-sm flex-col items-center gap-1 text-balance">
       <h3 className="text-lg font-semibold">{title}</h3>
       {description && (
         <p className="text-muted-foreground text-sm">{description}</p>
