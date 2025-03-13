@@ -21,9 +21,7 @@ export const ShippingOptionsInfo: React.FC<ShippingOptionsInfoProps> = ({
     <div className="flex flex-1 shrink-0 flex-col gap-2">
       <h2 className="font-semibold">
         {shippingOption.name}{' '}
-        {price && (
-          <span className="text-muted-foreground">{price}</span>
-        )}
+        {price && <span className="text-muted-foreground">{price}</span>}
       </h2>
       <div className="text-muted-foreground flex flex-col text-sm">
         <p>{shippingOption.type.label}</p>

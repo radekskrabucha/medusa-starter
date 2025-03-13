@@ -16,7 +16,7 @@ const shippingOptionSchema = z.object({
 type ShippingOptionsFormProps = {
   cartId: string
   shippingOptions: Array<CartShippingOption>
-  onNext: VoidFunction,
+  onNext: VoidFunction
   selectedOptionId: string | undefined
 }
 
