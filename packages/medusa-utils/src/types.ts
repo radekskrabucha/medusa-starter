@@ -284,10 +284,10 @@ export type CalculateShippingOptionCostParams = {
 export type CalculateShippingOptionCostResponse =
   ReturnType<CalculateShippingOptionCost>
 
-type GetPaymentProvider =
+type GetPaymentProviders =
   MedusaClient['store']['payment']['listPaymentProviders']
-export type GetPaymentProviderParams = Parameters<GetPaymentProvider>[0]
-export type GetPaymentProviderResponse = ReturnType<GetPaymentProvider>
+export type GetPaymentProvidersParams = Parameters<GetPaymentProviders>[0]
+export type GetPaymentProvidersResponse = ReturnType<GetPaymentProviders>
 
 type InitiatePaymentSession =
   MedusaClient['store']['payment']['initiatePaymentSession']

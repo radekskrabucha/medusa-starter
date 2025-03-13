@@ -75,8 +75,8 @@ import type {
   MedusaClient,
   AddCartShippingMethodParams,
   AddCartShippingMethodResponse,
-  GetPaymentProviderParams,
-  GetPaymentProviderResponse,
+  GetPaymentProvidersParams,
+  GetPaymentProvidersResponse,
   InitiatePaymentSessionResponse,
   InitiatePaymentSessionParams
 } from './types'
@@ -208,7 +208,7 @@ export const getMedusaClientStoreActions = (
         })
     },
     payment: {
-      getPaymentProviders: (params?: GetPaymentProviderParams) =>
+      getPaymentProviders: (params?: GetPaymentProvidersParams) =>
         client.store.payment.listPaymentProviders(params),
       initiatePaymentSession: (params: InitiatePaymentSessionParams) =>
         client.store.payment.initiatePaymentSession(params.cart, params.body, {
@@ -297,8 +297,8 @@ export type ClientActions = {
   }
   payment: {
     getPaymentProviders: (
-      params?: GetPaymentProviderParams
-    ) => GetPaymentProviderResponse
+      params?: GetPaymentProvidersParams
+    ) => GetPaymentProvidersResponse
     initiatePaymentSession: (
       params: InitiatePaymentSessionParams
     ) => InitiatePaymentSessionResponse
