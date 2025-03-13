@@ -1,16 +1,18 @@
 import { buttonVariants } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
+import { useAtom } from 'jotai'
 import { ShoppingCart, ShoppingBag } from 'lucide-react'
 import { EmptyState } from '~web/components/EmptyState'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
-import { AddressForm } from './components/AddressForm'
-import { EmailForm } from './components/EmailForm'
+import { AddressStep } from './components/AddressStep'
 import { PaymentProviderForm } from './components/PaymentProviderForm'
 import { ShippingOptionsWrapper } from './components/ShippingOptionsWrapper'
+import { checkoutStepAtom } from './store/checkoutStep'
 
 export const CheckoutPage = () => {
   const { getCartQuery, cartId } = useGetCartQuery()
+  const [step, setStep] = useAtom(checkoutStepAtom)
 
   if (!cartId) {
     return (
@@ -34,7 +36,7 @@ export const CheckoutPage = () => {
 
   return (
     <section className="layout-section gap-8">
-      <h2 className="text-4xl font-semibold">Checkout</h2>
+      <h2 className="text-3xl font-semibold">Checkout</h2>
       <QueryBoundary
         query={getCartQuery}
         isDataEmpty={data => !data?.cart?.items?.length}
@@ -56,13 +58,12 @@ export const CheckoutPage = () => {
       >
         {data => (
           <>
-            <EmailForm
-              email={data.cart.email}
-              cartId={cartId}
-            />
-            <AddressForm
-              address={data.cart.shipping_address}
-              cartId={cartId}
+            <AddressStep
+              step="address"
+              isActive={addressStep => addressStep === step}
+              cart={data.cart}
+              onSelect={setStep}
+              onNext={() => setStep('shipping')}
             />
             <ShippingOptionsWrapper cartId={cartId} />
             <PaymentProviderForm

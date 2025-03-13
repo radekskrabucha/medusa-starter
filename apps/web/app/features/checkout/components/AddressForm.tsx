@@ -29,13 +29,15 @@ const addressSchema = z
 type AddressFormProps = {
   address: CartShippingAddress | undefined
   cartId: string
+  onSuccess: VoidFunction
 }
 
 export const AddressForm: React.FC<AddressFormProps> = ({
   address,
-  cartId
+  cartId,
+  onSuccess
 }) => {
-  const updateCartMutation = useUpdateCart(cartId)
+  const updateCartMutation = useUpdateCart(cartId, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
       const addressData = {
