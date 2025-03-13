@@ -6,13 +6,15 @@ import { EmptyState } from '~web/components/EmptyState'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressStep } from './components/AddressStep'
-import { PaymentProviderForm } from './components/PaymentProviderForm'
+import { PaymentProviderStep } from './components/PaymentProviderStep'
 import { ShippingOptionsStep } from './components/ShippingOptionsStep'
 import { checkoutStepAtom } from './store/checkoutStep'
+import { paymentProviderIdAtom } from './store/payment'
 
 export const CheckoutPage = () => {
   const { getCartQuery, cartId } = useGetCartQuery()
   const [step, setStep] = useAtom(checkoutStepAtom)
+  const [paymentProviderId] = useAtom(paymentProviderIdAtom)
 
   if (!cartId) {
     return (
@@ -81,8 +83,12 @@ export const CheckoutPage = () => {
                 cart={data.cart}
                 isFilled={isShippingFilled}
               />
-              <PaymentProviderForm
-                // TODO - get regionId from cart or user region
+              <PaymentProviderStep
+                step="payment"
+                isActive={paymentStep => paymentStep === step}
+                onSelect={setStep}
+                onNext={() => setStep('review')}
+                isFilled={Boolean(paymentProviderId)}
                 regionId={data.cart.region_id ?? ''}
               />
             </>

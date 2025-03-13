@@ -19,7 +19,7 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
 }) => (
   <Card
     className={cx(
-      '@container flex flex-col gap-4 transition-all',
+      '@container flex flex-col gap-0 transition-all',
       isActive && 'border-primary bg-primary/15'
     )}
   >
@@ -38,6 +38,6 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
         </Button>
       )}
     </CardHeader>
-    <CardContent>{children}</CardContent>
+    {children && <CardContent className="mt-6">{children}</CardContent>}
   </Card>
 )
