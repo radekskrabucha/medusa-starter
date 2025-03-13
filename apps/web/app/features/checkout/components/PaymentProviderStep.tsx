@@ -25,7 +25,7 @@ export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
 
   return (
     <StepWrapper
-      title="Payment"
+      title="Payment Method"
       isFilled={isFilled}
       onSelect={() => onSelect(step)}
       isActive={active}

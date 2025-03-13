@@ -64,6 +64,7 @@ export const CheckoutPage = () => {
             Boolean(data.cart.shipping_address) &&
             Boolean(data.cart.billing_address)
           const isShippingFilled = Boolean(data.cart.shipping_methods?.length)
+          const isPaymentFilled = Boolean(paymentProviderId)
 
           return (
             <>
@@ -88,7 +89,7 @@ export const CheckoutPage = () => {
                 isActive={paymentStep => paymentStep === step}
                 onSelect={setStep}
                 onNext={() => setStep('review')}
-                isFilled={Boolean(paymentProviderId)}
+                isFilled={isPaymentFilled}
                 regionId={data.cart.region_id ?? ''}
               />
             </>

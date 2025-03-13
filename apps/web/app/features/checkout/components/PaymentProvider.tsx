@@ -52,6 +52,7 @@ export const PaymentProviderWrapper: React.FC<
   <button
     className="cursor-pointer text-left"
     onClick={() => onSelect()}
+    type="button"
   >
     <Card
       className={cx(
