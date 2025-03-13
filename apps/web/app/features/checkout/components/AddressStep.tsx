@@ -29,7 +29,7 @@ export const AddressStep: React.FC<AddressStepProps> = ({
 
   return (
     <StepWrapper
-      title="Address"
+      title="Shipping Address"
       isFilled={isFilled}
       onSelect={() => onSelect(step)}
       isActive={active}
@@ -37,8 +37,10 @@ export const AddressStep: React.FC<AddressStepProps> = ({
       {active ? (
         <AddressForm
           address={cart.shipping_address}
+          billingAddress={cart.billing_address}
           cartId={cart.id}
           onSuccess={onNext}
+          email={cart.email}
         />
       ) : (
         <AddressStepInfo cart={cart} />

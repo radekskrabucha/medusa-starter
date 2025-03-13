@@ -17,7 +17,7 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
   onSelect
 }) => {
   return (
-    <Card className="flex flex-col gap-4">
+    <Card className="flex flex-col gap-4 transition-all">
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4 text-2xl font-semibold">
           <h3>{title}</h3>
