@@ -7,7 +7,7 @@ import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressStep } from './components/AddressStep'
 import { PaymentProviderForm } from './components/PaymentProviderForm'
-import { ShippingOptionsWrapper } from './components/ShippingOptionsWrapper'
+import { ShippingOptionsStep } from './components/ShippingOptionsStep'
 import { checkoutStepAtom } from './store/checkoutStep'
 
 export const CheckoutPage = () => {
@@ -56,22 +56,38 @@ export const CheckoutPage = () => {
           />
         }
       >
-        {data => (
-          <>
-            <AddressStep
-              step="address"
-              isActive={addressStep => addressStep === step}
-              cart={data.cart}
-              onSelect={setStep}
-              onNext={() => setStep('shipping')}
-            />
-            <ShippingOptionsWrapper cartId={cartId} />
-            <PaymentProviderForm
-              // TODO - get regionId from cart or user region
-              regionId={data.cart.region_id ?? ''}
-            />
-          </>
-        )}
+        {data => {
+          const isAddressFilled =
+            Boolean(data.cart.email) &&
+            Boolean(data.cart.shipping_address) &&
+            Boolean(data.cart.billing_address)
+          const isShippingFilled = Boolean(data.cart.shipping_methods?.length)
+
+          return (
+            <>
+              <AddressStep
+                step="address"
+                isActive={addressStep => addressStep === step}
+                cart={data.cart}
+                onSelect={setStep}
+                onNext={() => setStep('shipping')}
+                isFilled={isAddressFilled}
+              />
+              <ShippingOptionsStep
+                step="shipping"
+                isActive={shippingStep => shippingStep === step}
+                onSelect={setStep}
+                onNext={() => setStep('payment')}
+                cart={data.cart}
+                isFilled={isShippingFilled}
+              />
+              <PaymentProviderForm
+                // TODO - get regionId from cart or user region
+                regionId={data.cart.region_id ?? ''}
+              />
+            </>
+          )
+        }}
       </QueryBoundary>
     </section>
   )

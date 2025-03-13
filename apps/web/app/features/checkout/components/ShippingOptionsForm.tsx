@@ -3,8 +3,9 @@ import type { AddCartShippingMethodParams } from '@medusa-starter/medusa-utils/t
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import { getCartQueryOptions } from '~web/features/cart/actions'
 import { actions } from '~web/lib/medusa'
 import { ShippingOption } from './ShippingOption'
 
@@ -15,16 +16,29 @@ const shippingOptionSchema = z.object({
 type ShippingOptionsFormProps = {
   cartId: string
   shippingOptions: Array<CartShippingOption>
+  onNext: VoidFunction,
+  selectedOptionId: string | undefined
 }
 
 export const ShippingOptionsForm: React.FC<ShippingOptionsFormProps> = ({
   cartId,
-  shippingOptions
+  shippingOptions,
+  onNext,
+  selectedOptionId
 }) => {
+  const queryClient = useQueryClient()
   const updateCartMutation = useMutation({
     mutationFn: (req: Omit<AddCartShippingMethodParams, 'cartId'>) =>
       actions.cart.addShippingMethod({ cartId, ...req }),
-    mutationKey: ['actions.cart.addShippingMethod', cartId]
+    mutationKey: ['actions.cart.addShippingMethod', cartId],
+    onSuccess: data => {
+      queryClient.setQueryData(
+        getCartQueryOptions({ id: cartId }).queryKey,
+        data
+      )
+
+      onNext()
+    }
   })
   const form = useForm({
     onSubmit: ({ value: { id } }) => {
@@ -35,7 +49,7 @@ export const ShippingOptionsForm: React.FC<ShippingOptionsFormProps> = ({
       })
     },
     defaultValues: {
-      id: ''
+      id: selectedOptionId ?? ''
     },
     validators: {
       onSubmit: shippingOptionSchema
