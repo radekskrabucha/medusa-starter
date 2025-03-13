@@ -6,6 +6,7 @@ import { EmptyState } from '~web/components/EmptyState'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressStep } from './components/AddressStep'
+import { OrderSummary } from './components/OrderSummary'
 import { PaymentProviderStep } from './components/PaymentProviderStep'
 import { ShippingOptionsStep } from './components/ShippingOptionsStep'
 import { checkoutStepAtom } from './store/checkoutStep'
@@ -67,32 +68,35 @@ export const CheckoutPage = () => {
           const isPaymentFilled = Boolean(paymentProviderId)
 
           return (
-            <>
-              <AddressStep
-                step="address"
-                isActive={addressStep => addressStep === step}
-                cart={data.cart}
-                onSelect={setStep}
-                onNext={() => setStep('shipping')}
-                isFilled={isAddressFilled}
-              />
-              <ShippingOptionsStep
-                step="shipping"
-                isActive={shippingStep => shippingStep === step}
-                onSelect={setStep}
-                onNext={() => setStep('payment')}
-                cart={data.cart}
-                isFilled={isShippingFilled}
-              />
-              <PaymentProviderStep
-                step="payment"
-                isActive={paymentStep => paymentStep === step}
-                onSelect={setStep}
-                onNext={() => setStep('review')}
-                isFilled={isPaymentFilled}
-                regionId={data.cart.region_id ?? ''}
-              />
-            </>
+            <div className="grid grid-cols-[1fr_400px] gap-8 max-lg:grid-cols-1">
+              <div className="flex flex-col gap-8">
+                <AddressStep
+                  step="address"
+                  isActive={addressStep => addressStep === step}
+                  cart={data.cart}
+                  onSelect={setStep}
+                  onNext={() => setStep('shipping')}
+                  isFilled={isAddressFilled}
+                />
+                <ShippingOptionsStep
+                  step="shipping"
+                  isActive={shippingStep => shippingStep === step}
+                  onSelect={setStep}
+                  onNext={() => setStep('payment')}
+                  cart={data.cart}
+                  isFilled={isShippingFilled}
+                />
+                <PaymentProviderStep
+                  step="payment"
+                  isActive={paymentStep => paymentStep === step}
+                  onSelect={setStep}
+                  onNext={() => setStep('review')}
+                  isFilled={isPaymentFilled}
+                  regionId={data.cart.region_id ?? ''}
+                />
+              </div>
+              <OrderSummary cart={data.cart} />
+            </div>
           )
         }}
       </QueryBoundary>
