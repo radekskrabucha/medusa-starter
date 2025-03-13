@@ -12,6 +12,7 @@ type AddressStepProps = {
   cart: Cart
   onSelect: (step: AddressStep) => void
   onNext: VoidFunction
+  isFilled: boolean
 }
 
 export const AddressStep: React.FC<AddressStepProps> = ({
@@ -19,12 +20,9 @@ export const AddressStep: React.FC<AddressStepProps> = ({
   cart,
   onSelect,
   onNext,
-  isActive
+  isActive,
+  isFilled
 }) => {
-  const isFilled =
-    Boolean(cart.email) &&
-    Boolean(cart.shipping_address) &&
-    Boolean(cart.billing_address)
   const active = isActive(step)
 
   return (
