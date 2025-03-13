@@ -283,3 +283,19 @@ export type CalculateShippingOptionCostParams = {
 } & CalculateShippingOptionCostFields
 export type CalculateShippingOptionCostResponse =
   ReturnType<CalculateShippingOptionCost>
+
+type GetPaymentProvider =
+  MedusaClient['store']['payment']['listPaymentProviders']
+export type GetPaymentProviderParams = Parameters<GetPaymentProvider>[0]
+export type GetPaymentProviderResponse = ReturnType<GetPaymentProvider>
+
+type InitiatePaymentSession =
+  MedusaClient['store']['payment']['initiatePaymentSession']
+type InitiatePaymentSessionCart = Parameters<InitiatePaymentSession>[0]
+type InitiatePaymentSessionBody = Parameters<InitiatePaymentSession>[1]
+type InitiatePaymentSessionFields = Parameters<InitiatePaymentSession>[2]
+export type InitiatePaymentSessionParams = {
+  cart: InitiatePaymentSessionCart
+  body: InitiatePaymentSessionBody
+} & InitiatePaymentSessionFields
+export type InitiatePaymentSessionResponse = ReturnType<InitiatePaymentSession>

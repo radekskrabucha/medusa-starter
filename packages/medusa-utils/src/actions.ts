@@ -74,7 +74,11 @@ import type {
   DeleteAddressParams,
   MedusaClient,
   AddCartShippingMethodParams,
-  AddCartShippingMethodResponse
+  AddCartShippingMethodResponse,
+  GetPaymentProviderParams,
+  GetPaymentProviderResponse,
+  InitiatePaymentSessionResponse,
+  InitiatePaymentSessionParams
 } from './types'
 
 export const getMedusaClientStoreActions = (
@@ -202,6 +206,14 @@ export const getMedusaClientStoreActions = (
         client.store.fulfillment.calculate(params.id, params.body, {
           fields: params.fields
         })
+    },
+    payment: {
+      getPaymentProviders: (params?: GetPaymentProviderParams) =>
+        client.store.payment.listPaymentProviders(params),
+      initiatePaymentSession: (params: InitiatePaymentSessionParams) =>
+        client.store.payment.initiatePaymentSession(params.cart, params.body, {
+          fields: params.fields
+        })
     }
   }
 })
@@ -282,5 +294,13 @@ export type ClientActions = {
     calculateShippingOptionCost: (
       params: CalculateShippingOptionCostParams
     ) => CalculateShippingOptionCostResponse
+  }
+  payment: {
+    getPaymentProviders: (
+      params?: GetPaymentProviderParams
+    ) => GetPaymentProviderResponse
+    initiatePaymentSession: (
+      params: InitiatePaymentSessionParams
+    ) => InitiatePaymentSessionResponse
   }
 }
