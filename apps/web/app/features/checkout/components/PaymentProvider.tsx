@@ -1,12 +1,8 @@
-import {
-  PaymentProviderIds,
-  type PaymentProviderID
-} from '@medusa-starter/medusa-utils/payment'
+import { PaymentProviderIds } from '@medusa-starter/medusa-utils/payment'
 import { Card, CardContent } from '@medusa-starter/ui/card'
-import type { StringWithAutoCompleteOptions } from '@medusa-starter/utils/types'
 import { cx } from 'class-variance-authority'
+import type { ProviderId } from '../types'
 
-type ProviderId = StringWithAutoCompleteOptions<PaymentProviderID>
 type PaymentProviderProps = {
   providerId: ProviderId
 } & PaymentProviderWrapperProps
