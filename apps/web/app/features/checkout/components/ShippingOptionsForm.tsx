@@ -87,7 +87,7 @@ export const ShippingOptionsForm: React.FC<ShippingOptionsFormProps> = ({
         )}
       </form.Field>
       <SubmitButton
-        text="Save"
+        text="Continue to Review"
         isPending={updateCartMutation.isPending}
       />
     </form>
