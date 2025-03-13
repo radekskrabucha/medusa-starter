@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { actions } from '~web/lib/medusa'
 import { getCartQueryOptions } from '../actions'
 
-export const useUpdateCart = (cartId: string) => {
+export const useUpdateCart = (cartId: string, onSuccess: VoidFunction) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (req: Omit<UpdateCartParams, 'id'>) =>
@@ -20,6 +20,8 @@ export const useUpdateCart = (cartId: string) => {
         getCartQueryOptions({ id: cartId }).queryKey,
         data
       )
+
+      onSuccess()
     }
   })
 }
