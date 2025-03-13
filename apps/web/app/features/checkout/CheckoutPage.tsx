@@ -6,6 +6,7 @@ import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressForm } from './components/AddressForm'
 import { EmailForm } from './components/EmailForm'
+import { PaymentProviderForm } from './components/PaymentProviderForm'
 import { ShippingOptionsWrapper } from './components/ShippingOptionsWrapper'
 
 export const CheckoutPage = () => {
@@ -64,6 +65,10 @@ export const CheckoutPage = () => {
               cartId={cartId}
             />
             <ShippingOptionsWrapper cartId={cartId} />
+            <PaymentProviderForm
+              // TODO - get regionId from cart or user region
+              regionId={data.cart.region_id ?? ''}
+            />
           </>
         )}
       </QueryBoundary>
