@@ -16,30 +16,28 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
   isActive,
   isFilled,
   onSelect
-}) => {
-  return (
-    <Card
-      className={cx(
-        '@container flex flex-col gap-4 transition-all',
-        isActive && 'border-primary bg-primary/15'
+}) => (
+  <Card
+    className={cx(
+      '@container flex flex-col gap-4 transition-all',
+      isActive && 'border-primary bg-primary/15'
+    )}
+  >
+    <CardHeader className="flex flex-row flex-wrap-reverse items-center justify-between gap-4">
+      <div className="flex items-center gap-4 text-2xl font-semibold">
+        <h3>{title}</h3>
+        {isFilled && !isActive && <Check className="shrink-0" />}
+      </div>
+      {!isActive && (
+        <Button
+          variant="link"
+          className="hover:text-foreground text-muted-foreground ml-auto"
+          onClick={onSelect}
+        >
+          Edit
+        </Button>
       )}
-    >
-      <CardHeader className="flex flex-row flex-wrap-reverse items-center justify-between gap-4">
-        <div className="flex items-center gap-4 text-2xl font-semibold">
-          <h3>{title}</h3>
-          {isFilled && <Check className="shrink-0" />}
-        </div>
-        {!isActive && (
-          <Button
-            variant="link"
-            className="hover:text-foreground text-muted-foreground ml-auto"
-            onClick={onSelect}
-          >
-            Edit
-          </Button>
-        )}
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
-  )
-}
+    </CardHeader>
+    <CardContent>{children}</CardContent>
+  </Card>
+)
