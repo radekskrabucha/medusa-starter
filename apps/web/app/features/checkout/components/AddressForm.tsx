@@ -94,7 +94,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
 
   return (
     <form
-      className="@container flex flex-col gap-8"
+      className="flex flex-col gap-8"
       onSubmit={e => {
         e.preventDefault()
         e.stopPropagation()
@@ -105,8 +105,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
     >
       {/* Shipping Address */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap gap-4 @max-md:flex-col">
-          <div className="flex flex-2 flex-wrap gap-4 @max-xs:flex-col">
+        <div className="flex flex-wrap gap-4 @max-lg:flex-col">
+          <div className="flex flex-2 flex-wrap gap-4 @max-sm:flex-col">
             <form.Field name="firstName">
               {field => (
                 <InputForm
@@ -154,7 +154,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
           </form.Field>
         </div>
 
-        <div className="flex flex-wrap gap-4 @max-md:flex-col">
+        <div className="flex flex-wrap gap-4 @max-lg:flex-col">
           <form.Field name="address1">
             {field => (
               <InputForm
@@ -186,8 +186,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
           </form.Field>
         </div>
 
-        <div className="flex flex-wrap gap-4 @max-md:flex-col">
-          <div className="flex flex-2 flex-wrap gap-4 @max-xs:flex-col">
+        <div className="flex flex-wrap gap-4 @max-lg:flex-col">
+          <div className="flex flex-2 flex-wrap gap-4 @max-sm:flex-col">
             <form.Field name="postalCode">
               {field => (
                 <InputForm
@@ -254,7 +254,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       </form.Field>
 
       {/* Email and phone number */}
-      <div className="flex flex-wrap gap-4 @max-md:flex-col">
+      <div className="flex flex-wrap gap-4 @max-lg:flex-col">
         <form.Field name="email">
           {field => (
             <InputForm
@@ -295,8 +295,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
               <h3 className="text-2xl font-semibold">Billing Address</h3>
 
               <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap gap-4 @max-md:flex-col">
-                  <div className="flex flex-2 flex-wrap gap-4 @max-xs:flex-col">
+                <div className="flex flex-wrap gap-4 @max-lg:flex-col">
+                  <div className="flex flex-2 flex-wrap gap-4 @max-sm:flex-col">
                     <form.Field name="billingFirstName">
                       {field => (
                         <InputForm
@@ -344,7 +344,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                   </form.Field>
                 </div>
 
-                <div className="flex flex-wrap gap-4 @max-md:flex-col">
+                <div className="flex flex-wrap gap-4 @max-lg:flex-col">
                   <form.Field name="billingAddress1">
                     {field => (
                       <InputForm
@@ -376,8 +376,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                   </form.Field>
                 </div>
 
-                <div className="flex flex-wrap gap-4 @max-md:flex-col">
-                  <div className="flex flex-2 flex-wrap gap-4 @max-xs:flex-col">
+                <div className="flex flex-wrap gap-4 @max-lg:flex-col">
+                  <div className="flex flex-2 flex-wrap gap-4 @max-sm:flex-col">
                     <form.Field name="billingPostalCode">
                       {field => (
                         <InputForm
@@ -425,7 +425,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                   </form.Field>
                 </div>
 
-                <div className="flex flex-wrap gap-4 @max-md:flex-col">
+                <div className="flex flex-wrap gap-4 @max-lg:flex-col">
                   <form.Field name="billingPhone">
                     {field => (
                       <InputForm
