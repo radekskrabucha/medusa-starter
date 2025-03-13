@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { getPaymentProvidersQueryOptions } from '../actions'
+import { paymentProviderIdAtom } from '../store/payment'
 import { PaymentProvider } from './PaymentProvider'
 
 type PaymentProviderFormProps = {
@@ -10,6 +12,7 @@ type PaymentProviderFormProps = {
 export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
   regionId
 }) => {
+  const [atom, setAtom] = useAtom(paymentProviderIdAtom)
   const getPaymentProvidersQuery = useQuery(
     getPaymentProvidersQueryOptions({
       region_id: regionId
@@ -24,9 +27,8 @@ export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
             <PaymentProvider
               key={provider.id}
               providerId={provider.id}
-              isSelected
-              // TOOD - implement onSelect
-              onSelect={() => alert(provider.id)}
+              isSelected={atom === provider.id}
+              onSelect={() => setAtom(provider.id)}
             />
           ))}
         </div>
