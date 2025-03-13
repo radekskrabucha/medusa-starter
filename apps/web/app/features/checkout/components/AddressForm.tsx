@@ -38,7 +38,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         first_name: value.firstName,
         last_name: value.lastName,
         postal_code: value.postalCode,
-        province: value.province
+        province: value.province,
+        // hardcoded for now
+        country_code: 'dk'
       }
 
       updateCartMutation.mutate({
