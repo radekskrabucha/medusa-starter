@@ -30,10 +30,17 @@ const config = [
       'jsx-a11y/aria-role': 'warn',
       'jsx-a11y/role-has-required-aria-props': 'warn',
       'react-compiler/react-compiler': 'error',
+      "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          "varsIgnorePattern": "^_$"
+          "args": "all",
+          "argsIgnorePattern": "^_",
+          "caughtErrors": "all",
+          "caughtErrorsIgnorePattern": "^_",
+          "destructuredArrayIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
         }
       ]
     },
