@@ -1,10 +1,12 @@
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import { z } from 'zod'
 import { QueryBoundary } from '~web/components/QueryBoundary'
+import { getCartQueryOptions } from '~web/features/cart/actions'
+import { actions } from '~web/lib/medusa'
 import { getPaymentProvidersQueryOptions } from '../actions'
 import { paymentProviderIdAtom } from '../store/payment'
 import { PaymentProvider } from './PaymentProvider'
@@ -15,14 +17,28 @@ const paymentProviderSchema = z.object({
 
 type PaymentProviderFormProps = {
   regionId: string
+  cartId: string
   onNext: VoidFunction
+  hasPaymentCollection: boolean
 }
 
 export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
   regionId,
-  onNext
+  cartId,
+  onNext,
+  hasPaymentCollection
 }) => {
+  const queryClient = useQueryClient()
   const [atom, setAtom] = useAtom(paymentProviderIdAtom)
+  const mutation = useMutation({
+    mutationFn: actions.payment.createPaymentCollection,
+    mutationKey: ['actions.payment.createPaymentCollection'],
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: getCartQueryOptions({ id: cartId }).queryKey
+      })
+    }
+  })
   const getPaymentProvidersQuery = useQuery(
     getPaymentProvidersQueryOptions({
       region_id: regionId
@@ -32,6 +48,12 @@ export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
     onSubmit: ({ value }) => {
       setAtom(value.id)
       onNext()
+
+      if (!hasPaymentCollection) {
+        mutation.mutate({
+          cart_id: cartId
+        })
+      }
     },
     defaultValues: {
       id: atom ?? ''

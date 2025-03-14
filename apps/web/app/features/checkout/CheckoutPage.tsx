@@ -93,6 +93,8 @@ export const CheckoutPage = () => {
                   onNext={() => setStep('review')}
                   isFilled={isPaymentFilled}
                   regionId={data.cart.region_id ?? ''}
+                  cartId={data.cart.id}
+                  hasPaymentCollection={Boolean(data.cart.payment_collection)}
                 />
               </div>
               <OrderSummary cart={data.cart} />

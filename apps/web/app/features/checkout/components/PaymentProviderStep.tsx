@@ -11,6 +11,8 @@ type PaymentStepProps = {
   onNext: VoidFunction
   isFilled: boolean
   regionId: string
+  cartId: string
+  hasPaymentCollection: boolean
 }
 
 export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
@@ -19,7 +21,9 @@ export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
   onSelect,
   onNext,
   isFilled,
-  regionId
+  regionId,
+  cartId,
+  hasPaymentCollection
 }) => {
   const active = isActive(step)
 
@@ -34,6 +38,8 @@ export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
         <PaymentProviderForm
           onNext={onNext}
           regionId={regionId}
+          cartId={cartId}
+          hasPaymentCollection={hasPaymentCollection}
         />
       )}
     </StepWrapper>
