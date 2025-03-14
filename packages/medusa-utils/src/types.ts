@@ -299,3 +299,16 @@ export type InitiatePaymentSessionParams = {
   body: InitiatePaymentSessionBody
 } & InitiatePaymentSessionFields
 export type InitiatePaymentSessionResponse = ReturnType<InitiatePaymentSession>
+
+export type CreatePaymentCollectionParams = {
+  cart_id: string
+}
+export type CreatePaymentCollectionResponse = Promise<{
+  payment_collection: {
+    id: string
+    currency_code: string
+    amount: number
+    // TODO: add payment_sessions type
+    payment_sessions: []
+  }
+}>

@@ -78,7 +78,9 @@ import type {
   GetPaymentProvidersParams,
   GetPaymentProvidersResponse,
   InitiatePaymentSessionResponse,
-  InitiatePaymentSessionParams
+  InitiatePaymentSessionParams,
+  CreatePaymentCollectionResponse,
+  CreatePaymentCollectionParams
 } from './types'
 
 export const getMedusaClientStoreActions = (
@@ -213,6 +215,11 @@ export const getMedusaClientStoreActions = (
       initiatePaymentSession: (params: InitiatePaymentSessionParams) =>
         client.store.payment.initiatePaymentSession(params.cart, params.body, {
           fields: params.fields
+        }),
+      createPaymentCollection: (params: CreatePaymentCollectionParams) =>
+        client.client.fetch('/store/payment-collections', {
+          method: 'POST',
+          body: params
         })
     }
   }
@@ -302,5 +309,8 @@ export type ClientActions = {
     initiatePaymentSession: (
       params: InitiatePaymentSessionParams
     ) => InitiatePaymentSessionResponse
+    createPaymentCollection: (
+      params: CreatePaymentCollectionParams
+    ) => CreatePaymentCollectionResponse
   }
 }
