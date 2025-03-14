@@ -1,3 +1,4 @@
+import type { Cart } from '@medusa-starter/medusa-utils/models'
 import type { CheckoutStep } from '../types'
 import { PaymentProviderForm } from './PaymentProviderForm'
 import { StepWrapper } from './StepWrapper'
@@ -11,8 +12,7 @@ type PaymentStepProps = {
   onNext: VoidFunction
   isFilled: boolean
   regionId: string
-  cartId: string
-  hasPaymentCollection: boolean
+  cart: Cart
 }
 
 export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
@@ -22,8 +22,7 @@ export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
   onNext,
   isFilled,
   regionId,
-  cartId,
-  hasPaymentCollection
+  cart
 }) => {
   const active = isActive(step)
 
@@ -38,8 +37,7 @@ export const PaymentProviderStep: React.FC<PaymentStepProps> = ({
         <PaymentProviderForm
           onNext={onNext}
           regionId={regionId}
-          cartId={cartId}
-          hasPaymentCollection={hasPaymentCollection}
+          cart={cart}
         />
       )}
     </StepWrapper>
