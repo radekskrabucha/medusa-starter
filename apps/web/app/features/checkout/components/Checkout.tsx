@@ -15,7 +15,6 @@ type CheckoutProps = {
 
 export const Checkout: React.FC<CheckoutProps> = ({ cart }) => {
   const initialStep = getActiveStep(cart)
-  console.log({ initialStep })
   const [step, setStep] = useState<CheckoutStep>(initialStep)
 
   const isAddressFilled =
@@ -59,6 +58,8 @@ export const Checkout: React.FC<CheckoutProps> = ({ cart }) => {
         <ReviewStep
           step="review"
           isActive={reviewStep => reviewStep === step}
+          cart={cart}
+          isCartReadyToPay={isCartReadyToPay}
         />
       </div>
       <OrderSummary cart={cart} />

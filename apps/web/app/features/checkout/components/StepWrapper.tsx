@@ -6,7 +6,7 @@ import { Check } from 'lucide-react'
 type StepWrapperProps = {
   title: React.ReactNode
   isFilled: boolean
-  onSelect: VoidFunction
+  onSelect: VoidFunction | undefined
   isActive: boolean
 } & React.PropsWithChildren
 
@@ -28,7 +28,7 @@ export const StepWrapper: React.FC<StepWrapperProps> = ({
         <h3>{title}</h3>
         {isFilled && !isActive && <Check className="shrink-0" />}
       </div>
-      {!isActive && (
+      {!isActive && onSelect && (
         <Button
           variant="link"
           className="hover:text-foreground text-muted-foreground ml-auto"
