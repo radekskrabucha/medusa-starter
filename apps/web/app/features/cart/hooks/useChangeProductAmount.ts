@@ -53,7 +53,7 @@ export const useChangeProductAmount = () => {
 
       return { previousCart }
     },
-    onError: (err, variables, context) => {
+    onError: (_unused_err, _unused_variables, context) => {
       if (context?.previousCart) {
         queryClient.setQueryData(
           getCartQueryOptions({ id: cartId }).queryKey,
