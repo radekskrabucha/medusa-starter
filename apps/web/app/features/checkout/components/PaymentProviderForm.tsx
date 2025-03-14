@@ -3,12 +3,10 @@ import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { StatusMessage } from '@medusa-starter/ui/status-message'
 import { useForm } from '@tanstack/react-form'
 import { useQuery } from '@tanstack/react-query'
-import { useAtom } from 'jotai'
 import { z } from 'zod'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { getPaymentProvidersQueryOptions } from '../actions'
 import { useInitiatePaymentSessionMutation } from '../hooks/useInitiatePaymentSessionMutation'
-import { paymentProviderIdAtom } from '../store/payment'
 import { PaymentProvider } from './PaymentProvider'
 
 const paymentProviderSchema = z.object({
@@ -19,14 +17,15 @@ type PaymentProviderFormProps = {
   regionId: string
   cart: Cart
   onNext: VoidFunction
+  providerId: string | undefined
 }
 
 export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
   regionId,
   cart,
-  onNext
+  onNext,
+  providerId
 }) => {
-  const [atom, setAtom] = useAtom(paymentProviderIdAtom)
   const mutation = useInitiatePaymentSessionMutation(cart)
   const getPaymentProvidersQuery = useQuery(
     getPaymentProvidersQueryOptions({
@@ -35,8 +34,6 @@ export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
   )
   const form = useForm({
     onSubmit: ({ value }) => {
-      setAtom(value.id)
-
       mutation.mutate({
         providerId: value.id
       })
@@ -44,7 +41,7 @@ export const PaymentProviderForm: React.FC<PaymentProviderFormProps> = ({
       onNext()
     },
     defaultValues: {
-      id: atom ?? ''
+      id: providerId ?? ''
     },
     validators: {
       onSubmit: paymentProviderSchema

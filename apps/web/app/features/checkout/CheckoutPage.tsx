@@ -1,3 +1,4 @@
+import { getIsCartReadyToPay } from '@medusa-starter/medusa-utils/cart'
 import { buttonVariants } from '@medusa-starter/ui/button'
 import { Link } from '@tanstack/react-router'
 import { useAtom } from 'jotai'
@@ -7,15 +8,14 @@ import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useGetCartQuery } from '../cart/hooks/useGetCartQuery'
 import { AddressStep } from './components/AddressStep'
 import { OrderSummary } from './components/OrderSummary'
+import { ReviewStep } from './components/PayStep'
 import { PaymentProviderStep } from './components/PaymentProviderStep'
 import { ShippingOptionsStep } from './components/ShippingOptionsStep'
 import { checkoutStepAtom } from './store/checkoutStep'
-import { paymentProviderIdAtom } from './store/payment'
 
 export const CheckoutPage = () => {
   const { getCartQuery, cartId } = useGetCartQuery()
   const [step, setStep] = useAtom(checkoutStepAtom)
-  const [paymentProviderId] = useAtom(paymentProviderIdAtom)
 
   if (!cartId) {
     return (
@@ -65,7 +65,9 @@ export const CheckoutPage = () => {
             Boolean(data.cart.shipping_address) &&
             Boolean(data.cart.billing_address)
           const isShippingFilled = Boolean(data.cart.shipping_methods?.length)
-          const isPaymentFilled = Boolean(paymentProviderId)
+          const paymentProviderId =
+            data.cart.payment_collection?.payment_sessions?.[0]?.provider_id
+          const isCartReadyToPay = getIsCartReadyToPay(data.cart)
 
           return (
             <div className="grid grid-cols-[1fr_400px] gap-8 max-lg:grid-cols-1">
@@ -91,10 +93,14 @@ export const CheckoutPage = () => {
                   isActive={paymentStep => paymentStep === step}
                   onSelect={setStep}
                   onNext={() => setStep('review')}
-                  isFilled={isPaymentFilled}
+                  isFilled={Boolean(paymentProviderId)}
                   regionId={data.cart.region_id ?? ''}
-                  cartId={data.cart.id}
-                  hasPaymentCollection={Boolean(data.cart.payment_collection)}
+                  cart={data.cart}
+                  providerId={paymentProviderId}
+                />
+                <ReviewStep
+                  step="review"
+                  isActive={reviewStep => reviewStep === step}
                 />
               </div>
               <OrderSummary cart={data.cart} />
