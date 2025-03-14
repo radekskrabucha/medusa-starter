@@ -1,4 +1,5 @@
 import Medusa from '@medusajs/js-sdk'
+import type { PaymentSession } from './models'
 
 export type MedusaClient = InstanceType<typeof Medusa>
 
@@ -308,7 +309,6 @@ export type CreatePaymentCollectionResponse = Promise<{
     id: string
     currency_code: string
     amount: number
-    // TODO: add payment_sessions type
-    payment_sessions: []
+    payment_sessions: Array<PaymentSession>
   }
 }>

@@ -36,3 +36,8 @@ export type Collection = Awaited<GetCollectionResponse>['collection']
 export type Category = Awaited<GetCategoryResponse>['product_category']
 export type CartShippingOption =
   Awaited<GetCartShippingOptionsResponse>['shipping_options'][number]
+
+export type PaymentCollection = NonNullable<Cart['payment_collection']>
+export type PaymentSession = NonNullable<
+  PaymentCollection['payment_sessions']
+>[number]
