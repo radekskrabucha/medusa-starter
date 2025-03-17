@@ -1,6 +1,6 @@
 import type { Region, RegionCountry } from '@medusa-starter/medusa-utils/models'
 import { cx } from 'class-variance-authority'
-import CountryFlag from 'react-country-flag'
+import { ReactCountryFlag } from 'react-country-flag'
 import { appLayoutRouteApi } from '../utils'
 
 export const Regions = () => {
@@ -51,6 +51,6 @@ const Country: React.FC<CountryProps> = ({ country, isSelected }) =>
         isSelected ? 'bg-primary' : 'border-border/50'
       )}
     >
-      <CountryFlag countryCode={country.iso_2} />
+      <ReactCountryFlag countryCode={country.iso_2} />
     </div>
   ) : null
