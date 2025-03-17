@@ -29,7 +29,8 @@ export const CartSummarySection = () => {
           icon={ShoppingCart}
         />
       }
-      isDataEmpty={data => data?.cart?.items?.length === 0}
+      isDataEmpty={data => !data?.cart?.items?.length}
+      isLoading={query => query.isFetching && query.isPending}
     >
       {data => (
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_400px]">
