@@ -7,6 +7,14 @@ const subscribe = (callback: VoidFunction) => {
   return () => window.removeEventListener(CART_EVENT_NAME, callback)
 }
 
+const getSnapshot = () => {
+  return localCart.get()
+}
+
+const getServerSnapshot = () => {
+  return null
+}
+
 export const useSyncLocalCart = () => {
-  return useSyncExternalStore(subscribe, localCart.get)
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
