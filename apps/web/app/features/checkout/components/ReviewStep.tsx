@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { EmptyState } from '~web/components/EmptyState'
-import { localCart } from '~web/features/cart/utils'
+import { cartIdStore } from '~web/features/cart/utils'
 import { actions } from '~web/lib/medusa'
 import type { CheckoutStep } from '../types'
 import { StepWrapper } from './StepWrapper'
@@ -96,7 +96,7 @@ const DefaultPaymentDetails: React.FC<DefaultPaymentDetailsProps> = ({
           params: { id: data.order.id },
           replace: true
         })
-        localCart.remove()
+        cartIdStore.remove()
       }
       if (data.type === 'cart') {
         toast.error('Failed to create order', {

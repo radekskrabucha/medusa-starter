@@ -4,7 +4,7 @@ import type {
 } from '@medusa-starter/medusa-utils/types'
 import { queryOptions } from '@tanstack/react-query'
 import { actions } from '~web/lib/medusa'
-import { localCart } from './utils'
+import { cartIdStore } from './utils'
 
 export type AddProductToCartReq = AddProductToCartParams['body']
 
@@ -23,7 +23,7 @@ export const addProductToCart = async (
     id = cart.id
   }
 
-  localCart.set(id)
+  cartIdStore.set(id)
 
   return await actions.cart.addProduct({
     cartId: id,

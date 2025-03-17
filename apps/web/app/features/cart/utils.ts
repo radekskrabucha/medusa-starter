@@ -11,7 +11,7 @@ export const CART_EVENT_NAME = 'cart'
 
 const CART_EXPIRATION_DAYS = 365
 
-export const localCart = {
+export const cartIdStore = {
   get: () => getItem(CART_KEY),
   set: (cartId: string) => {
     setItem(CART_KEY, cartId, CART_EXPIRATION_DAYS)

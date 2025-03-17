@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { CART_EVENT_NAME, localCart } from '../utils'
+import { CART_EVENT_NAME, cartIdStore } from '../utils'
 
 const subscribe = (callback: VoidFunction) => {
   window.addEventListener(CART_EVENT_NAME, callback)
@@ -8,7 +8,7 @@ const subscribe = (callback: VoidFunction) => {
 }
 
 const getSnapshot = () => {
-  return localCart.get()
+  return cartIdStore.get()
 }
 
 const getServerSnapshot = () => {
