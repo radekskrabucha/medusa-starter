@@ -1,6 +1,7 @@
 import { Button } from '@medusa-starter/ui/button'
+import { isEmpty } from '@medusa-starter/utils/common'
 import type { NoEmpty } from '@medusa-starter/utils/types'
-import type { UseQueryResult } from '@tanstack/react-query'
+import type { UseQueryResult, FetchStatus } from '@tanstack/react-query'
 import {
   DefaultErrorFallback as ErrorFallback,
   NavigateToHomeButton
@@ -12,7 +13,8 @@ type QueryBoundaryProps<T = unknown, E extends Error = Error> = {
   noDataFallback?: React.ReactNode
   errorFallback?: (errorFallbackProps: ErrorFallbackProps<E>) => React.ReactNode
   children: (data: NoEmpty<T>) => React.ReactNode
-  isDataEmpty?: (data: T | undefined) => boolean
+  isDataEmpty?: (data: T | undefined, fetchStatus: FetchStatus) => boolean
+  isLoading?: (query: UseQueryResult<T, E>) => boolean
 }
 
 export function QueryBoundary<T = unknown, E extends Error = Error>({
@@ -21,7 +23,8 @@ export function QueryBoundary<T = unknown, E extends Error = Error>({
   loadingFallback,
   noDataFallback,
   errorFallback,
-  isDataEmpty
+  isDataEmpty,
+  isLoading
 }: QueryBoundaryProps<T, E>) {
   if (query.error) {
     return errorFallback ? (
@@ -42,13 +45,14 @@ export function QueryBoundary<T = unknown, E extends Error = Error>({
       />
     )
   }
-  if (query.isPending) {
+  if (isLoading ? isLoading(query) : query.isPending) {
     return loadingFallback
   }
   if (
-    (!query.isFetching && isDataEmpty && isDataEmpty(query.data)) ||
-    (!query.isFetching && !query.data) ||
-    (!query.isFetching && Array.isArray(query.data) && query.data.length === 0)
+    (!query.isFetching &&
+      isDataEmpty &&
+      isDataEmpty(query.data, query.fetchStatus)) ||
+    (!query.isFetching && isEmpty(query.data))
   ) {
     return noDataFallback ? noDataFallback : <DefaultNoDataFallback />
   }
