@@ -7,9 +7,8 @@ import { getNowUnix } from '@medusa-starter/utils/date'
 import { FetchError } from '@medusajs/js-sdk'
 import { queryOptions } from '@tanstack/react-query'
 import {
-  getAuthToken,
   getAuthTokenTimestamps,
-  removeAuthToken
+  localAuthToken
 } from '~web/features/auth/utils'
 import { actions } from '~web/lib/medusa'
 
@@ -28,7 +27,7 @@ export const getMeQueryOptions = (
     queryKey: ['actions.customer.getMe', params, token],
     queryFn: async () => {
       try {
-        const token = getAuthToken()
+        const token = localAuthToken.get()
 
         if (!token) {
           throw new AuthTokenError('No auth token found')
@@ -65,11 +64,11 @@ export const getMeQueryOptions = (
       } catch (error) {
         if (error instanceof FetchError) {
           if (error.status === 401) {
-            removeAuthToken()
+            localAuthToken.remove()
           }
         }
         if (error instanceof AuthTokenError) {
-          removeAuthToken()
+          localAuthToken.remove()
         }
 
         throw error

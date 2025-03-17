@@ -1,6 +1,7 @@
 import {
   getItem,
-  removeItem
+  removeItem,
+  setItem
 } from '@medusa-starter/browser-utils/local-storage'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
@@ -21,9 +22,17 @@ export const resetPasswordPageRouteApi = getRouteApi(
 
 export const LOG_IN_EVENT_NAME = 'storage'
 
-export const getAuthToken = () => getItem(AUTH_TOKEN_KEY)
-
-export const removeAuthToken = () => removeItem(AUTH_TOKEN_KEY)
+export const localAuthToken = {
+  get: () => getItem(AUTH_TOKEN_KEY),
+  set: (token: string) => {
+    setItem(AUTH_TOKEN_KEY, token)
+    dispatchAuthTokenEvent()
+  },
+  remove: () => {
+    removeItem(AUTH_TOKEN_KEY)
+    dispatchAuthTokenEvent()
+  }
+}
 
 export const dispatchAuthTokenEvent = () =>
   window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
@@ -31,10 +40,15 @@ export const dispatchAuthTokenEvent = () =>
 export const onLogIn = () => {
   dispatchAuthTokenEvent()
 }
+export const logOut = (navigateCb: VoidFunction) => {
+  localAuthToken.remove()
+
+  navigateCb()
+}
 
 export const isAuthenticated = (): boolean => {
   try {
-    const token = getAuthToken()
+    const token = localAuthToken.get()
 
     if (!token) {
       return false

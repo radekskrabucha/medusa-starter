@@ -1,7 +1,7 @@
 import { Button } from '@medusa-starter/ui/button'
 import { useNavigate } from '@tanstack/react-router'
 import { LogOut } from 'lucide-react'
-import { logOut } from '../actions'
+import { logOut } from '../utils'
 
 type LogOutButtonProps = {
   className?: string

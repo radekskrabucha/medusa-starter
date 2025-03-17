@@ -3,14 +3,6 @@ import type {
   CreateCustomerParams
 } from '@medusa-starter/medusa-utils/types'
 import { actions } from '~web/lib/medusa'
-import { dispatchAuthTokenEvent, removeAuthToken } from './utils'
-
-export const logOut = (navigateCb: VoidFunction) => {
-  removeAuthToken()
-  dispatchAuthTokenEvent()
-
-  navigateCb()
-}
 
 type SignUpWithCreateCustomerProfileParams = {
   signUpParams: SignUpWithEmailParams
@@ -23,5 +15,6 @@ export const handleSignUp = async ({
 }: SignUpWithCreateCustomerProfileParams) => {
   await actions.auth.signUpWithEmail(signUpParams)
   await actions.customer.create(createCustomerParams)
+
   return await actions.auth.logInWithEmail(signUpParams)
 }
