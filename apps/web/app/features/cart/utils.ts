@@ -2,17 +2,19 @@ import {
   getItem,
   removeItem,
   setItem
-} from '@medusa-starter/browser-utils/local-storage'
+} from '@medusa-starter/browser-utils/cookie'
 import type { Cart } from '@medusa-starter/medusa-utils/models'
 import { appName } from '~web/config/app'
 
 export const CART_KEY = `${appName}.medusa_cart`
 export const CART_EVENT_NAME = 'cart'
 
+const CART_EXPIRATION_DAYS = 365
+
 export const localCart = {
   get: () => getItem(CART_KEY),
-  set: (cart: string) => {
-    setItem(CART_KEY, cart)
+  set: (cartId: string) => {
+    setItem(CART_KEY, cartId, CART_EXPIRATION_DAYS)
     dispatchCartEvent()
   },
   remove: () => {
