@@ -7,6 +7,7 @@ import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
+import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
 import { addressSchema } from '../validationSchema'
 
 // TODO - add country code select
@@ -26,6 +27,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
   email,
   billingAddress
 }) => {
+  const countryId = useSyncCountryId()
   const updateCartMutation = useUpdateCart(cartId, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
@@ -39,8 +41,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         last_name: value.lastName,
         postal_code: value.postalCode,
         province: value.province,
-        // hardcoded for now
-        country_code: 'dk'
+        country_code: value.countryCode
       }
 
       updateCartMutation.mutate({
@@ -62,7 +63,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                 first_name: value.billingFirstName,
                 last_name: value.billingLastName,
                 postal_code: value.billingPostalCode,
-                province: value.billingProvince
+                province: value.billingProvince,
+                country_code: value.billingCountryCode
               }
         }
       })
@@ -78,6 +80,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       city: address?.city ?? '',
       postalCode: address?.postal_code ?? '',
       province: address?.province ?? '',
+      countryCode: address?.country_code ?? countryId ?? '',
       billingSameAddress: true,
       billingPhone: billingAddress?.phone ?? '',
       billingFirstName: billingAddress?.first_name ?? '',
@@ -87,7 +90,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       billingAddress2: billingAddress?.address_2 ?? '',
       billingCity: billingAddress?.city ?? '',
       billingPostalCode: billingAddress?.postal_code ?? '',
-      billingProvince: billingAddress?.province ?? ''
+      billingProvince: billingAddress?.province ?? '',
+      billingCountryCode: billingAddress?.country_code ?? countryId ?? ''
     },
     validators: {
       onSubmit: addressSchema

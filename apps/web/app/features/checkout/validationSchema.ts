@@ -12,6 +12,7 @@ export const shippingAddressSchema = z.object({
   postalCode: z.string().min(2, 'Postal code must be at least 2 characters'),
   city: z.string().min(2, 'City must be at least 2 characters'),
   province: z.string().min(2, 'Province must be at least 2 characters'),
+  countryCode: z.string().min(1, 'Country is required'),
   billingPhone: z.string(),
   billingFirstName: z.string(),
   billingLastName: z.string(),
@@ -20,7 +21,8 @@ export const shippingAddressSchema = z.object({
   billingAddress2: z.string(),
   billingPostalCode: z.string(),
   billingCity: z.string(),
-  billingProvince: z.string()
+  billingProvince: z.string(),
+  billingCountryCode: z.string()
 })
 
 export const addressSchema = z
@@ -77,6 +79,13 @@ export const addressSchema = z
           code: z.ZodIssueCode.custom,
           message: 'Province must be at least 2 characters',
           path: ['billingProvince']
+        })
+      }
+      if (data.billingCountryCode.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Country is required',
+          path: ['billingCountryCode']
         })
       }
     }
