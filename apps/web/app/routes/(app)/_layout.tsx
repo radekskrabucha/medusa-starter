@@ -9,10 +9,12 @@ export const Route = createFileRoute('/(app)/_layout')({
   component: AppLayout,
   preload: true,
   loader: async ({ context: { queryClient } }) => {
-    queryClient.prefetchQuery(getMeQueryOptions())
-    queryClient.prefetchQuery(
-      getCartQueryOptions({ id: getIsomorphicCartCookie() ?? '' })
-    )
+    await Promise.all([
+      queryClient.prefetchQuery(getMeQueryOptions()),
+      queryClient.prefetchQuery(
+        getCartQueryOptions({ id: getIsomorphicCartCookie() ?? '' })
+      )
+    ])
 
     const [regionsData, collectionsData, categoriesData] = await Promise.all([
       actions.region.getRegions(),
