@@ -14,7 +14,7 @@ export const Footer = () => (
       >
         {appName}
       </Link>
-      <div className="flex flex-wrap gap-x-20 gap-y-6 max-sm:gap-x-8 md:pr-40">
+      <div className="flex flex-wrap gap-x-20 gap-y-6 max-sm:gap-x-8 lg:pr-40">
         <Categories />
         <Collections />
         <SocialLinks />
