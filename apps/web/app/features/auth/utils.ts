@@ -108,5 +108,5 @@ export const getAuthTokenTimestamps = (token: string) => {
 }
 
 export const getIsomorphicAuthCookie = createIsomorphicFn()
-  .server(() => getCookie(AUTH_TOKEN_KEY))
+  .server(() => getCookie(AUTH_TOKEN_KEY) ?? null)
   .client(() => authTokenStorage.get())

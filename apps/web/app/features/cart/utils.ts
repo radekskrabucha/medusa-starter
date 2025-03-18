@@ -39,5 +39,5 @@ export const calculateNumOfItems = (cart: Cart) => {
 }
 
 export const getIsomorphicCartCookie = createIsomorphicFn()
-  .server(() => getCookie(CART_KEY))
+  .server(() => getCookie(CART_KEY) ?? null)
   .client(() => cartIdStore.get())
