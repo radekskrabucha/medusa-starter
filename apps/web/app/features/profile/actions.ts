@@ -1,3 +1,4 @@
+import { isBrowser } from '@medusa-starter/browser-utils/common'
 import type {
   GetAddressesParams,
   GetAddressParams,
@@ -6,11 +7,12 @@ import type {
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { FetchError } from '@medusajs/js-sdk'
 import { queryOptions } from '@tanstack/react-query'
+import { getCookie } from '@tanstack/react-start/server'
 import {
   getAuthTokenTimestamps,
   authTokenStorage
 } from '~web/features/auth/utils'
-import { actions } from '~web/lib/medusa'
+import { actions, AUTH_TOKEN_KEY } from '~web/lib/medusa'
 
 class AuthTokenError extends Error {}
 
@@ -19,15 +21,14 @@ const refreshToken = actions.auth.refreshToken
 const TWO_HOURS_IN_SECONDS = 7200
 const THIRTY_MINUTES_IN_SECONDS = 1800
 
-export const getMeQueryOptions = (
-  token: string | null,
-  params?: GetMeCustomerParams
-) =>
+export const getMeQueryOptions = (params?: GetMeCustomerParams) =>
   queryOptions({
-    queryKey: ['actions.customer.getMe', params, token],
+    queryKey: ['actions.customer.getMe', params],
     queryFn: async () => {
       try {
-        const token = authTokenStorage.get()
+        const token = isBrowser
+          ? authTokenStorage.get()
+          : getCookie(AUTH_TOKEN_KEY)
 
         if (!token) {
           throw new AuthTokenError('No auth token found')
@@ -58,7 +59,7 @@ export const getMeQueryOptions = (
           await refreshToken()
         }
 
-        const getMeRes = await actions.customer.getMe(params)
+        const getMeRes = await actions.customer.getMe(params, token)
 
         return getMeRes
       } catch (error) {
