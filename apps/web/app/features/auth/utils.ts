@@ -5,8 +5,10 @@ import {
 } from '@medusa-starter/browser-utils/cookie'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
+import type { QueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { decode } from 'hono/jwt'
+import { getMeQueryOptions } from '~web/features/profile/actions'
 import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
 
 export const signInPageRouteApi = getRouteApi(
@@ -39,11 +41,19 @@ export const dispatchAuthTokenEvent = () =>
     new CustomEvent(LOG_IN_EVENT_NAME, { detail: authTokenStorage.get() })
   )
 
-export const onLogIn = () => {
+export const onLogIn = (queryClient: QueryClient) => {
   dispatchAuthTokenEvent()
+
+  queryClient.invalidateQueries({
+    queryKey: getMeQueryOptions().queryKey
+  })
 }
-export const logOut = (navigateCb: VoidFunction) => {
+export const logOut = (navigateCb: VoidFunction, queryClient: QueryClient) => {
   authTokenStorage.remove()
+
+  queryClient.invalidateQueries({
+    queryKey: getMeQueryOptions().queryKey
+  })
 
   navigateCb()
 }

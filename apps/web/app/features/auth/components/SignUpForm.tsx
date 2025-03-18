@@ -2,7 +2,7 @@ import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -17,6 +17,7 @@ const signUpSchema = z.object({
 })
 
 export const SignUpForm = () => {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { redirect } = signUpPageRouteApi.useSearch()
   const signUpMutation = useMutation({
@@ -28,7 +29,7 @@ export const SignUpForm = () => {
       })
     },
     onSuccess: () => {
-      onLogIn()
+      onLogIn(queryClient)
       navigate({
         to: redirect ?? '/'
       })

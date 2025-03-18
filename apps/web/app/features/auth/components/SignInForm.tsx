@@ -2,7 +2,7 @@ import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { PasswordInputForm } from '@medusa-starter/ui/components/form/password-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -19,6 +19,7 @@ type SignInFormProps = {
 }
 
 export const SignInForm: React.FC<SignInFormProps> = ({ redirect }) => {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const signInMutation = useMutation({
     mutationFn: actions.auth.logInWithEmail,
@@ -29,7 +30,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ redirect }) => {
       })
     },
     onSuccess: () => {
-      onLogIn()
+      onLogIn(queryClient)
       navigate({
         to: redirect ?? '/'
       })
