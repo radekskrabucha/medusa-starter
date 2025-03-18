@@ -48,10 +48,8 @@ export const logOut = (navigateCb: VoidFunction) => {
   navigateCb()
 }
 
-export const isAuthenticated = (): boolean => {
+export const isAuthenticated = (token: string | null | undefined): boolean => {
   try {
-    const token = authTokenStorage.get()
-
     if (!token) {
       return false
     }
