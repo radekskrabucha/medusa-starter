@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { localAuthToken, LOG_IN_EVENT_NAME } from '../utils'
+import { authTokenStorage, LOG_IN_EVENT_NAME } from '../utils'
 
 const subscribe = (callback: VoidFunction) => {
   window.addEventListener(LOG_IN_EVENT_NAME, callback)
@@ -8,7 +8,7 @@ const subscribe = (callback: VoidFunction) => {
 }
 
 const getSnapshot = () => {
-  return localAuthToken.get()
+  return authTokenStorage.get()
 }
 
 const getServerSnapshot = () => {

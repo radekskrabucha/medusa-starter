@@ -22,7 +22,7 @@ export const resetPasswordPageRouteApi = getRouteApi(
 
 export const LOG_IN_EVENT_NAME = 'auth_token_update'
 
-export const localAuthToken = {
+export const authTokenStorage = {
   get: () => getItem(AUTH_TOKEN_KEY),
   set: (token: string) => {
     setItem(AUTH_TOKEN_KEY, token)
@@ -36,21 +36,21 @@ export const localAuthToken = {
 
 export const dispatchAuthTokenEvent = () =>
   window.dispatchEvent(
-    new CustomEvent(LOG_IN_EVENT_NAME, { detail: localAuthToken.get() })
+    new CustomEvent(LOG_IN_EVENT_NAME, { detail: authTokenStorage.get() })
   )
 
 export const onLogIn = () => {
   dispatchAuthTokenEvent()
 }
 export const logOut = (navigateCb: VoidFunction) => {
-  localAuthToken.remove()
+  authTokenStorage.remove()
 
   navigateCb()
 }
 
 export const isAuthenticated = (): boolean => {
   try {
-    const token = localAuthToken.get()
+    const token = authTokenStorage.get()
 
     if (!token) {
       return false
