@@ -2,7 +2,7 @@ import {
   getItem,
   removeItem,
   setItem
-} from '@medusa-starter/browser-utils/local-storage'
+} from '@medusa-starter/browser-utils/cookie'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { getRouteApi } from '@tanstack/react-router'
@@ -20,7 +20,7 @@ export const resetPasswordPageRouteApi = getRouteApi(
   '/(app)/_layout/reset-password/$token'
 )
 
-export const LOG_IN_EVENT_NAME = 'storage'
+export const LOG_IN_EVENT_NAME = 'auth_token_update'
 
 export const localAuthToken = {
   get: () => getItem(AUTH_TOKEN_KEY),
@@ -35,7 +35,9 @@ export const localAuthToken = {
 }
 
 export const dispatchAuthTokenEvent = () =>
-  window.dispatchEvent(new Event(LOG_IN_EVENT_NAME))
+  window.dispatchEvent(
+    new CustomEvent(LOG_IN_EVENT_NAME, { detail: localAuthToken.get() })
+  )
 
 export const onLogIn = () => {
   dispatchAuthTokenEvent()
