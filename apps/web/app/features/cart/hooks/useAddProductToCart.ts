@@ -23,7 +23,7 @@ export const useAddProductToCart = (selectedVariantId: string) => {
       toast.success('Product added to cart')
 
       queryClient.setQueryData(
-        getCartQueryOptions({ id: cartId ?? '' }).queryKey,
+        getCartQueryOptions({ id: data.cart.id }).queryKey,
         data
       )
     }
