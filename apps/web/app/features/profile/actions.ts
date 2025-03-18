@@ -2,7 +2,8 @@ import { isBrowser } from '@medusa-starter/browser-utils/common'
 import type {
   GetAddressesParams,
   GetAddressParams,
-  GetMeCustomerParams
+  GetMeCustomerParams,
+  GetOrdersParams
 } from '@medusa-starter/medusa-utils/types'
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { FetchError } from '@medusajs/js-sdk'
@@ -87,4 +88,10 @@ export const getAddressQueryOptions = (params: GetAddressParams) =>
   queryOptions({
     queryKey: ['actions.customer.address.getAddress', params],
     queryFn: () => actions.customer.address.getAddress(params)
+  })
+
+export const getOrdersQueryOptions = (params?: GetOrdersParams) =>
+  queryOptions({
+    queryKey: ['actions.order.getOrders', params],
+    queryFn: () => actions.order.getOrders(params)
   })
