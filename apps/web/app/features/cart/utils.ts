@@ -7,7 +7,7 @@ import type { Cart } from '@medusa-starter/medusa-utils/models'
 import { getAppNameKebabCase } from '~web/utils/string'
 
 export const CART_KEY = `${getAppNameKebabCase()}.medusa_cart`
-export const CART_EVENT_NAME = 'cart'
+export const CART_EVENT_NAME = 'cart_id_update'
 
 const CART_EXPIRATION_DAYS = 365
 
@@ -24,7 +24,9 @@ export const cartIdStore = {
 }
 
 export const dispatchCartEvent = () =>
-  window.dispatchEvent(new Event(CART_EVENT_NAME))
+  window.dispatchEvent(
+    new CustomEvent(CART_EVENT_NAME, { detail: cartIdStore.get() })
+  )
 
 export const calculateNumOfItems = (cart: Cart) => {
   if (!cart.items) {
