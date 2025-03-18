@@ -7,7 +7,6 @@ import { actions } from '~web/lib/medusa'
 
 export const Route = createFileRoute('/(app)/_layout')({
   component: AppLayout,
-  preload: true,
   loader: async ({ context: { queryClient } }) => {
     await Promise.all([
       queryClient.prefetchQuery(getMeQueryOptions()),
@@ -18,8 +17,8 @@ export const Route = createFileRoute('/(app)/_layout')({
 
     const [regionsData, collectionsData, categoriesData] = await Promise.all([
       actions.region.getRegions(),
-      actions.store.getCollections({ limit: 5 }),
-      actions.store.getCategories({ limit: 5 })
+      actions.store.getCollections({ limit: 5, order: '-created_at' }),
+      actions.store.getCategories({ limit: 5, order: '-created_at' })
     ])
 
     return {
