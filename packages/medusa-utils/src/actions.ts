@@ -178,8 +178,15 @@ export const getMedusaClientStoreActions = (
         client.store.customer.create(params.body, { fields: params.fields }),
       update: (params: UpdateCustomerParams) =>
         client.store.customer.update(params.body, { fields: params.fields }),
-      getMe: (params?: GetMeCustomerParams) =>
-        client.store.customer.retrieve({ fields: params?.fields }),
+      getMe: (params?: GetMeCustomerParams, token?: string) =>
+        client.store.customer.retrieve(
+          { fields: params?.fields },
+          token
+            ? {
+                authorization: `Bearer ${token}`
+              }
+            : undefined
+        ),
       address: {
         add: (params: AddNewAddressParams) =>
           client.store.customer.createAddress(params.body, {
@@ -285,7 +292,10 @@ export type ClientActions = {
   customer: {
     create: (params: CreateCustomerParams) => CreateCustomerResponse
     update: (params: UpdateCustomerParams) => UpdateCustomerResponse
-    getMe: (params?: GetMeCustomerParams) => GetMeCustomerResponse
+    getMe: (
+      params?: GetMeCustomerParams,
+      token?: string
+    ) => GetMeCustomerResponse
     address: {
       add: (params: AddNewAddressParams) => AddNewAddressResponse
       update: (params: UpdateAddressParams) => UpdateAddressResponse
