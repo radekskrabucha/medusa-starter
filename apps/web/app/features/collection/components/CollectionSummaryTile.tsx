@@ -1,6 +1,7 @@
 import { type Collection } from '@medusa-starter/medusa-utils/models'
 import { Card, CardContent, CardFooter } from '@medusa-starter/ui/card'
 import { Link } from '@tanstack/react-router'
+import { cx } from 'class-variance-authority'
 import { ArrowRight } from 'lucide-react'
 
 type CollectionSummaryTileProps = {
@@ -25,7 +26,11 @@ export const CollectionSummaryTile: React.FC<CollectionSummaryTileProps> = ({
               <img
                 src={thumbnail1}
                 alt="collection image"
-                className="absolute top-1/2 left-0 w-full translate-x-0 -translate-y-1/2 object-fill object-center transition-transform duration-300 group-hover:-translate-x-full"
+                className={cx(
+                  'absolute top-1/2 left-0 w-full translate-x-0 -translate-y-1/2 object-fill object-center',
+                  thumbnail2 &&
+                    'transition-transform duration-300 group-hover:-translate-x-full'
+                )}
                 loading="lazy"
               />
               {thumbnail2 && (
