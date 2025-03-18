@@ -2,7 +2,7 @@ import { buttonVariants } from '@medusa-starter/ui/button'
 import { Card, CardContent } from '@medusa-starter/ui/card'
 import { Separator } from '@medusa-starter/ui/separator'
 import { Link, Outlet } from '@tanstack/react-router'
-import { User2, Edit, Lock, Truck } from 'lucide-react'
+import { User2, Edit, Lock, Truck, Package } from 'lucide-react'
 import { LogOutButton } from '~web/features/auth/components/LogOutButton'
 
 export const ProfileLayout = () => (
@@ -59,6 +59,17 @@ const Sidebar = () => (
         >
           <Truck className="size-4" />
           <span>Shipping addresses</span>
+        </Link>
+        <Link
+          to="/profile/orders"
+          className={buttonVariants({
+            variant: 'ghost',
+            className:
+              'data-[status=active]:bg-foreground/10 hover:bg-foreground/5 justify-start'
+          })}
+        >
+          <Package className="size-4" />
+          <span>Orders</span>
         </Link>
 
         <Separator />
