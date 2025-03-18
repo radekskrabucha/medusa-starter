@@ -4,6 +4,8 @@ import {
   setItem
 } from '@medusa-starter/browser-utils/cookie'
 import type { Cart } from '@medusa-starter/medusa-utils/models'
+import { createIsomorphicFn } from '@tanstack/react-start'
+import { getCookie } from '@tanstack/react-start/server'
 import { getAppNameKebabCase } from '~web/utils/string'
 
 export const CART_KEY = `${getAppNameKebabCase()}.medusa_cart`
@@ -35,3 +37,7 @@ export const calculateNumOfItems = (cart: Cart) => {
 
   return cart.items.reduce((total, item) => total + item.quantity, 0)
 }
+
+export const getIsomorphicCartCookie = createIsomorphicFn()
+  .server(() => getCookie(CART_KEY))
+  .client(() => cartIdStore.get())
