@@ -1,4 +1,3 @@
-import { isBrowser } from '@medusa-starter/browser-utils/common'
 import type {
   GetAddressesParams,
   GetAddressParams,
@@ -8,12 +7,12 @@ import type {
 import { getNowUnix } from '@medusa-starter/utils/date'
 import { FetchError } from '@medusajs/js-sdk'
 import { queryOptions } from '@tanstack/react-query'
-import { getCookie } from '@tanstack/react-start/server'
 import {
   getAuthTokenTimestamps,
-  authTokenStorage
+  authTokenStorage,
+  getIsomorphicAuthCookie
 } from '~web/features/auth/utils'
-import { actions, AUTH_TOKEN_KEY } from '~web/lib/medusa'
+import { actions } from '~web/lib/medusa'
 
 class AuthTokenError extends Error {}
 
@@ -27,9 +26,7 @@ export const getMeQueryOptions = (params?: GetMeCustomerParams) =>
     queryKey: ['actions.customer.getMe', params],
     queryFn: async () => {
       try {
-        const token = isBrowser
-          ? authTokenStorage.get()
-          : getCookie(AUTH_TOKEN_KEY)
+        const token = getIsomorphicAuthCookie()
 
         if (!token) {
           throw new AuthTokenError('No auth token found')

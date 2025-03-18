@@ -7,6 +7,8 @@ import { nonNullable } from '@medusa-starter/utils/common'
 import { getNowUnix } from '@medusa-starter/utils/date'
 import type { QueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
+import { createIsomorphicFn } from '@tanstack/react-start'
+import { getCookie } from '@tanstack/react-start/server'
 import { decode } from 'hono/jwt'
 import { getMeQueryOptions } from '~web/features/profile/actions'
 import { AUTH_TOKEN_KEY } from '~web/lib/medusa'
@@ -58,8 +60,10 @@ export const logOut = (navigateCb: VoidFunction, queryClient: QueryClient) => {
   navigateCb()
 }
 
-export const isAuthenticated = (token: string | null | undefined): boolean => {
+export const isAuthenticated = (): boolean => {
   try {
+    const token = getIsomorphicAuthCookie()
+
     if (!token) {
       return false
     }
@@ -102,3 +106,7 @@ export const getAuthTokenTimestamps = (token: string) => {
     return null
   }
 }
+
+export const getIsomorphicAuthCookie = createIsomorphicFn()
+  .server(() => getCookie(AUTH_TOKEN_KEY))
+  .client(() => authTokenStorage.get())
