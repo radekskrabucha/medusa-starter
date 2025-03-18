@@ -13,7 +13,6 @@ import { Button } from '@medusa-starter/ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import { useSyncAuthToken } from '~web/features/auth/hooks/useSyncAuthToken'
 import { actions } from '~web/lib/medusa'
 import { getMeQueryOptions } from '../actions'
 
@@ -26,7 +25,6 @@ export const DeleteAddressButton: React.FC<DeleteAddressButtonProps> = ({
 }) => {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const token = useSyncAuthToken()
 
   const deleteAddressMutation = useMutation({
     mutationFn: actions.customer.address.delete,
@@ -43,7 +41,7 @@ export const DeleteAddressButton: React.FC<DeleteAddressButtonProps> = ({
       })
 
       queryClient.invalidateQueries({
-        queryKey: getMeQueryOptions(token).queryKey
+        queryKey: getMeQueryOptions().queryKey
       })
     }
   })

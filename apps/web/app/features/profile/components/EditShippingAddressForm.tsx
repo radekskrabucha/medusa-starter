@@ -6,7 +6,6 @@ import { useForm } from '@tanstack/react-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import { useSyncAuthToken } from '~web/features/auth/hooks/useSyncAuthToken'
 import { actions } from '~web/lib/medusa'
 import { getMeQueryOptions } from '../actions'
 import {
@@ -23,7 +22,6 @@ export const EditShippingAddressForm: React.FC<
   EditShippingAddressFormProps
 > = ({ id }) => {
   const navigate = useNavigate()
-  const token = useSyncAuthToken()
   const queryClient = useQueryClient()
   const getAddressQuery = useAddressQuery(id)
 
@@ -45,7 +43,7 @@ export const EditShippingAddressForm: React.FC<
       queryClient.invalidateQueries({
         queryKey: getAddressQueryOptions(id).queryKey
       })
-      queryClient.setQueryData(getMeQueryOptions(token).queryKey, data)
+      queryClient.setQueryData(getMeQueryOptions().queryKey, data)
     }
   })
   const form = useForm({
