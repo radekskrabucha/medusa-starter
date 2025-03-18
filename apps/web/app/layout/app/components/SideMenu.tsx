@@ -8,9 +8,9 @@ import {
 import { Link } from '@tanstack/react-router'
 import { cx } from 'class-variance-authority'
 import { X } from 'lucide-react'
+import { Regions } from '~web/features/regions/components/Regions'
 import { Copyright } from './Copyright'
 import { HeaderLogo } from './HeaderLogo'
-import { Regions } from './Regions'
 
 type SideMenuProps = {
   isOpen: boolean
