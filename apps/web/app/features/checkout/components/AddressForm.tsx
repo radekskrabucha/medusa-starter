@@ -1,34 +1,21 @@
-import type {
-  CartShippingAddress,
-  CartBillingAddress
-} from '@medusa-starter/medusa-utils/models'
+import type { Cart } from '@medusa-starter/medusa-utils/models'
 import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
-import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
 import { addressSchema } from '../validationSchema'
 
-// TODO - add country code select
-
 type AddressFormProps = {
-  address: CartShippingAddress | undefined
-  billingAddress: CartBillingAddress | undefined
-  email: string | undefined
-  cartId: string
   onSuccess: VoidFunction
+  cart: Cart
 }
 
 export const AddressForm: React.FC<AddressFormProps> = ({
-  address,
-  cartId,
   onSuccess,
-  email,
-  billingAddress
+  cart
 }) => {
-  const countryId = useSyncCountryId()
-  const updateCartMutation = useUpdateCart(cartId, onSuccess)
+  const updateCartMutation = useUpdateCart(cart.id, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
       const shippingAddressData = {
@@ -70,28 +57,28 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       })
     },
     defaultValues: {
-      email: email ?? '',
-      phone: address?.phone ?? '',
-      firstName: address?.first_name ?? '',
-      lastName: address?.last_name ?? '',
-      company: address?.company ?? '',
-      address1: address?.address_1 ?? '',
-      address2: address?.address_2 ?? '',
-      city: address?.city ?? '',
-      postalCode: address?.postal_code ?? '',
-      province: address?.province ?? '',
-      countryCode: address?.country_code ?? countryId ?? '',
+      email: cart.email ?? '',
+      phone: cart.shipping_address?.phone ?? '',
+      firstName: cart.shipping_address?.first_name ?? '',
+      lastName: cart.shipping_address?.last_name ?? '',
+      company: cart.shipping_address?.company ?? '',
+      address1: cart.shipping_address?.address_1 ?? '',
+      address2: cart.shipping_address?.address_2 ?? '',
+      city: cart.shipping_address?.city ?? '',
+      postalCode: cart.shipping_address?.postal_code ?? '',
+      province: cart.shipping_address?.province ?? '',
+      countryCode: cart.shipping_address?.country_code ?? '',
       billingSameAddress: true,
-      billingPhone: billingAddress?.phone ?? '',
-      billingFirstName: billingAddress?.first_name ?? '',
-      billingLastName: billingAddress?.last_name ?? '',
-      billingCompany: billingAddress?.company ?? '',
-      billingAddress1: billingAddress?.address_1 ?? '',
-      billingAddress2: billingAddress?.address_2 ?? '',
-      billingCity: billingAddress?.city ?? '',
-      billingPostalCode: billingAddress?.postal_code ?? '',
-      billingProvince: billingAddress?.province ?? '',
-      billingCountryCode: billingAddress?.country_code ?? countryId ?? ''
+      billingPhone: cart.billing_address?.phone ?? '',
+      billingFirstName: cart.billing_address?.first_name ?? '',
+      billingLastName: cart.billing_address?.last_name ?? '',
+      billingCompany: cart.billing_address?.company ?? '',
+      billingAddress1: cart.billing_address?.address_1 ?? '',
+      billingAddress2: cart.billing_address?.address_2 ?? '',
+      billingCity: cart.billing_address?.city ?? '',
+      billingPostalCode: cart.billing_address?.postal_code ?? '',
+      billingProvince: cart.billing_address?.province ?? '',
+      billingCountryCode: cart.billing_address?.country_code ?? ''
     },
     validators: {
       onSubmit: addressSchema

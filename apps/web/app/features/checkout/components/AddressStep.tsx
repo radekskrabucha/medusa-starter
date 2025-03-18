@@ -34,11 +34,8 @@ export const AddressStep: React.FC<AddressStepProps> = ({
     >
       {active ? (
         <AddressForm
-          address={cart.shipping_address}
-          billingAddress={cart.billing_address}
-          cartId={cart.id}
           onSuccess={onNext}
-          email={cart.email}
+          cart={cart}
         />
       ) : (
         <AddressStepInfo cart={cart} />
