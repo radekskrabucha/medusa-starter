@@ -13,10 +13,11 @@ export const LIMIT_PER_PAGE = 20
 
 export const SORT_BY_DEFAULT: StoreSortOrder = '-created_at'
 
-export const calculateAppliedFilters = (
-  options: Record<string, unknown>
-): number => {
-  return Object.entries(options).reduce((total, [, value]) => {
+export const calculateAppliedFilters = (options: StoreSearch): number => {
+  return Object.entries(options).reduce((total, [key, value]) => {
+    if (key === 'page') {
+      return total
+    }
     if (Array.isArray(value)) {
       return total + value.length
     }

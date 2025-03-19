@@ -17,7 +17,8 @@ export const storeSearchSchema = z.object({
 })
 
 export type StoreSortOrder = z.infer<typeof sortOrderSchema>
-export type StoreSearch = z.infer<typeof storeSearchSchema>
+export type StoreSearchWithPage = z.infer<typeof storeSearchSchema>
+export type StoreSearch = Omit<StoreSearchWithPage, 'page'>
 export type StoreCollections = StoreSearch['collections']
 export type StoreCategories = StoreSearch['categories']
 export type StoreSortOptions = keyof StoreSearch
