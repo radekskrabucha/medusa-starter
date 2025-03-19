@@ -24,7 +24,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, currencyCode }) => {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-md">
+      <div className="bg-muted relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-md">
         {item.thumbnail && (
           <img
             src={item.thumbnail}
