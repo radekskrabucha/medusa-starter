@@ -1,11 +1,6 @@
 import { z } from 'zod'
 
-export const sortOrderSchema = z.enum([
-  'created_at',
-  '-created_at',
-  'price_asc',
-  'price_desc'
-])
+export const sortOrderSchema = z.enum(['created_at', '-created_at'])
 
 export const collectionsSchema = z.array(z.string())
 

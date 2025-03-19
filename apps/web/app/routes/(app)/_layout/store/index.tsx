@@ -39,7 +39,8 @@ export const Route = createFileRoute('/(app)/_layout/store/')({
       order: order ?? SORT_BY_DEFAULT,
       offset: calculateOffset(page || 1, LIMIT_PER_PAGE),
       collections: collectionIds ?? undefined,
-      categories: categoriesIds ?? undefined
+      categories: categoriesIds ?? undefined,
+      fields: '*variants.calculated_price'
     })
 
     return { productsData, collectionsData, categoriesData }
