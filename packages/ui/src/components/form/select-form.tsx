@@ -31,6 +31,7 @@ type SelectFormProps = {
   onChange: (value: string) => void
   errorMessage?: string
   options: Values
+  disabled?: boolean
 }
 export const SelectForm: React.FC<SelectFormProps> = ({
   fieldName,
@@ -39,7 +40,8 @@ export const SelectForm: React.FC<SelectFormProps> = ({
   value,
   onChange,
   errorMessage,
-  options
+  options,
+  disabled
 }) => (
   <div className="flex flex-1 flex-col gap-2">
     <Label htmlFor={fieldName}>{label}</Label>
@@ -47,6 +49,7 @@ export const SelectForm: React.FC<SelectFormProps> = ({
       value={value}
       onValueChange={onChange}
       name={fieldName}
+      disabled={disabled}
     >
       <SelectTrigger className="w-full">
         <SelectValue placeholder={placeholder} />
