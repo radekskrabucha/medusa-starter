@@ -12,7 +12,8 @@ export const shippingAddressSchema = z.object({
   province: z.string().min(2, 'Province must be at least 2 characters'),
   postalCode: z.string().min(2, 'Postal code must be at least 2 characters'),
   isDefaultBilling: z.boolean(),
-  isDefaultShipping: z.boolean()
+  isDefaultShipping: z.boolean(),
+  countryCode: z.string().min(1, 'Country is required')
 })
 
 export type ShippingAddress = z.infer<typeof shippingAddressSchema>

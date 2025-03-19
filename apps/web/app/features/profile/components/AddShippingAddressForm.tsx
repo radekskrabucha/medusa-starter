@@ -1,11 +1,14 @@
+import { transformRegionsToOptionsGroup } from '@medusa-starter/medusa-utils/region'
 import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
+import { appLayoutRouteApi } from '~web/layout/app/utils'
 import { actions } from '~web/lib/medusa'
 import { shippingAddressSchema } from '../validationSchemas'
 
@@ -13,6 +16,9 @@ export const AddShippingAddressForm = () => {
   const navigate = useNavigate()
   const { getMeQuery, getMeQueryOptions } = useGetMeQuery()
   const queryClient = useQueryClient()
+  const {
+    regionsData: { regions }
+  } = appLayoutRouteApi.useLoaderData()
 
   const addShippingAddressMutation = useMutation({
     mutationFn: actions.customer.address.add,
@@ -45,7 +51,8 @@ export const AddShippingAddressForm = () => {
         province,
         postalCode,
         isDefaultBilling,
-        isDefaultShipping
+        isDefaultShipping,
+        countryCode
       }
     }) => {
       addShippingAddressMutation.mutate({
@@ -61,7 +68,10 @@ export const AddShippingAddressForm = () => {
           province: province ? province : undefined,
           postal_code: postalCode ? postalCode : undefined,
           is_default_billing: isDefaultBilling ? isDefaultBilling : undefined,
-          is_default_shipping: isDefaultShipping ? isDefaultShipping : undefined
+          is_default_shipping: isDefaultShipping
+            ? isDefaultShipping
+            : undefined,
+          country_code: countryCode ? countryCode : undefined
         }
       })
     },
@@ -77,7 +87,8 @@ export const AddShippingAddressForm = () => {
       province: '',
       postalCode: '',
       isDefaultBilling: false,
-      isDefaultShipping: false
+      isDefaultShipping: false,
+      countryCode: ''
     },
     validators: {
       onSubmit: shippingAddressSchema
@@ -250,6 +261,21 @@ export const AddShippingAddressForm = () => {
           )}
         </form.Field>
       </div>
+
+      <form.Field name="countryCode">
+        {field => (
+          <SelectForm
+            fieldName={field.name}
+            label="Country"
+            placeholder="Select a country"
+            value={field.state.value}
+            onChange={value => field.handleChange(value)}
+            options={transformRegionsToOptionsGroup(regions)}
+            disabled={addShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
+        )}
+      </form.Field>
 
       <div className="flex flex-col gap-4">
         <form.Field name="isDefaultBilling">
