@@ -1,5 +1,12 @@
 export type PaginationPageNumber = number | 'ellipsis'
 
+export type PaginationMeta = {
+  total: number
+  limit: number
+  offset: number
+  page: number
+}
+
 export const getPaginationPageNumbers = (
   totalPages: number,
   currentPage: number
