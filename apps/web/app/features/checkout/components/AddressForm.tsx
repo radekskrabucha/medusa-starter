@@ -1,6 +1,8 @@
 import type { Cart } from '@medusa-starter/medusa-utils/models'
+import { transformRegionCountriesToOptions } from '@medusa-starter/medusa-utils/region'
 import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
@@ -180,53 +182,70 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         </div>
 
         <div className="flex flex-wrap gap-4 @max-lg:flex-col">
-          <div className="flex flex-2 flex-wrap gap-4 @max-sm:flex-col">
-            <form.Field name="postalCode">
-              {field => (
-                <InputForm
-                  fieldName={field.name}
-                  label="Postal code"
-                  value={field.state.value}
-                  onChange={e => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  placeholder="10001"
-                  disabled={updateCartMutation.isPending}
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                />
-              )}
-            </form.Field>
-
-            <form.Field name="city">
-              {field => (
-                <InputForm
-                  fieldName={field.name}
-                  label="City"
-                  value={field.state.value}
-                  onChange={e => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  placeholder="New York"
-                  disabled={updateCartMutation.isPending}
-                  errorMessage={field.state.meta.errors?.[0]?.message}
-                />
-              )}
-            </form.Field>
-          </div>
-
-          <form.Field name="province">
+          <form.Field name="postalCode">
             {field => (
               <InputForm
                 fieldName={field.name}
-                label="Province/State"
+                label="Postal code"
                 value={field.state.value}
                 onChange={e => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
-                placeholder="NY"
+                placeholder="10001"
+                disabled={updateCartMutation.isPending}
+                errorMessage={field.state.meta.errors?.[0]?.message}
+              />
+            )}
+          </form.Field>
+
+          <form.Field name="city">
+            {field => (
+              <InputForm
+                fieldName={field.name}
+                label="City"
+                value={field.state.value}
+                onChange={e => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                placeholder="New York"
                 disabled={updateCartMutation.isPending}
                 errorMessage={field.state.meta.errors?.[0]?.message}
               />
             )}
           </form.Field>
         </div>
+      </div>
+
+      <div className="flex flex-wrap gap-4 @max-lg:flex-col">
+        <form.Field name="countryCode">
+          {field => (
+            <SelectForm
+              fieldName={field.name}
+              label="Country"
+              placeholder="Select a country"
+              value={field.state.value}
+              onChange={value => field.handleChange(value)}
+              options={
+                cart.region
+                  ? transformRegionCountriesToOptions(cart.region)
+                  : []
+              }
+            />
+          )}
+        </form.Field>
+
+        <form.Field name="province">
+          {field => (
+            <InputForm
+              fieldName={field.name}
+              label="Province/State"
+              value={field.state.value}
+              onChange={e => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+              placeholder="NY"
+              disabled={updateCartMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
+            />
+          )}
+        </form.Field>
       </div>
 
       {/* Billing Address */}
