@@ -5,9 +5,10 @@ import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
 import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
-import { addressSchema } from '../validationSchema'
+import { getAddressFormOptions } from '../utils'
 
 type AddressFormProps = {
   onSuccess: VoidFunction
@@ -22,6 +23,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
   const selectedCountry = cart.region?.countries?.find(
     country => country.iso_2 === countryId
   )
+  const { getMeQuery } = useGetMeQuery()
   const updateCartMutation = useUpdateCart(cart.id, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
@@ -63,35 +65,11 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         }
       })
     },
-    defaultValues: {
-      email: cart.email ?? '',
-      phone: cart.shipping_address?.phone ?? '',
-      firstName: cart.shipping_address?.first_name ?? '',
-      lastName: cart.shipping_address?.last_name ?? '',
-      company: cart.shipping_address?.company ?? '',
-      address1: cart.shipping_address?.address_1 ?? '',
-      address2: cart.shipping_address?.address_2 ?? '',
-      city: cart.shipping_address?.city ?? '',
-      postalCode: cart.shipping_address?.postal_code ?? '',
-      province: cart.shipping_address?.province ?? '',
-      countryCode:
-        cart.shipping_address?.country_code ?? selectedCountry?.iso_2 ?? '',
-      billingSameAddress: true,
-      billingPhone: cart.billing_address?.phone ?? '',
-      billingFirstName: cart.billing_address?.first_name ?? '',
-      billingLastName: cart.billing_address?.last_name ?? '',
-      billingCompany: cart.billing_address?.company ?? '',
-      billingAddress1: cart.billing_address?.address_1 ?? '',
-      billingAddress2: cart.billing_address?.address_2 ?? '',
-      billingCity: cart.billing_address?.city ?? '',
-      billingPostalCode: cart.billing_address?.postal_code ?? '',
-      billingProvince: cart.billing_address?.province ?? '',
-      billingCountryCode:
-        cart.billing_address?.country_code ?? selectedCountry?.iso_2 ?? ''
-    },
-    validators: {
-      onSubmit: addressSchema
-    }
+    ...getAddressFormOptions(
+      cart,
+      getMeQuery.data?.customer,
+      selectedCountry?.iso_2
+    )
   })
 
   return (
