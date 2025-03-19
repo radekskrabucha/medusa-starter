@@ -6,6 +6,7 @@ import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
+import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
 import { addressSchema } from '../validationSchema'
 
 type AddressFormProps = {
@@ -17,6 +18,10 @@ export const AddressForm: React.FC<AddressFormProps> = ({
   onSuccess,
   cart
 }) => {
+  const countryId = useSyncCountryId()
+  const selectedCountry = cart.region?.countries?.find(
+    country => country.iso_2 === countryId
+  )
   const updateCartMutation = useUpdateCart(cart.id, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
@@ -69,7 +74,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       city: cart.shipping_address?.city ?? '',
       postalCode: cart.shipping_address?.postal_code ?? '',
       province: cart.shipping_address?.province ?? '',
-      countryCode: cart.shipping_address?.country_code ?? '',
+      countryCode:
+        cart.shipping_address?.country_code ?? selectedCountry?.iso_2 ?? '',
       billingSameAddress: true,
       billingPhone: cart.billing_address?.phone ?? '',
       billingFirstName: cart.billing_address?.first_name ?? '',
@@ -80,7 +86,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       billingCity: cart.billing_address?.city ?? '',
       billingPostalCode: cart.billing_address?.postal_code ?? '',
       billingProvince: cart.billing_address?.province ?? '',
-      billingCountryCode: cart.billing_address?.country_code ?? ''
+      billingCountryCode:
+        cart.billing_address?.country_code ?? selectedCountry?.iso_2 ?? ''
     },
     validators: {
       onSubmit: addressSchema
