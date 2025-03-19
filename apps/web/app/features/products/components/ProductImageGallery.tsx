@@ -92,7 +92,6 @@ const MainImage: React.FC<MainImageProps> = ({
 }) => {
   const { handleMouseMove, handleTouchMove, handleTouchEnd, zoomRef } =
     useImageZoom()
-  const src = selectedImage || placeholderImage
 
   return (
     <div
@@ -103,49 +102,53 @@ const MainImage: React.FC<MainImageProps> = ({
       onTouchEnd={handleTouchEnd}
     >
       <img
-        src={src}
+        src={selectedImage || placeholderImage}
         alt={title}
         className="h-full w-full object-cover object-center"
       />
-      <div
-        ref={zoomRef}
-        className="pointer-events-none absolute inset-0 bg-cover bg-no-repeat opacity-0 transition-opacity duration-300"
-        style={{
-          backgroundImage: `url(${src})`,
-          backgroundSize: '200%'
-        }}
-      />
-      {withNavigation && (
-        <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-50">
-          <Link
-            to="/store/item/$handle"
-            search={prevState => ({
-              ...prevState,
-              image: prevImageId
-            })}
-            params={{ handle }}
-            replace
-            className={buttonVariants({
-              variant: 'outline'
-            })}
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Link>
-          <Link
-            to="/store/item/$handle"
-            search={prevState => ({
-              ...prevState,
-              image: nextImageId
-            })}
-            params={{ handle }}
-            replace
-            className={buttonVariants({
-              variant: 'outline'
-            })}
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Link>
-        </div>
+      {selectedImage && (
+        <>
+          <div
+            ref={zoomRef}
+            className="pointer-events-none absolute inset-0 bg-cover bg-no-repeat opacity-0 transition-opacity duration-300"
+            style={{
+              backgroundImage: `url(${selectedImage})`,
+              backgroundSize: '200%'
+            }}
+          />
+          {withNavigation && (
+            <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-50">
+              <Link
+                to="/store/item/$handle"
+                search={prevState => ({
+                  ...prevState,
+                  image: prevImageId
+                })}
+                params={{ handle }}
+                replace
+                className={buttonVariants({
+                  variant: 'outline'
+                })}
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </Link>
+              <Link
+                to="/store/item/$handle"
+                search={prevState => ({
+                  ...prevState,
+                  image: nextImageId
+                })}
+                params={{ handle }}
+                replace
+                className={buttonVariants({
+                  variant: 'outline'
+                })}
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Link>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
