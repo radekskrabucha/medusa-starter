@@ -45,3 +45,7 @@ export const getPaginationPageNumbers = (
 
   return pages
 }
+
+export const calculateOffset = (page: number, limit: number) => {
+  return page ? (page - 1) * limit : undefined
+}
