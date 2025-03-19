@@ -16,7 +16,6 @@ export const addProductToCart = async (
 
   if (!id) {
     const { cart } = await actions.cart.create({
-      // TODO - create cart with default values - when user logged in
       body: {}
     })
 
