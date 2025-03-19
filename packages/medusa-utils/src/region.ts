@@ -16,3 +16,9 @@ export const transformRegionCountriesToOptions = (region: Region) => {
     }
   })
 }
+
+export const transformRegionsToOptionsGroup = (regions: Array<Region>) =>
+  regions.map(region => ({
+    label: region.name,
+    options: transformRegionCountriesToOptions(region)
+  }))
