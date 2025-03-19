@@ -22,3 +22,30 @@ export const transformRegionsToOptionsGroup = (regions: Array<Region>) =>
     label: region.name,
     options: transformRegionCountriesToOptions(region)
   }))
+
+export const getCountryDisplayName = (
+  countryCode: string,
+  regions: Array<Region>
+) => {
+  const [region] = regions.flatMap(region => {
+    if (!region.countries) {
+      return []
+    }
+
+    return region.countries.flatMap(country => {
+      if (!country.display_name || !country.iso_2) {
+        return []
+      }
+
+      if (country.iso_2 === countryCode) {
+        return {
+          displayName: country.display_name
+        }
+      }
+
+      return []
+    })
+  })
+
+  return region?.displayName
+}
