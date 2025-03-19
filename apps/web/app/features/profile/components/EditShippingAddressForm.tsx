@@ -1,11 +1,14 @@
+import { transformRegionsToOptionsGroup } from '@medusa-starter/medusa-utils/region'
 import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
+import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { nonNullable } from '@medusa-starter/utils/common'
 import { useForm } from '@tanstack/react-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import { appLayoutRouteApi } from '~web/layout/app/utils'
 import { actions } from '~web/lib/medusa'
 import { getMeQueryOptions } from '../actions'
 import {
@@ -24,6 +27,9 @@ export const EditShippingAddressForm: React.FC<
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const getAddressQuery = useAddressQuery(id)
+  const {
+    regionsData: { regions }
+  } = appLayoutRouteApi.useLoaderData()
 
   const editShippingAddressMutation = useMutation({
     mutationFn: actions.customer.address.update,
@@ -60,7 +66,8 @@ export const EditShippingAddressForm: React.FC<
         province,
         postalCode,
         isDefaultBilling,
-        isDefaultShipping
+        isDefaultShipping,
+        countryCode
       }
     }) => {
       editShippingAddressMutation.mutate({
@@ -81,7 +88,8 @@ export const EditShippingAddressForm: React.FC<
             : undefined,
           is_default_shipping: nonNullable(isDefaultShipping)
             ? isDefaultShipping
-            : undefined
+            : undefined,
+          country_code: nonNullable(countryCode) ? countryCode : undefined
         }
       })
     },
@@ -99,7 +107,8 @@ export const EditShippingAddressForm: React.FC<
       isDefaultBilling:
         getAddressQuery.data?.address.is_default_billing ?? false,
       isDefaultShipping:
-        getAddressQuery.data?.address.is_default_shipping ?? false
+        getAddressQuery.data?.address.is_default_shipping ?? false,
+      countryCode: getAddressQuery.data?.address.country_code ?? ''
     },
     validators: {
       onSubmit: shippingAddressSchema
@@ -272,6 +281,21 @@ export const EditShippingAddressForm: React.FC<
           )}
         </form.Field>
       </div>
+
+      <form.Field name="countryCode">
+        {field => (
+          <SelectForm
+            fieldName={field.name}
+            label="Country"
+            placeholder="Select a country"
+            value={field.state.value}
+            onChange={value => field.handleChange(value)}
+            options={transformRegionsToOptionsGroup(regions)}
+            disabled={editShippingAddressMutation.isPending}
+            errorMessage={field.state.meta.errors?.[0]?.message}
+          />
+        )}
+      </form.Field>
 
       <div className="flex flex-col gap-4">
         <form.Field name="isDefaultBilling">
