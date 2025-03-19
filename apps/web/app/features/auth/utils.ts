@@ -51,10 +51,14 @@ export const onLogIn = (queryClient: QueryClient) => {
   })
 }
 export const logOut = (navigateCb: VoidFunction, queryClient: QueryClient) => {
+  const queryKey = getMeQueryOptions().queryKey
   authTokenStorage.remove()
 
   queryClient.invalidateQueries({
-    queryKey: getMeQueryOptions().queryKey
+    queryKey
+  })
+  queryClient.removeQueries({
+    queryKey
   })
 
   navigateCb()
