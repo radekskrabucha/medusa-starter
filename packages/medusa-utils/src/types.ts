@@ -32,6 +32,18 @@ type GetProducts = MedusaClient['store']['product']['list']
 export type GetProductsParams = Parameters<GetProducts>[0]
 export type GetProductsResponse = ReturnType<GetProducts>
 
+export type GetProductsWithFiltersParams =
+  | (Pick<
+      NonNullable<GetProductsParams>,
+      'limit' | 'offset' | 'order' | 'fields'
+    > & {
+      categories?: Array<string>
+      collections?: Array<string>
+      types?: Array<string>
+      tags?: Array<string>
+    })
+  | undefined
+
 type GetProduct = MedusaClient['store']['product']['retrieve']
 type GetProductId = Parameters<GetProduct>[0]
 type GetProductFields = Parameters<GetProduct>[1]

@@ -80,7 +80,8 @@ import type {
   InitiatePaymentSessionResponse,
   InitiatePaymentSessionParams,
   CreatePaymentCollectionResponse,
-  CreatePaymentCollectionParams
+  CreatePaymentCollectionParams,
+  GetProductsWithFiltersParams
 } from './types'
 
 export const getMedusaClientStoreActions = (
@@ -106,6 +107,33 @@ export const getMedusaClientStoreActions = (
     store: {
       getProducts: (params?: GetProductsParams) =>
         client.store.product.list(params),
+
+      getProductsWithFilters: (params?: GetProductsWithFiltersParams) =>
+        client.client.fetch('/store/products', {
+          method: 'GET',
+          query: {
+            ...(params?.collections &&
+              params?.collections.length > 0 && {
+                'collection_id[]': params?.collections.join(',')
+              }),
+            ...(params?.categories &&
+              params?.categories.length > 0 && {
+                'category_id[]': params?.categories.join(',')
+              }),
+            ...(params?.types &&
+              params?.types.length > 0 && {
+                'type_id[]': params?.types.join(',')
+              }),
+            ...(params?.tags &&
+              params?.tags.length > 0 && {
+                'tag_id[]': params?.tags.join(',')
+              }),
+            ...(params?.limit && { limit: params?.limit }),
+            ...(params?.offset && { offset: params?.offset }),
+            ...(params?.order && { order: params?.order }),
+            ...(params?.fields && { fields: params?.fields })
+          }
+        }),
       getProduct: (params: GetProductParams) =>
         client.store.product.retrieve(params.id, { fields: params.fields }),
       getCategories: (params?: GetCategoriesParams) =>
@@ -246,6 +274,9 @@ export type ClientActions = {
   }
   store: {
     getProducts: (params?: GetProductsParams) => GetProductsResponse
+    getProductsWithFilters: (
+      params?: GetProductsWithFiltersParams
+    ) => GetProductsResponse
     getProduct: (params: GetProductParams) => GetProductResponse
     getCategories: (params?: GetCategoriesParams) => GetCategoriesResponse
     getCategory: (params: GetCategoryParams) => GetCategoryResponse
