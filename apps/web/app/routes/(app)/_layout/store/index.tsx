@@ -12,12 +12,13 @@ import { seo } from '~web/utils/seo'
 export const Route = createFileRoute('/(app)/_layout/store/')({
   validateSearch: storeSearchSchema,
   component: StorePage,
-  loaderDeps: ({ search: { order, collections, categories } }) => ({
+  loaderDeps: ({ search: { order, collections, categories, page } }) => ({
     order,
     collections,
-    categories
+    categories,
+    page
   }),
-  loader: async ({ deps: { order, collections, categories } }) => {
+  loader: async ({ deps: { order, collections, categories, page } }) => {
     const [collectionsData, categoriesData] = await Promise.all([
       actions.store.getCollections(),
       actions.store.getCategories()
@@ -36,7 +37,8 @@ export const Route = createFileRoute('/(app)/_layout/store/')({
       limit: LIMIT_PER_PAGE,
       order: order ?? SORT_BY_DEFAULT,
       collection_id: collectionIds ? collectionIds.join(',') : undefined,
-      category_id: categoriesIds?.join(',')
+      category_id: categoriesIds?.join(','),
+      offset: page ? (page - 1) * LIMIT_PER_PAGE : undefined
     })
 
     return { productsData, collectionsData, categoriesData }

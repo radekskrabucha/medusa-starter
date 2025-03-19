@@ -12,7 +12,8 @@ export const collectionsSchema = z.array(z.string())
 export const storeSearchSchema = z.object({
   order: sortOrderSchema.optional(),
   collections: z.array(z.string()).optional(),
-  categories: z.array(z.string()).optional()
+  categories: z.array(z.string()).optional(),
+  page: z.number().optional()
 })
 
 export type StoreSortOrder = z.infer<typeof sortOrderSchema>
