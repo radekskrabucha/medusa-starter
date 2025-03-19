@@ -1,3 +1,4 @@
+import { calculateOffset } from '@medusa-starter/utils/pagination'
 import { createFileRoute } from '@tanstack/react-router'
 import { StorePage } from '~web/features/store/StorePage'
 import {
@@ -38,7 +39,7 @@ export const Route = createFileRoute('/(app)/_layout/store/')({
       order: order ?? SORT_BY_DEFAULT,
       collection_id: collectionIds ? collectionIds.join(',') : undefined,
       category_id: categoriesIds?.join(','),
-      offset: page ? (page - 1) * LIMIT_PER_PAGE : undefined
+      offset: calculateOffset(page || 1, LIMIT_PER_PAGE)
     })
 
     return { productsData, collectionsData, categoriesData }

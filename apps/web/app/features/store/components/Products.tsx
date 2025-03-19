@@ -8,7 +8,8 @@ import { storePageRouteApi } from '../utils'
 
 export const Products = () => {
   const { productsData } = storePageRouteApi.useLoaderData()
-  const { page } = storePageRouteApi.useSearch()
+  const search = storePageRouteApi.useSearch()
+  const page = search.page ?? 1
 
   if (!productsData.products.length) {
     return (
@@ -40,7 +41,7 @@ export const Products = () => {
         ))}
       </div>
       <PaginationWithMeta
-        page={page ?? 1}
+        page={page}
         limit={productsData.limit}
         offset={productsData.offset}
         total={productsData.count}
