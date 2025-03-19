@@ -1,3 +1,4 @@
+import { getCountryDisplayName } from '@medusa-starter/medusa-utils/region'
 import {
   Card,
   CardContent,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react'
 import { QueryBoundary } from '~web/components/QueryBoundary'
 import { useAddressQuery } from '~web/features/profile/hooks/useAddressQuery'
+import { appLayoutRouteApi } from '~web/layout/app/utils'
 import { AddressDetailItem } from './AddressDetailItem'
 import { DeleteAddressButton } from './DeleteAddressButton'
 
@@ -24,6 +26,9 @@ type AddressDetailsProps = {
 
 export const AddressDetails: React.FC<AddressDetailsProps> = ({ id }) => {
   const getAddressQuery = useAddressQuery(id)
+  const {
+    regionsData: { regions }
+  } = appLayoutRouteApi.useLoaderData()
 
   return (
     <QueryBoundary query={getAddressQuery}>
@@ -128,7 +133,7 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({ id }) => {
                 <AddressDetailItem
                   icon={Globe}
                   label="Country"
-                  value={country_code?.toUpperCase()}
+                  value={getCountryDisplayName(country_code, regions)}
                 />
               )}
             </div>
