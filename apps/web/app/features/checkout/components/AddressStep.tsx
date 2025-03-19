@@ -1,7 +1,11 @@
 import type { Cart } from '@medusa-starter/medusa-utils/models'
+import { QueryBoundary } from '~web/components/QueryBoundary'
+import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
+import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
 import type { CheckoutStep } from '../types'
 import { AddressForm } from './AddressForm'
 import { AddressStepInfo } from './AddressStepInfo'
+import { CustomerAddress } from './CustomerAddress'
 import { StepWrapper } from './StepWrapper'
 
 type AddressStep = Extract<CheckoutStep, 'address'>
@@ -24,6 +28,11 @@ export const AddressStep: React.FC<AddressStepProps> = ({
   isFilled
 }) => {
   const active = isActive(step)
+  const { getMeQuery } = useGetMeQuery()
+  const countryId = useSyncCountryId()
+  const selectedCountry = cart.region?.countries?.find(
+    country => country.iso_2 === countryId
+  )?.iso_2
 
   return (
     <StepWrapper
@@ -33,10 +42,26 @@ export const AddressStep: React.FC<AddressStepProps> = ({
       isActive={active}
     >
       {active ? (
-        <AddressForm
-          onSuccess={onNext}
-          cart={cart}
-        />
+        <QueryBoundary
+          query={getMeQuery}
+          errorFallback={() => (
+            <AddressForm
+              onSuccess={onNext}
+              cart={cart}
+              selectedCountry={selectedCountry}
+            />
+          )}
+        >
+          {data => (
+            <CustomerAddress
+              onSuccess={onNext}
+              cart={cart}
+              customer={data.customer}
+              isFilled={isFilled}
+              selectedCountry={selectedCountry}
+            />
+          )}
+        </QueryBoundary>
       ) : (
         <AddressStepInfo cart={cart} />
       )}

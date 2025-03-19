@@ -1,29 +1,26 @@
-import type { Cart } from '@medusa-starter/medusa-utils/models'
+import type { Cart, Customer } from '@medusa-starter/medusa-utils/models'
 import { transformRegionCountriesToOptions } from '@medusa-starter/medusa-utils/region'
 import { CheckboxForm } from '@medusa-starter/ui/components/form/checkbox-form'
 import { InputForm } from '@medusa-starter/ui/components/form/input-form'
 import { SelectForm } from '@medusa-starter/ui/components/form/select-form'
 import { SubmitButton } from '@medusa-starter/ui/components/form/submit-button'
 import { useForm } from '@tanstack/react-form'
-import { useGetMeQuery } from '~web/features/auth/hooks/useGetMeQuery'
 import { useUpdateCart } from '~web/features/cart/hooks/useUpdateCart'
-import { useSyncCountryId } from '~web/features/regions/hooks/useSyncCountryId'
 import { getAddressFormOptions } from '../utils'
 
 type AddressFormProps = {
   onSuccess: VoidFunction
   cart: Cart
+  customer?: Customer
+  selectedCountry: string | undefined
 }
 
 export const AddressForm: React.FC<AddressFormProps> = ({
   onSuccess,
-  cart
+  cart,
+  customer,
+  selectedCountry
 }) => {
-  const countryId = useSyncCountryId()
-  const selectedCountry = cart.region?.countries?.find(
-    country => country.iso_2 === countryId
-  )
-  const { getMeQuery } = useGetMeQuery()
   const updateCartMutation = useUpdateCart(cart.id, onSuccess)
   const form = useForm({
     onSubmit: ({ value }) => {
@@ -65,11 +62,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         }
       })
     },
-    ...getAddressFormOptions(
-      cart,
-      getMeQuery.data?.customer,
-      selectedCountry?.iso_2
-    )
+    ...getAddressFormOptions(cart, customer, selectedCountry)
   })
 
   return (
