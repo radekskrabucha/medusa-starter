@@ -17,3 +17,7 @@ export const shippingAddressSchema = z.object({
 })
 
 export type ShippingAddress = z.infer<typeof shippingAddressSchema>
+
+export const ordersSearchSchema = z.object({
+  page: z.number().optional()
+})

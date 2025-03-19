@@ -10,6 +10,10 @@ export const editAddressPageRouteApi = getRouteApi(
   '/(app)/_layout/_authenticated/profile/_layout/shipping-address/$id/edit'
 )
 
+export const ordersPageRouteApi = getRouteApi(
+  '/(app)/_layout/_authenticated/profile/_layout/orders/'
+)
+
 type StatusConfig = {
   variant: BadgeVariant
   label: string
