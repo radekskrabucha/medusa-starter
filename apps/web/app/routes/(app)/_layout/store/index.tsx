@@ -34,12 +34,12 @@ export const Route = createFileRoute('/(app)/_layout/store/')({
       categoriesData.product_categories
     )
 
-    const productsData = await actions.store.getProducts({
+    const productsData = await actions.store.getProductsWithFilters({
       limit: LIMIT_PER_PAGE,
       order: order ?? SORT_BY_DEFAULT,
-      collection_id: collectionIds ? collectionIds.join(',') : undefined,
-      category_id: categoriesIds?.join(','),
-      offset: calculateOffset(page || 1, LIMIT_PER_PAGE)
+      offset: calculateOffset(page || 1, LIMIT_PER_PAGE),
+      collections: collectionIds ?? undefined,
+      categories: categoriesIds ?? undefined
     })
 
     return { productsData, collectionsData, categoriesData }
