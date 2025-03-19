@@ -228,6 +228,8 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                   ? transformRegionCountriesToOptions(cart.region)
                   : []
               }
+              disabled={updateCartMutation.isPending}
+              errorMessage={field.state.meta.errors?.[0]?.message}
             />
           )}
         </form.Field>
