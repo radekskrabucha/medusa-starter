@@ -22,7 +22,11 @@ export const ProductOptions: React.FC<ProductOptionsProps> = ({
   if (!options) {
     return null
   }
-  if (options.length <= 1) {
+  if (
+    options.length <= 1 &&
+    options?.[0]?.values?.length &&
+    options?.[0]?.values?.length <= 1
+  ) {
     return null
   }
 
